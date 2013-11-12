@@ -36,6 +36,8 @@ public class ClefSelector extends JPanel implements MouseListener
 	
 	ResourceBundle appBundle;
 	String clefSymbol;
+	JLabel selectorUp;
+	JLabel selectorDown;
 	JLabel clefText;
 	JLabel disabledText;
 	boolean enabled = false;
@@ -57,7 +59,19 @@ public class ClefSelector extends JPanel implements MouseListener
 			clefText = new JLabel(appBundle.getString("_altoclef"), null, JLabel.CENTER);
 		else if (clefSymbol == "TENOR")
 			clefText = new JLabel(appBundle.getString("_tenorclef"), null, JLabel.CENTER);
-		 
+		
+		selectorUp = new JLabel("\u25B2"); // \u25B2: triangle UP
+		selectorUp.setFont(arial);
+		selectorUp.setForeground(Color.black);
+		selectorUp.setBounds(25, 10, 140, 40);
+		selectorUp.setVisible(enabled);
+		
+		selectorDown = new JLabel("\u25BC"); // \u25BC: triangle DOWN
+		selectorDown.setFont(arial);
+		selectorDown.setForeground(Color.black);
+		selectorDown.setBounds(25, 160, 140, 40);
+		selectorDown.setVisible(enabled);
+		
 		clefText.setFont(arial);
 		clefText.setForeground(Color.lightGray);
 		clefText.setPreferredSize(new Dimension(140, 40));
@@ -69,7 +83,8 @@ public class ClefSelector extends JPanel implements MouseListener
 		disabledText.setPreferredSize(new Dimension(140, 140));
 		disabledText.setBounds(65, 25, 140, 140);
 
-		add(clefText);
+		add(selectorUp);
+		add(selectorDown);
 		add(disabledText);
 
 		addMouseListener(this);
@@ -109,13 +124,23 @@ public class ClefSelector extends JPanel implements MouseListener
 	{
 		//System.out.println("Mouse clicked (# of clicks: " + e.getClickCount() + ")");
 		System.out.println("X pos: " + e.getX() + ", Y pos: " + e.getY());
-		if (e.getX() < 50)
+		if (e.getX() < 50 )
 		{
-			enabled = !enabled;
-			clefText.setVisible(!enabled);
-			disabledText.setVisible(!enabled);
-			repaint();
-			return;
+			if (e.getY() < 50)
+				System.out.print("Clef up\n");
+			if (e.getY() > 164)
+				System.out.print("Clef down\n");
+			if (e.getY() > 49 && e.getY() < 165)
+			{
+				enabled = !enabled;
+				clefText.setVisible(!enabled);
+				disabledText.setVisible(!enabled);
+				selectorDown.setVisible(enabled);
+				selectorUp.setVisible(enabled);
+				
+				repaint();
+				return;
+			}
 		}
 		else
 		{
@@ -123,7 +148,7 @@ public class ClefSelector extends JPanel implements MouseListener
 				return;
 		}
 
-		if (e.getY() > 9 && e.getY() < 189)
+		if (e.getX() > 50 && e.getY() > 9 && e.getY() < 189)
 		{
 			int relYpos = e.getY() - 14;
 			int level = (relYpos / 7);
@@ -144,7 +169,7 @@ public class ClefSelector extends JPanel implements MouseListener
 					higherLevel = level;
 			}
 		}
-			
+		
 		repaint();
 	}
 
