@@ -215,8 +215,8 @@ public class NoteGenerator
 		if (clefMask == -1) clefMask = appPrefs.CLEF_G2;
 		if ((clefMask & appPrefs.CLEF_G2) > 0) 
 		{
-			int lowerPitch = Integer.parseInt(appPrefs.getProperty("trebleClefLower"));
-			int higherPitch = Integer.parseInt(appPrefs.getProperty("trebleClefUpper"));
+			int lowerPitch = Integer.parseInt(appPrefs.getProperty("ClefG2Lower"));
+			int higherPitch = Integer.parseInt(appPrefs.getProperty("ClefG2Upper"));
 			if (lowerPitch == -1) lowerPitch = 64; // default, set to E3
 			if (higherPitch == -1) higherPitch = 77; // default, set to F4
 			addRange(appPrefs.CLEF_G2, alteredList.get(baseList.indexOf(lowerPitch)), alteredList.get(baseList.indexOf(higherPitch)));
@@ -224,8 +224,8 @@ public class NoteGenerator
 		}
 		if ((clefMask & appPrefs.CLEF_F4) > 0) 
 		{
-			int lowerPitch = Integer.parseInt(appPrefs.getProperty("bassClefLower"));
-			int higherPitch = Integer.parseInt(appPrefs.getProperty("bassClefUpper"));
+			int lowerPitch = Integer.parseInt(appPrefs.getProperty("ClefF4Lower"));
+			int higherPitch = Integer.parseInt(appPrefs.getProperty("ClefF4Upper"));
 			if (lowerPitch == -1) lowerPitch = 43; // default, set to G1
 			if (higherPitch == -1) higherPitch = 57; // default, set to A2
 			addRange(appPrefs.CLEF_F4, alteredList.get(baseList.indexOf(lowerPitch)), alteredList.get(baseList.indexOf(higherPitch)));
@@ -233,8 +233,8 @@ public class NoteGenerator
 		}
 		if ((clefMask & appPrefs.CLEF_C3) > 0) 
 		{
-			int lowerPitch = Integer.parseInt(appPrefs.getProperty("altoClefLower"));
-			int higherPitch = Integer.parseInt(appPrefs.getProperty("altoClefUpper"));
+			int lowerPitch = Integer.parseInt(appPrefs.getProperty("ClefC3Lower"));
+			int higherPitch = Integer.parseInt(appPrefs.getProperty("ClefC3Upper"));
 			if (lowerPitch == -1) lowerPitch = 53; // default, set to F2
 			if (higherPitch == -1) higherPitch = 67; // default, set to G3
 			addRange(appPrefs.CLEF_C3, alteredList.get(baseList.indexOf(lowerPitch)), alteredList.get(baseList.indexOf(higherPitch)));
@@ -242,8 +242,8 @@ public class NoteGenerator
 		}
 		if ((clefMask & appPrefs.CLEF_C4) > 0) 
 		{
-			int lowerPitch = Integer.parseInt(appPrefs.getProperty("tenorClefLower"));
-			int higherPitch = Integer.parseInt(appPrefs.getProperty("tenorClefUpper"));
+			int lowerPitch = Integer.parseInt(appPrefs.getProperty("ClefC4Lower"));
+			int higherPitch = Integer.parseInt(appPrefs.getProperty("ClefC4Upper"));
 			if (lowerPitch == -1) lowerPitch = 50; // default, set to D2
 			if (higherPitch == -1) higherPitch = 64; // default, set to E3
 			addRange(appPrefs.CLEF_C4, alteredList.get(baseList.indexOf(lowerPitch)), alteredList.get(baseList.indexOf(higherPitch)));

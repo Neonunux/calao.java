@@ -27,14 +27,14 @@ import java.util.Properties;
  *  language         | the UI global language
  *  
  *  clefsMask        | the four clefs masked with logical OR ( TREBLE_CLEF | BASS_CLEF | ALTO_CLEF | TENOR_CLEF);
- *  trebleClefLower  | pitch of the lowest note used in exercises
- *  trebleClefUpper  | pitch of the highest note used in exercises
- *  bassClefLower    | pitch of the lowest note used in exercises
- *  bassClefUpper    | pitch of the highest note used in exercises
- *  altoClefLower    | pitch of the lowest note used in exercises
- *  altoClefUpper    | pitch of the highest note used in exercises
- *  tenorClefLower   | pitch of the lowest note used in exercises
- *  tenorClefUpper   | pitch of the highest note used in exercises
+ *  ClefG2Lower  	 | pitch of the lowest note used in exercises
+ *  ClefG2Upper  	 | pitch of the highest note used in exercises
+ *  ClefF4Lower    	 | pitch of the lowest note used in exercises
+ *  ClefF4Upper    	 | pitch of the highest note used in exercises
+ *  ClefC3Lower    	 | pitch of the lowest note used in exercises
+ *  ClefC3Upper    	 | pitch of the highest note used in exercises
+ *  ClefC4Lower   	 | pitch of the lowest note used in exercises
+ *  ClefC4Upper   	 | pitch of the highest note used in exercises
  *  
  *  accidentals      | index of accidentals related to ClefNotesOptionDialog combo box list
  *  timeSignature    | index of time signature related to ClefNotesOptionDialog radio button group
