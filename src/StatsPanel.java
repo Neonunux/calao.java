@@ -849,8 +849,6 @@ public class StatsPanel extends JPanel implements TreeSelectionListener, ActionL
 			//g.drawString(Integer.toString(prevDay + 1), xPos - xAxisStep - 4, graphH + 50);
 		}
 	}
-
-	
 }
 
 
