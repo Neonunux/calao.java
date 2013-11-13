@@ -142,11 +142,11 @@ public class Accidentals {
 	    String flat = "b"; // b alteration
 	    int clefOffset = 0;
 	    
-	    if (clefMask == appPrefs.BASS_CLEF)
+	    if (clefMask == appPrefs.CLEF_F4)
 	    	clefOffset = 10;
-	    else if (clefMask == appPrefs.ALTO_CLEF)
+	    else if (clefMask == appPrefs.CLEF_C3)
 	    	clefOffset = 5;
-	    else if (clefMask == appPrefs.TENOR_CLEF)
+	    else if (clefMask == appPrefs.CLEF_C4)
 	    	clefOffset = -5;
 
 	    if (type.equals("#")) 
@@ -157,7 +157,7 @@ public class Accidentals {
    	  		drawAlteration(g, f, xPos + 10, yPos + clefOffset, sharp);
 	      if (amount >= 3) // SOL#
 	      {
-	    	if (clefMask == appPrefs.TENOR_CLEF)
+	    	if (clefMask == appPrefs.CLEF_C4)
 	    		drawAlteration(g, f, xPos + 20, yPos + clefOffset + 15, sharp); // shift an octave down
 	    	else	    	  
 	        	drawAlteration(g, f, xPos + 20, yPos - 20 + clefOffset, sharp);
@@ -168,7 +168,7 @@ public class Accidentals {
 	        drawAlteration(g, f, xPos + 40, yPos + 10 + clefOffset, sharp);
 	      if (amount >= 6) // MI#
 	      {
-	    	if (clefMask == appPrefs.TENOR_CLEF)
+	    	if (clefMask == appPrefs.CLEF_C4)
 	    		drawAlteration(g, f, xPos + 50, yPos + 25 + clefOffset, sharp);
 	    	else
 	    		drawAlteration(g, f, xPos + 50, yPos - 10 + clefOffset, sharp);
