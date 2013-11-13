@@ -440,24 +440,24 @@ class ExerciseScoreWizard extends JDialog implements ActionListener, ChangeListe
 			{
 				int clefMask = 0;
 				if (trebleClefCB.isSelected() == true)
-					clefMask = appPrefs.TREBLE_CLEF;
+					clefMask = appPrefs.CLEF_G2;
 				else if (bassClefCB.isSelected() == true)
-					clefMask = appPrefs.BASS_CLEF;
+					clefMask = appPrefs.CLEF_F4;
 				else if (altoClefCB.isSelected() == true)
-					clefMask = appPrefs.ALTO_CLEF;
+					clefMask = appPrefs.CLEF_C3;
 				else if (tenorClefCB.isSelected() == true)
-					clefMask = appPrefs.TENOR_CLEF;
+					clefMask = appPrefs.CLEF_C4;
 
 				if (secondClefCB.isSelected() == true)
 				{
 					if (trebleClefCB2.isSelected() == true)
-						clefMask |= appPrefs.TREBLE_CLEF;
+						clefMask |= appPrefs.CLEF_G2;
 					else if (bassClefCB2.isSelected() == true)
-						clefMask |= appPrefs.BASS_CLEF;
+						clefMask |= appPrefs.CLEF_F4;
 					else if (altoClefCB2.isSelected() == true)
-						clefMask |= appPrefs.ALTO_CLEF;
+						clefMask |= appPrefs.CLEF_C3;
 					else if (tenorClefCB2.isSelected() == true)
-						clefMask |= appPrefs.TENOR_CLEF;
+						clefMask |= appPrefs.CLEF_C4;
 				}
 
 				currExercise.setClefMask(clefMask);
@@ -469,7 +469,7 @@ class ExerciseScoreWizard extends JDialog implements ActionListener, ChangeListe
 			}
 			else
 			{
-				currExercise.setClefMask(appPrefs.TREBLE_CLEF);
+				currExercise.setClefMask(appPrefs.CLEF_G2);
 			}
 			
 			if (currExercise.type != 0)
