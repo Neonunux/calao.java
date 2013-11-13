@@ -41,10 +41,10 @@ public class ClefNotesOptionDialog extends JDialog implements ActionListener
 	Font appFont;
 	Preferences appPrefs;
 	
-	ClefSelector trebleClef;
-	ClefSelector bassClef;
-	ClefSelector altoClef;
-	ClefSelector tenorClef;
+	ClefSelector ClefG2;
+	ClefSelector ClefF4;
+	ClefSelector ClefC3;
+	ClefSelector ClefC4;
 	
 	JComboBox accCB;
 	
@@ -94,82 +94,82 @@ public class ClefNotesOptionDialog extends JDialog implements ActionListener
 		clefsPanel.setBounds(0, 0, (clefSelWidth * 2) + 15, (clefSelHeight * 2) + 20);
 		
 		int clefsMask = Integer.parseInt(appPrefs.getProperty("clefsMask")); 
-		if (clefsMask == -1) clefsMask = appPrefs.TREBLE_CLEF;
+		if (clefsMask == -1) clefsMask = appPrefs.CLEF_G2;
 
-		trebleClef = new ClefSelector(appBundle, "G");
-		trebleClef.setPreferredSize(new Dimension(clefSelWidth, clefSelHeight));
-		trebleClef.setBounds(5, 10, clefSelWidth, clefSelHeight);
-		trebleClef.setFont(appFont);
-		if ((clefsMask & appPrefs.TREBLE_CLEF) > 0)
-			trebleClef.setEnabled(true);
+		ClefG2 = new ClefSelector(appBundle, "G2");
+		ClefG2.setPreferredSize(new Dimension(clefSelWidth, clefSelHeight));
+		ClefG2.setBounds(5, 10, clefSelWidth, clefSelHeight);
+		ClefG2.setFont(appFont);
+		if ((clefsMask & appPrefs.CLEF_G2) > 0)
+			ClefG2.setEnabled(true);
 		else
-			trebleClef.setEnabled(false);
+			ClefG2.setEnabled(false);
 		
 		NoteGenerator tmpNG = new NoteGenerator(appPrefs, null, false);
 		// retrieve previously saved pitches and convert them into levels 
-		int lowerPitch = Integer.parseInt(appPrefs.getProperty("trebleClefLower"));
+		int lowerPitch = Integer.parseInt(appPrefs.getProperty("ClefG2Lower"));
 		if (lowerPitch == -1) lowerPitch = 64; // default, set to E3
-		int higherPitch = Integer.parseInt(appPrefs.getProperty("trebleClefUpper"));
+		int higherPitch = Integer.parseInt(appPrefs.getProperty("ClefG2Upper"));
 		if (higherPitch == -1) higherPitch = 77; // default, set to F4
 		System.out.println("Treble Clef pitches: " + lowerPitch + " to " + higherPitch);
-		trebleClef.setLevels(24 - tmpNG.getIndexFromPitch(tmpNG.TREBLE_CLEF_BASEPITCH, lowerPitch, false), 
-							 24 - tmpNG.getIndexFromPitch(tmpNG.TREBLE_CLEF_BASEPITCH, higherPitch, false));
+		ClefG2.setLevels(24 - tmpNG.getIndexFromPitch(tmpNG.CLEF_G2_BASEPITCH, lowerPitch, false), 
+							 24 - tmpNG.getIndexFromPitch(tmpNG.CLEF_G2_BASEPITCH, higherPitch, false));
 		
-		bassClef = new ClefSelector(appBundle, "?");
-		bassClef.setPreferredSize(new Dimension(clefSelWidth, clefSelHeight));
-		bassClef.setBounds(clefSelWidth + 10, 10, clefSelWidth, clefSelHeight);
-		bassClef.setFont(appFont);
-		if ((clefsMask & appPrefs.BASS_CLEF) > 0)
-			bassClef.setEnabled(true);
+		ClefF4 = new ClefSelector(appBundle, "F4");
+		ClefF4.setPreferredSize(new Dimension(clefSelWidth, clefSelHeight));
+		ClefF4.setBounds(clefSelWidth + 10, 10, clefSelWidth, clefSelHeight);
+		ClefF4.setFont(appFont);
+		if ((clefsMask & appPrefs.CLEF_F4) > 0)
+			ClefF4.setEnabled(true);
 		else
-			bassClef.setEnabled(false);
+			ClefF4.setEnabled(false);
 		// retrieve previously saved pitches and convert them into levels 
-		lowerPitch = Integer.parseInt(appPrefs.getProperty("bassClefLower"));
+		lowerPitch = Integer.parseInt(appPrefs.getProperty("ClefF4Lower"));
 		if (lowerPitch == -1) lowerPitch = 43; // default, set to G1
-		higherPitch = Integer.parseInt(appPrefs.getProperty("bassClefUpper"));
+		higherPitch = Integer.parseInt(appPrefs.getProperty("ClefF4Upper"));
 		if (higherPitch == -1) higherPitch = 57; // default, set to A2
 		System.out.println("Bass Clef pitches: " + lowerPitch + " to " + higherPitch);
-		bassClef.setLevels(24 - tmpNG.getIndexFromPitch(tmpNG.BASS_CLEF_BASEPITCH, lowerPitch, false), 
-						   24 - tmpNG.getIndexFromPitch(tmpNG.BASS_CLEF_BASEPITCH, higherPitch, false));
+		ClefF4.setLevels(24 - tmpNG.getIndexFromPitch(tmpNG.CLEF_F4_BASEPITCH, lowerPitch, false), 
+						   24 - tmpNG.getIndexFromPitch(tmpNG.CLEF_F4_BASEPITCH, higherPitch, false));
 
-		altoClef = new ClefSelector(appBundle, "ALTO");
-		altoClef.setPreferredSize(new Dimension(clefSelWidth, clefSelHeight));
-		altoClef.setBounds(5, clefSelHeight + 15, clefSelWidth, clefSelHeight);
-		altoClef.setFont(appFont);
-		if ((clefsMask & appPrefs.ALTO_CLEF) > 0)
-			altoClef.setEnabled(true);
+		ClefC3 = new ClefSelector(appBundle, "C3");
+		ClefC3.setPreferredSize(new Dimension(clefSelWidth, clefSelHeight));
+		ClefC3.setBounds(5, clefSelHeight + 15, clefSelWidth, clefSelHeight);
+		ClefC3.setFont(appFont);
+		if ((clefsMask & appPrefs.CLEF_C3) > 0)
+			ClefC3.setEnabled(true);
 		else
-			altoClef.setEnabled(false);
+			ClefC3.setEnabled(false);
 		// retrieve previously saved pitches and convert them into levels 
-		lowerPitch = Integer.parseInt(appPrefs.getProperty("altoClefLower"));
+		lowerPitch = Integer.parseInt(appPrefs.getProperty("ClefC3Lower"));
 		if (lowerPitch == -1) lowerPitch = 53; // default, set to F2
-		higherPitch = Integer.parseInt(appPrefs.getProperty("altoClefUpper"));
+		higherPitch = Integer.parseInt(appPrefs.getProperty("ClefC3Upper"));
 		if (higherPitch == -1) higherPitch = 67; // default, set to G3
-		System.out.println("Alto Clef pitches: " + lowerPitch + " to " + higherPitch);
-		altoClef.setLevels(24 - tmpNG.getIndexFromPitch(tmpNG.ALTO_CLEF_BASEPITCH, lowerPitch, false), 
-						   24 - tmpNG.getIndexFromPitch(tmpNG.ALTO_CLEF_BASEPITCH, higherPitch, false));
+		System.out.println("C3 Clef pitches: " + lowerPitch + " to " + higherPitch);
+		ClefC3.setLevels(24 - tmpNG.getIndexFromPitch(tmpNG.CLEF_C3_BASEPITCH, lowerPitch, false), 
+						   24 - tmpNG.getIndexFromPitch(tmpNG.CLEF_C3_BASEPITCH, higherPitch, false));
 		
-		tenorClef = new ClefSelector(appBundle, "TENOR");
-		tenorClef.setPreferredSize(new Dimension(clefSelWidth, clefSelHeight));
-		tenorClef.setBounds(clefSelWidth + 10, clefSelHeight + 15, clefSelWidth, clefSelHeight);
-		tenorClef.setFont(appFont);
-		if ((clefsMask & appPrefs.TENOR_CLEF) > 0)
-			tenorClef.setEnabled(true);
+		ClefC4 = new ClefSelector(appBundle, "C4");
+		ClefC4.setPreferredSize(new Dimension(clefSelWidth, clefSelHeight));
+		ClefC4.setBounds(clefSelWidth + 10, clefSelHeight + 15, clefSelWidth, clefSelHeight);
+		ClefC4.setFont(appFont);
+		if ((clefsMask & appPrefs.CLEF_C4) > 0)
+			ClefC4.setEnabled(true);
 		else
-			tenorClef.setEnabled(false);
+			ClefC4.setEnabled(false);
 		// retrieve previously saved pitches and convert them into levels 
-		lowerPitch = Integer.parseInt(appPrefs.getProperty("tenorClefLower"));
+		lowerPitch = Integer.parseInt(appPrefs.getProperty("ClefC4Lower"));
 		if (lowerPitch == -1) lowerPitch = 50; // default, set to D2
-		higherPitch = Integer.parseInt(appPrefs.getProperty("tenorClefUpper"));
+		higherPitch = Integer.parseInt(appPrefs.getProperty("ClefC4Upper"));
 		if (higherPitch == -1) higherPitch = 64; // default, set to E3
-		System.out.println("Tenor Clef pitches: " + lowerPitch + " to " + higherPitch);
-		tenorClef.setLevels(24 - tmpNG.getIndexFromPitch(tmpNG.TENOR_CLEF_BASEPITCH, lowerPitch, false), 
-							24 - tmpNG.getIndexFromPitch(tmpNG.TENOR_CLEF_BASEPITCH, higherPitch, false));
+		System.out.println("C4 Clef pitches: " + lowerPitch + " to " + higherPitch);
+		ClefC4.setLevels(24 - tmpNG.getIndexFromPitch(tmpNG.CLEF_C4_BASEPITCH, lowerPitch, false), 
+							24 - tmpNG.getIndexFromPitch(tmpNG.CLEF_C4_BASEPITCH, higherPitch, false));
 		
-		clefsPanel.add(trebleClef);
-		clefsPanel.add(bassClef);
-		clefsPanel.add(altoClef);
-		clefsPanel.add(tenorClef);		
+		clefsPanel.add(ClefG2);
+		clefsPanel.add(ClefF4);
+		clefsPanel.add(ClefC3);
+		clefsPanel.add(ClefC4);		
 
 		 /*
 		  * ***** Second panel: contains accidentals, notes type and time signature selections  ******
@@ -366,41 +366,41 @@ public class ClefNotesOptionDialog extends JDialog implements ActionListener
 		{
 			int clefsMask = 0;
 			NoteGenerator tmpNG = new NoteGenerator(appPrefs, null, false);
-			if (trebleClef.isEnabled() == true)
+			if (ClefG2.isEnabled() == true)
 			{
-				int lowerPitch = tmpNG.getPitchFromLevel(tmpNG.TREBLE_CLEF_BASEPITCH, 24 - trebleClef.getLowerLevel());
-				int higherPitch = tmpNG.getPitchFromLevel(tmpNG.TREBLE_CLEF_BASEPITCH, 24 - trebleClef.getHigherLevel());
+				int lowerPitch = tmpNG.getPitchFromLevel(tmpNG.CLEF_G2_BASEPITCH, 24 - ClefG2.getLowerLevel());
+				int higherPitch = tmpNG.getPitchFromLevel(tmpNG.CLEF_G2_BASEPITCH, 24 - ClefG2.getHigherLevel());
 				System.out.println("Treble Clef pitches: " + lowerPitch + " to " + higherPitch);
-				clefsMask = clefsMask | appPrefs.TREBLE_CLEF;
-				appPrefs.setProperty("trebleClefUpper", Integer.toString(higherPitch));
-				appPrefs.setProperty("trebleClefLower", Integer.toString(lowerPitch));
+				clefsMask = clefsMask | appPrefs.CLEF_G2;
+				appPrefs.setProperty("ClefG2Upper", Integer.toString(higherPitch));
+				appPrefs.setProperty("ClefG2Lower", Integer.toString(lowerPitch));
 			}
-			if (bassClef.isEnabled() == true)
+			if (ClefF4.isEnabled() == true)
 			{
-				int lowerPitch = tmpNG.getPitchFromLevel(tmpNG.BASS_CLEF_BASEPITCH, 24 - bassClef.getLowerLevel());
-				int higherPitch = tmpNG.getPitchFromLevel(tmpNG.BASS_CLEF_BASEPITCH, 24 - bassClef.getHigherLevel());
+				int lowerPitch = tmpNG.getPitchFromLevel(tmpNG.CLEF_F4_BASEPITCH, 24 - ClefF4.getLowerLevel());
+				int higherPitch = tmpNG.getPitchFromLevel(tmpNG.CLEF_F4_BASEPITCH, 24 - ClefF4.getHigherLevel());
 				System.out.println("Bass Clef pitches: " + lowerPitch + " to " + higherPitch);
-				clefsMask = clefsMask | appPrefs.BASS_CLEF;
-				appPrefs.setProperty("bassClefUpper", Integer.toString(higherPitch));
-				appPrefs.setProperty("bassClefLower", Integer.toString(lowerPitch));
+				clefsMask = clefsMask | appPrefs.CLEF_F4;
+				appPrefs.setProperty("ClefF4Upper", Integer.toString(higherPitch));
+				appPrefs.setProperty("ClefF4Lower", Integer.toString(lowerPitch));
 			}
-			if (altoClef.isEnabled() == true)
+			if (ClefC3.isEnabled() == true)
 			{
-				int lowerPitch = tmpNG.getPitchFromLevel(tmpNG.ALTO_CLEF_BASEPITCH, 24 - altoClef.getLowerLevel());
-				int higherPitch = tmpNG.getPitchFromLevel(tmpNG.ALTO_CLEF_BASEPITCH, 24 - altoClef.getHigherLevel());
-				System.out.println("Alto Clef pitches: " + lowerPitch + " to " + higherPitch);
-				clefsMask = clefsMask | appPrefs.ALTO_CLEF;
-				appPrefs.setProperty("altoClefUpper", Integer.toString(higherPitch));
-				appPrefs.setProperty("altoClefLower", Integer.toString(lowerPitch));
+				int lowerPitch = tmpNG.getPitchFromLevel(tmpNG.CLEF_C3_BASEPITCH, 24 - ClefC3.getLowerLevel());
+				int higherPitch = tmpNG.getPitchFromLevel(tmpNG.CLEF_C3_BASEPITCH, 24 - ClefC3.getHigherLevel());
+				System.out.println("C3 Clef pitches: " + lowerPitch + " to " + higherPitch);
+				clefsMask = clefsMask | appPrefs.CLEF_C3;
+				appPrefs.setProperty("ClefC3Upper", Integer.toString(higherPitch));
+				appPrefs.setProperty("ClefC3Lower", Integer.toString(lowerPitch));
 			}
-			if (tenorClef.isEnabled() == true)
+			if (ClefC4.isEnabled() == true)
 			{
-				int lowerPitch = tmpNG.getPitchFromLevel(tmpNG.TENOR_CLEF_BASEPITCH, 24 - tenorClef.getLowerLevel());
-				int higherPitch = tmpNG.getPitchFromLevel(tmpNG.TENOR_CLEF_BASEPITCH, 24 - tenorClef.getHigherLevel());
-				System.out.println("Tenor Clef pitches: " + lowerPitch + " to " + higherPitch);
-				clefsMask = clefsMask | appPrefs.TENOR_CLEF;
-				appPrefs.setProperty("tenorClefUpper", Integer.toString(higherPitch));
-				appPrefs.setProperty("tenorClefLower", Integer.toString(lowerPitch));
+				int lowerPitch = tmpNG.getPitchFromLevel(tmpNG.CLEF_C4_BASEPITCH, 24 - ClefC4.getLowerLevel());
+				int higherPitch = tmpNG.getPitchFromLevel(tmpNG.CLEF_C4_BASEPITCH, 24 - ClefC4.getHigherLevel());
+				System.out.println("C4 Clef pitches: " + lowerPitch + " to " + higherPitch);
+				clefsMask = clefsMask | appPrefs.CLEF_C4;
+				appPrefs.setProperty("ClefC4Upper", Integer.toString(higherPitch));
+				appPrefs.setProperty("ClefC4Lower", Integer.toString(lowerPitch));
 			}
 			
 			if (clefsMask == 0) // if all clefs are disabled then set TREBLE clef by default
