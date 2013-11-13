@@ -100,10 +100,10 @@ public class NotesPanel extends JPanel implements MouseListener
     	clefMask = type;
     	clefs.clear();
 
-    	if ((clefMask & appPrefs.TREBLE_CLEF) > 0) clefs.add(appPrefs.TREBLE_CLEF);
-    	if ((clefMask & appPrefs.BASS_CLEF) > 0) clefs.add(appPrefs.BASS_CLEF);
-    	if ((clefMask & appPrefs.ALTO_CLEF) > 0) clefs.add(appPrefs.ALTO_CLEF);
-    	if ((clefMask & appPrefs.TENOR_CLEF) > 0) clefs.add(appPrefs.TENOR_CLEF);
+    	if ((clefMask & appPrefs.CLEF_G2) > 0) clefs.add(appPrefs.CLEF_G2);
+    	if ((clefMask & appPrefs.CLEF_F4) > 0) clefs.add(appPrefs.CLEF_F4);
+    	if ((clefMask & appPrefs.CLEF_C3) > 0) clefs.add(appPrefs.CLEF_C3);
+    	if ((clefMask & appPrefs.CLEF_C4) > 0) clefs.add(appPrefs.CLEF_C4);
 
 		Font ltf = new Font("Arial", Font.BOLD, 30);
 		learningText.setPreferredSize( new Dimension(200, 50));
