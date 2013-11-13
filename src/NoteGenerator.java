@@ -24,10 +24,10 @@ public class NoteGenerator
 	Accidentals accidentals;
 
 	int baseNote = 24; // pitch of C0
-	int TREBLE_CLEF_BASEPITCH = 50; // D2
-	int BASS_CLEF_BASEPITCH = 29; // F0
-	int ALTO_CLEF_BASEPITCH = 40; // E1 
-	int TENOR_CLEF_BASEPITCH = 36; // C1
+	int CLEF_G2_BASEPITCH = 50; // D2
+	int CLEF_C3_BASEPITCH = 40; // E1 
+	int CLEF_C4_BASEPITCH = 36; // C1
+	int CLEF_F4_BASEPITCH = 29; // F0
 	
 	// intervals from base note to build chords or intervals 
 	char[][] chordsIntervals = { { 4 , 7 },   // major
@@ -169,13 +169,13 @@ public class NoteGenerator
     public int getRowsDistanceFromClefs(int clMask)
     {
     	int clefsNum = 0;
-    	if ((clMask & appPrefs.TREBLE_CLEF) > 0)
+    	if ((clMask & appPrefs.CLEF_G2) > 0)
     		clefsNum++;
-    	if ((clMask & appPrefs.BASS_CLEF) > 0)
+    	if ((clMask & appPrefs.CLEF_F4) > 0)
     		clefsNum++;
-    	if ((clMask & appPrefs.ALTO_CLEF) > 0)
+    	if ((clMask & appPrefs.CLEF_C3) > 0)
     		clefsNum++;
-    	if ((clMask & appPrefs.TENOR_CLEF) > 0)
+    	if ((clMask & appPrefs.CLEF_C4) > 0)
     		clefsNum++;
 
     	return clefsNum * 90;
@@ -212,42 +212,42 @@ public class NoteGenerator
     	initLists();
 
 		clefMask = Integer.parseInt(appPrefs.getProperty("clefsMask"));
-		if (clefMask == -1) clefMask = appPrefs.TREBLE_CLEF;
-		if ((clefMask & appPrefs.TREBLE_CLEF) > 0) 
+		if (clefMask == -1) clefMask = appPrefs.CLEF_G2;
+		if ((clefMask & appPrefs.CLEF_G2) > 0) 
 		{
 			int lowerPitch = Integer.parseInt(appPrefs.getProperty("trebleClefLower"));
 			int higherPitch = Integer.parseInt(appPrefs.getProperty("trebleClefUpper"));
 			if (lowerPitch == -1) lowerPitch = 64; // default, set to E3
 			if (higherPitch == -1) higherPitch = 77; // default, set to F4
-			addRange(appPrefs.TREBLE_CLEF, alteredList.get(baseList.indexOf(lowerPitch)), alteredList.get(baseList.indexOf(higherPitch)));
-			if (singleClef == true) clefMask = appPrefs.TREBLE_CLEF;
+			addRange(appPrefs.CLEF_G2, alteredList.get(baseList.indexOf(lowerPitch)), alteredList.get(baseList.indexOf(higherPitch)));
+			if (singleClef == true) clefMask = appPrefs.CLEF_G2;
 		}
-		if ((clefMask & appPrefs.BASS_CLEF) > 0) 
+		if ((clefMask & appPrefs.CLEF_F4) > 0) 
 		{
 			int lowerPitch = Integer.parseInt(appPrefs.getProperty("bassClefLower"));
 			int higherPitch = Integer.parseInt(appPrefs.getProperty("bassClefUpper"));
 			if (lowerPitch == -1) lowerPitch = 43; // default, set to G1
 			if (higherPitch == -1) higherPitch = 57; // default, set to A2
-			addRange(appPrefs.BASS_CLEF, alteredList.get(baseList.indexOf(lowerPitch)), alteredList.get(baseList.indexOf(higherPitch)));
-			if (singleClef == true) clefMask = appPrefs.BASS_CLEF;
+			addRange(appPrefs.CLEF_F4, alteredList.get(baseList.indexOf(lowerPitch)), alteredList.get(baseList.indexOf(higherPitch)));
+			if (singleClef == true) clefMask = appPrefs.CLEF_F4;
 		}
-		if ((clefMask & appPrefs.ALTO_CLEF) > 0) 
+		if ((clefMask & appPrefs.CLEF_C3) > 0) 
 		{
 			int lowerPitch = Integer.parseInt(appPrefs.getProperty("altoClefLower"));
 			int higherPitch = Integer.parseInt(appPrefs.getProperty("altoClefUpper"));
 			if (lowerPitch == -1) lowerPitch = 53; // default, set to F2
 			if (higherPitch == -1) higherPitch = 67; // default, set to G3
-			addRange(appPrefs.ALTO_CLEF, alteredList.get(baseList.indexOf(lowerPitch)), alteredList.get(baseList.indexOf(higherPitch)));
-			if (singleClef == true) clefMask = appPrefs.ALTO_CLEF;
+			addRange(appPrefs.CLEF_C3, alteredList.get(baseList.indexOf(lowerPitch)), alteredList.get(baseList.indexOf(higherPitch)));
+			if (singleClef == true) clefMask = appPrefs.CLEF_C3;
 		}
-		if ((clefMask & appPrefs.TENOR_CLEF) > 0) 
+		if ((clefMask & appPrefs.CLEF_C4) > 0) 
 		{
 			int lowerPitch = Integer.parseInt(appPrefs.getProperty("tenorClefLower"));
 			int higherPitch = Integer.parseInt(appPrefs.getProperty("tenorClefUpper"));
 			if (lowerPitch == -1) lowerPitch = 50; // default, set to D2
 			if (higherPitch == -1) higherPitch = 64; // default, set to E3
-			addRange(appPrefs.TENOR_CLEF, alteredList.get(baseList.indexOf(lowerPitch)), alteredList.get(baseList.indexOf(higherPitch)));
-			if (singleClef == true) clefMask = appPrefs.TENOR_CLEF;
+			addRange(appPrefs.CLEF_C4, alteredList.get(baseList.indexOf(lowerPitch)), alteredList.get(baseList.indexOf(higherPitch)));
+			if (singleClef == true) clefMask = appPrefs.CLEF_C4;
 		}
 		
 		notesTypeList.clear();
@@ -328,14 +328,14 @@ public class NoteGenerator
     
     private int getLevelFromClefAndPitch(int clef, int pitch)
     {
-    	if (clef == appPrefs.TREBLE_CLEF)
-    		return 24 - getIndexFromPitch(TREBLE_CLEF_BASEPITCH, pitch, true);
-    	else if (clef == appPrefs.BASS_CLEF)
-    		return 24 - getIndexFromPitch(BASS_CLEF_BASEPITCH, pitch, true);
-    	else if (clef == appPrefs.ALTO_CLEF)
-    		return 24 - getIndexFromPitch(ALTO_CLEF_BASEPITCH, pitch, true);
-    	else if (clef == appPrefs.TENOR_CLEF)
-    		return 24 - getIndexFromPitch(TENOR_CLEF_BASEPITCH, pitch, true);
+    	if (clef == appPrefs.CLEF_G2)
+    		return 24 - getIndexFromPitch(CLEF_G2_BASEPITCH, pitch, true);
+    	else if (clef == appPrefs.CLEF_F4)
+    		return 24 - getIndexFromPitch(CLEF_F4_BASEPITCH, pitch, true);
+    	else if (clef == appPrefs.CLEF_C3)
+    		return 24 - getIndexFromPitch(CLEF_C3_BASEPITCH, pitch, true);
+    	else if (clef == appPrefs.CLEF_C4)
+    		return 24 - getIndexFromPitch(CLEF_C4_BASEPITCH, pitch, true);
 
     	return 0;
     }
@@ -343,14 +343,14 @@ public class NoteGenerator
     // Remember that this function returns the base pitch of a note !!!
     public int getPitchFromClefAndLevel(int clef, int level)
     {
-    	if (clef == appPrefs.TREBLE_CLEF)
-    		return getPitchFromLevel(TREBLE_CLEF_BASEPITCH, 24 - level);
-    	else if (clef == appPrefs.BASS_CLEF)
-    		return getPitchFromLevel(BASS_CLEF_BASEPITCH, 24 - level);
-    	else if (clef == appPrefs.ALTO_CLEF)
-    		return getPitchFromLevel(ALTO_CLEF_BASEPITCH, 24 - level);
-    	else if (clef == appPrefs.TENOR_CLEF)
-    		return getPitchFromLevel(TENOR_CLEF_BASEPITCH, 24 - level);
+    	if (clef == appPrefs.CLEF_G2)
+    		return getPitchFromLevel(CLEF_G2_BASEPITCH, 24 - level);
+    	else if (clef == appPrefs.CLEF_F4)
+    		return getPitchFromLevel(CLEF_F4_BASEPITCH, 24 - level);
+    	else if (clef == appPrefs.CLEF_C3)
+    		return getPitchFromLevel(CLEF_C3_BASEPITCH, 24 - level);
+    	else if (clef == appPrefs.CLEF_C4)
+    		return getPitchFromLevel(CLEF_C4_BASEPITCH, 24 - level);
 
     	return 0;
     }
@@ -451,14 +451,14 @@ public class NoteGenerator
     
     public int getRhythmPitch(int clef)
     {
-		if (clef == appPrefs.TREBLE_CLEF)
-			return baseList.get(baseList.indexOf(TREBLE_CLEF_BASEPITCH) + 12);
-		else if (clef == appPrefs.BASS_CLEF)
-			return baseList.get(baseList.indexOf(BASS_CLEF_BASEPITCH) + 12);
-		else if (clef == appPrefs.ALTO_CLEF)
-			return baseList.get(baseList.indexOf(ALTO_CLEF_BASEPITCH) + 12);
-		else if (clef == appPrefs.TENOR_CLEF)
-			return baseList.get(baseList.indexOf(TENOR_CLEF_BASEPITCH) + 12);
+		if (clef == appPrefs.CLEF_G2)
+			return baseList.get(baseList.indexOf(CLEF_G2_BASEPITCH) + 12);
+		else if (clef == appPrefs.CLEF_F4)
+			return baseList.get(baseList.indexOf(CLEF_F4_BASEPITCH) + 12);
+		else if (clef == appPrefs.CLEF_C3)
+			return baseList.get(baseList.indexOf(CLEF_C3_BASEPITCH) + 12);
+		else if (clef == appPrefs.CLEF_C4)
+			return baseList.get(baseList.indexOf(CLEF_C4_BASEPITCH) + 12);
 		
 		return 71;
     }
