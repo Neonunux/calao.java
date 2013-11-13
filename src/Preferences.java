@@ -72,11 +72,19 @@ import java.util.Properties;
  */
 public class Preferences 
 {
-	public int TREBLE_CLEF = 0x0001;
-	public int   BASS_CLEF = 0x0002;
-	public int   ALTO_CLEF = 0x0004;
-	public int  TENOR_CLEF = 0x0008;
-	
+	public int CLEF_G2 = 0x0001;
+	public int CLEF_F4 = 0x0002;
+	public int CLEF_C3 = 0x0004;
+	public int CLEF_C4 = 0x0008;
+	/*
+	public int G2_CLEF = 0x0001;
+	public int C1_CLEF = 0x0002;
+	public int C2_CLEF = 0x0004;
+	public int C3_CLEF = 0x0008;
+	public int C4_CLEF = 0x0016;
+	public int C5_CLEF = 0x0032;
+	public int F4_CLEF = 0x0064;
+	*/
 	public int GAME_STOPPED        = 0;
 	public int INLINE_SINGLE_NOTES = 1;
 	public int INLINE_MORE_NOTES   = 2;
