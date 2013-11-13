@@ -105,10 +105,10 @@ public class Staff extends JPanel
     	clefMask = type;
     	clefs.clear();
 
-    	if ((clefMask & appPrefs.TREBLE_CLEF) > 0) clefs.add(appPrefs.TREBLE_CLEF);
-    	if ((clefMask & appPrefs.BASS_CLEF) > 0) clefs.add(appPrefs.BASS_CLEF);
-    	if ((clefMask & appPrefs.ALTO_CLEF) > 0) clefs.add(appPrefs.ALTO_CLEF);
-    	if ((clefMask & appPrefs.TENOR_CLEF) > 0) clefs.add(appPrefs.TENOR_CLEF);
+    	if ((clefMask & appPrefs.CLEF_G2) > 0) clefs.add(appPrefs.CLEF_G2);
+    	if ((clefMask & appPrefs.CLEF_F4) > 0) clefs.add(appPrefs.CLEF_F4);
+    	if ((clefMask & appPrefs.CLEF_C3) > 0) clefs.add(appPrefs.CLEF_C3);
+    	if ((clefMask & appPrefs.CLEF_C4) > 0) clefs.add(appPrefs.CLEF_C4);
 
     	repaint();
     }
@@ -258,22 +258,22 @@ public class Staff extends JPanel
         		g.drawLine(0, yPos + (l * 10), scoreLineWidth, yPos + (l * 10));
         	
         	// 1 - Draw clef
-        	if ((clefMask & appPrefs.TREBLE_CLEF) > 0)
+        	if ((clefMask & appPrefs.CLEF_G2) > 0)
         	{
         		g.setFont(appFont.deriveFont(70f));
         		g.drawString("G", 0, yPos + 42);
         	}
-        	else if ((clefMask & appPrefs.BASS_CLEF) > 0)
+        	else if ((clefMask & appPrefs.CLEF_F4) > 0)
         	{
         		g.setFont(appFont.deriveFont(60f));
         		g.drawString("?", 0, yPos + 40);
         	}
-        	else if ((clefMask & appPrefs.ALTO_CLEF) > 0)
+        	else if ((clefMask & appPrefs.CLEF_C3) > 0)
         	{
         		g.setFont(appFont.deriveFont(55f));
         		g.drawString("" + (char)0xBF, 0, yPos + 43);
         	}
-        	else if ((clefMask & appPrefs.TENOR_CLEF) > 0)
+        	else if ((clefMask & appPrefs.CLEF_C4) > 0)
         	{
         		g.setFont(appFont.deriveFont(55f));
         		g.drawString("" + (char)0xBF, 0, yPos + 33);
@@ -322,22 +322,22 @@ public class Staff extends JPanel
             		g.drawLine(0, yPos + (rowsDistance / 2) + (l * 10), scoreLineWidth, yPos + (rowsDistance / 2) + (l * 10));
 
         		// draw second clef
-            	if (clefs.get(1) == appPrefs.TREBLE_CLEF)
+            	if (clefs.get(1) == appPrefs.CLEF_G2)
             	{
             		g.setFont(appFont.deriveFont(70f));
             		g.drawString("G", 0, yPos + (rowsDistance / 2) + 42);
             	}
-            	else if (clefs.get(1) == appPrefs.BASS_CLEF)
+            	else if (clefs.get(1) == appPrefs.CLEF_F4)
             	{
             		g.setFont(appFont.deriveFont(60f));
             		g.drawString("?", 0, yPos + (rowsDistance / 2) + 40);
             	}
-            	else if (clefs.get(1) == appPrefs.ALTO_CLEF)
+            	else if (clefs.get(1) == appPrefs.CLEF_C3)
             	{
             		g.setFont(appFont.deriveFont(55f));
             		g.drawString("" + (char)0xBF, 0, yPos + (rowsDistance / 2) + 43);
             	}
-            	else if (clefs.get(1) == appPrefs.TENOR_CLEF)
+            	else if (clefs.get(1) == appPrefs.CLEF_C4)
             	{
             		g.setFont(appFont.deriveFont(55f));
             		g.drawString("" + (char)0xBF, 0, yPos + (rowsDistance / 2) + 33);
@@ -362,5 +362,4 @@ public class Staff extends JPanel
         	yPos += rowsDistance;
         }
  	}
-
 }
