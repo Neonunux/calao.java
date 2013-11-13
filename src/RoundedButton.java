@@ -316,8 +316,6 @@ class RoundPanel extends JPanel
 			((Graphics2D) g).setPaint(vertGrad);
 		}
 		g.fillRoundRect(3, 3, getWidth()-6, getHeight()-6, 15, 15);
-		
-		
 	}
 }
 
