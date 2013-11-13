@@ -84,6 +84,5 @@ public class SoundbankDownloader extends JDialog
 		g.fillRect(0, 0, getWidth(), getHeight());
 		
 		progress.setBounds(25, 15, 340, 30);
-		
 	}
 }
