@@ -16,24 +16,29 @@ along with ScoreDate.  If not, see <http://www.gnu.org/licenses/>.
 
 **********************************************/
 
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.ListIterator;
 import java.util.ResourceBundle;
 
-import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
-
+@SuppressWarnings({"unchecked","rawtypes"})
 public class ClefSelector extends JPanel implements MouseListener
 {
 	private static final long serialVersionUID = -3872352788125977616L;
-	
+
 	ResourceBundle appBundle;
 	String clefSymbol;
 	JLabel selectorUp;
@@ -43,6 +48,8 @@ public class ClefSelector extends JPanel implements MouseListener
 	boolean enabled = false;
 	int lowerLevel = 0;
 	int higherLevel = 0;
+	private ArrayList keyList = new ArrayList();
+	private ListIterator<String> keyIter;
 	
 	public ClefSelector(ResourceBundle b, String s)
 	{
@@ -51,23 +58,32 @@ public class ClefSelector extends JPanel implements MouseListener
 		setLayout(null);
 		Font arial = new Font("Arial", Font.BOLD, 15);
 		
-		if (clefSymbol == "G")
-			clefText = new JLabel(appBundle.getString("_trebleclef"), null, JLabel.CENTER);
-		else if (clefSymbol == "?")
-			clefText = new JLabel(appBundle.getString("_bassclef"), null, JLabel.CENTER);
-		else if (clefSymbol == "ALTO")
-			clefText = new JLabel(appBundle.getString("_altoclef"), null, JLabel.CENTER);
-		else if (clefSymbol == "TENOR")
-			clefText = new JLabel(appBundle.getString("_tenorclef"), null, JLabel.CENTER);
+		keyList.add("G2");		// G2
+		keyList.add("C1");		// C1
+		keyList.add("C2");		// C2
+		keyList.add("C3");	// C3
+		keyList.add("C4");	// C4
+		keyList.add("C5");		// C5
+		keyList.add("F4");		// F4
+		keyIter = keyList.listIterator();
+		
+		if (clefSymbol == "G2")
+			clefText = new JLabel(appBundle.getString("_clef.g2"), null, JLabel.CENTER);
+		else if (clefSymbol == "F4")
+			clefText = new JLabel(appBundle.getString("_clef.f4"), null, JLabel.CENTER);
+		else if (clefSymbol == "C3")
+			clefText = new JLabel(appBundle.getString("_clef.c3"), null, JLabel.CENTER);
+		else if (clefSymbol == "C4")
+			clefText = new JLabel(appBundle.getString("_clef.c4"), null, JLabel.CENTER);
 		
 		selectorUp = new JLabel("\u25B2"); // \u25B2: triangle UP
-		selectorUp.setFont(arial);
+		selectorUp.setFont(arial.deriveFont((float) 22.0));
 		selectorUp.setForeground(Color.black);
-		selectorUp.setBounds(25, 10, 140, 40);
+		selectorUp.setBounds(25, 5, 140, 40);
 		selectorUp.setVisible(enabled);
 		
 		selectorDown = new JLabel("\u25BC"); // \u25BC: triangle DOWN
-		selectorDown.setFont(arial);
+		selectorDown.setFont(arial.deriveFont((float) 22.0));
 		selectorDown.setForeground(Color.black);
 		selectorDown.setBounds(25, 160, 140, 40);
 		selectorDown.setVisible(enabled);
@@ -92,16 +108,18 @@ public class ClefSelector extends JPanel implements MouseListener
 	
 	public void setEnabled(boolean set)
 	{
-		enabled = set;
+		this.enabled = set;
 		clefText.setVisible(!enabled);
 		disabledText.setVisible(!enabled);
+		selectorDown.setVisible(enabled);
+		selectorUp.setVisible(enabled);
 		repaint();
 	}
 	
 	public void setLevels(int low, int high)
 	{
-		lowerLevel = low;
-		higherLevel = high;
+		this.lowerLevel = low;
+		this.higherLevel = high;
 		repaint();
 	}
 	
@@ -124,12 +142,35 @@ public class ClefSelector extends JPanel implements MouseListener
 	{
 		//System.out.println("Mouse clicked (# of clicks: " + e.getClickCount() + ")");
 		System.out.println("X pos: " + e.getX() + ", Y pos: " + e.getY());
+		
 		if (e.getX() < 50 )
 		{
 			if (e.getY() < 50)
-				System.out.print("Clef up\n");
+			{
+				System.out.print("Clef up "  );
+				if (keyIter.hasNext()) 
+				{
+					clefSymbol = keyIter.next();
+				}
+				else // iterator on end's keyList
+				{ 
+					keyIter=keyList.listIterator();
+					clefSymbol = keyIter.next();
+				}
+			}
 			if (e.getY() > 164)
+			{
 				System.out.print("Clef down\n");
+				if (keyIter.hasPrevious())
+				{
+					clefSymbol = keyIter.previous();
+				}
+				else // iterator on list's begining
+				{
+					keyIter = keyList.listIterator(keyList.size());
+					clefSymbol = keyIter.previous();
+				}
+			}
 			if (e.getY() > 49 && e.getY() < 165)
 			{
 				enabled = !enabled;
@@ -169,7 +210,6 @@ public class ClefSelector extends JPanel implements MouseListener
 					higherLevel = level;
 			}
 		}
-		
 		repaint();
 	}
 
@@ -207,20 +247,40 @@ public class ClefSelector extends JPanel implements MouseListener
 		g.fillRoundRect(5, 5, getWidth()-10, getHeight()-10, 20, 20);
 		g.setColor(fc);
 		
-		if (clefSymbol == "ALTO")
+		if (clefSymbol == "C1")
+		{
+			g.setFont(getFont().deriveFont(73f));
+			g.drawString("" + (char)0xBF, 15, 159);
+		}
+		else if (clefSymbol == "C2")
+		{
+			g.setFont(getFont().deriveFont(73f));
+			g.drawString("" + (char)0xBF, 15, 146);
+		}
+		else if (clefSymbol == "C3")
 		{
 			g.setFont(getFont().deriveFont(73f));
 			g.drawString("" + (char)0xBF, 15, 132);
 		}
-		else if (clefSymbol == "TENOR")
+		else if (clefSymbol == "C4")
 		{
 			g.setFont(getFont().deriveFont(73f));
 			g.drawString("" + (char)0xBF, 15, 118);
 		}
-		else
+		else if (clefSymbol == "C5")
+		{
+			g.setFont(getFont().deriveFont(73f));
+			g.drawString("" + (char)0xBF, 15, 104);
+		}
+		if (clefSymbol == "G2")
 		{
 			g.setFont(getFont().deriveFont(80f));
-			g.drawString(clefSymbol, 15, 128);
+			g.drawString("G", 15, 130);
+		}
+		if (clefSymbol == "F4")
+		{
+			g.setFont(getFont().deriveFont(80f));
+			g.drawString("?", 15, 130);			
 		}
 		if (enabled == true)
 		{
@@ -238,6 +298,5 @@ public class ClefSelector extends JPanel implements MouseListener
 			g.drawString("w", 75, 25 + (lowerLevel * 7));
 			g.drawString("w", 105, 25 + (higherLevel * 7));
 		}
-			
 	}
 }
