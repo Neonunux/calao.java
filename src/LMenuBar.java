@@ -30,7 +30,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JCheckBoxMenuItem; 
 import javax.swing.JRadioButtonMenuItem;
 
-public class SDMenuBar extends JMenuBar implements ActionListener
+public class LMenuBar extends JMenuBar implements ActionListener
 {
     private static final long serialVersionUID = 1L;
     private ResourceBundle appBundle;
@@ -65,7 +65,7 @@ public class SDMenuBar extends JMenuBar implements ActionListener
     private JRadioButtonMenuItem rblanguageru = new JRadioButtonMenuItem();
     private JRadioButtonMenuItem rblanguagefr = new JRadioButtonMenuItem();
 
-    public SDMenuBar(ResourceBundle b, Preferences p) 
+    public LMenuBar(ResourceBundle b, Preferences p) 
     {
         appBundle = b;
         appPrefs = p;
@@ -107,7 +107,7 @@ public class SDMenuBar extends JMenuBar implements ActionListener
         bGroup.add(rblanguageen);
         langMenu.add(rblanguageen);
 
-        rblanguagees=new JRadioButtonMenuItem("Español");
+        rblanguagees=new JRadioButtonMenuItem("EspaÃ±ol");
         rblanguagees.setMnemonic(KeyEvent.VK_S);
         bGroup.add(rblanguagees);
         rblanguagees.addActionListener(this);
@@ -119,7 +119,7 @@ public class SDMenuBar extends JMenuBar implements ActionListener
         bGroup.add(rblanguageeo);
         langMenu.add(rblanguageeo);
         
-        rblanguagefr=new JRadioButtonMenuItem("Français");
+        rblanguagefr=new JRadioButtonMenuItem("FranÃ§ais");
         rblanguagefr.setMnemonic(KeyEvent.VK_F);
         bGroup.add(rblanguagefr);
         rblanguagefr.addActionListener(this);
@@ -155,13 +155,13 @@ public class SDMenuBar extends JMenuBar implements ActionListener
         bGroup.add(rblanguagepl);
         langMenu.add(rblanguagepl);
         
-        rblanguagept=new JRadioButtonMenuItem("Português");
+        rblanguagept=new JRadioButtonMenuItem("PortuguÃªs");
         rblanguagept.setMnemonic(KeyEvent.VK_P);
         rblanguagept.addActionListener(this);
         bGroup.add(rblanguagept);
         langMenu.add(rblanguagept);
         
-        rblanguageru=new JRadioButtonMenuItem("Русский");
+        rblanguageru=new JRadioButtonMenuItem("Ð ÑƒÑ�Ñ�ÐºÐ¸Ð¹");
         rblanguageru.setMnemonic(KeyEvent.VK_R);
         rblanguageru.addActionListener(this);
         bGroup.add(rblanguageru);
@@ -173,7 +173,7 @@ public class SDMenuBar extends JMenuBar implements ActionListener
         bGroup.add(rblanguagefi);
         langMenu.add(rblanguagefi);
 
-        rblanguagetr=new JRadioButtonMenuItem("Türkçe");
+        rblanguagetr=new JRadioButtonMenuItem("TÃ¼rkÃ§e");
         rblanguagetr.setMnemonic(KeyEvent.VK_T);
         rblanguagetr.addActionListener(this);
         bGroup.add(rblanguagetr);
@@ -249,7 +249,7 @@ public class SDMenuBar extends JMenuBar implements ActionListener
     // It fires event to the main class using strings
     public void actionPerformed(ActionEvent ae)
     {
-        //System.out.println("SDMenuBar Event received !! (" + ae.getActionCommand() + ")");
+        //System.out.println("LMenuBar Event received !! (" + ae.getActionCommand() + ")");
 
 		if (ae.getSource() == rblanguageen)
 			this.firePropertyChange("langEN", false, true);

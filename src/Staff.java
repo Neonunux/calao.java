@@ -91,7 +91,6 @@ public class Staff extends JPanel
     		numberOfRows = 1;
     		numberOfMeasuresPerRow = 0;
     	}
-    	
     	setBackground(Color.white);
     }
     
@@ -229,7 +228,6 @@ public class Staff extends JPanel
         }
         return vxPos;
     }
-    
     
     // Draw staff. Includes clefs, alterations, time signature
  	protected void paintComponent(Graphics g) 

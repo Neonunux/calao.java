@@ -1,18 +1,18 @@
 /***********************************************
-This file is part of the ScoreDate project (http://www.mindmatter.it/scoredate/).
+This file is part of the GnuLecture project (http://www.mindmatter.it/scoredate/).
 
-ScoreDate is free software: you can redistribute it and/or modify
+GnuLecture is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
 
-ScoreDate is distributed in the hope that it will be useful,
+GnuLecture is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with ScoreDate.  If not, see <http://www.gnu.org/licenses/>.
+along with GnuLecture.  If not, see <http://www.gnu.org/licenses/>.
 
 **********************************************/
 
@@ -55,7 +55,7 @@ import javax.swing.UIManager.LookAndFeelInfo;
  * @homepage http://www.mindmatter.it/scoredate/
  *
  */
-public class ScoreDate extends JFrame implements ActionListener 
+public class GnuLecture extends JFrame implements ActionListener 
 {
 	 private static final long serialVersionUID = 0x5C03EDA7EL;
 	 private Preferences prefs; 
@@ -65,7 +65,7 @@ public class ScoreDate extends JFrame implements ActionListener
 	 private String[] supportedLanguages = { "de", "da", "en", "eo", "es", "it", "fi", "ko", "pl", "pt", "hu", "he", "fr", "tr", "ru"};
 
 	 // GUI elements
-	 SDMenuBar menuBar;
+	 LMenuBar menuBar;
 	 private HomePanel homePanel;
 	 private InlinePanel inlinePanel = null;
 	 private ScorePanel rhythmPanel = null;
@@ -95,7 +95,7 @@ public class ScoreDate extends JFrame implements ActionListener
      
      private int transposition = 0;
 
-	 public ScoreDate() 
+	 public GnuLecture() 
 	 {
 		 // first of all try to change the application look & feel using Nimbus
 		 try 
@@ -114,7 +114,7 @@ public class ScoreDate extends JFrame implements ActionListener
 		     // If Nimbus is not available, use default look & feel (metal)
 		 }
 
-		 this.setIconImage(new ImageIcon(getClass().getResource("/resources/sdicon.png")).getImage());
+		 this.setIconImage(new ImageIcon(getClass().getResource("/resources/icon.png")).getImage());
 		 prefs = new Preferences();
 		 language = prefs.getProperty("language");
 		 // if no language is set yet, try to set the system one
@@ -147,7 +147,7 @@ public class ScoreDate extends JFrame implements ActionListener
 		 else
 			bundle = ResourceBundle.getBundle("language", new Locale(language));
 
-		 setTitle("Score Date");
+		 setTitle("Gnu Lecture");
 		 Dimension wSize = new Dimension(800, 600);
 		 setSize(wSize); // default size is 0,0
 		 setMinimumSize(wSize);
@@ -203,7 +203,7 @@ public class ScoreDate extends JFrame implements ActionListener
 
          audioControl = new AudioInputController(prefs); // TODO: AUDIO unfinished
 
-         menuBar = new SDMenuBar(bundle, prefs);
+         menuBar = new LMenuBar(bundle, prefs);
          setJMenuBar(menuBar);
          menuBar.setVisible(true);
          menuBar.addPropertyChangeListener(new PropertyChangeListener() {
@@ -653,6 +653,6 @@ public class ScoreDate extends JFrame implements ActionListener
 	 
 	 public static void main(String[] args) 
 	 {
-		 new ScoreDate();
+		 new GnuLecture();
 	 }
 }
