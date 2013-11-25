@@ -1,5 +1,5 @@
 /***********************************************
-This file is part of the GnuLecture project (http://www.mindmatter.it/scoredate/).
+This file is part of the GnuLecture project (https://github.com/Neonunux/gnulecture/wiki).
 
 GnuLecture is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -50,9 +50,10 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
 /**
+ * @author Regis Leloup
  * @author Massimo Callegari
- * @email massimocallegari@yahoo.it
- * @homepage http://www.mindmatter.it/scoredate/
+ * @email regis.leloup@colombbus.org
+ * @homepage https://github.com/Neonunux/gnulecture/wiki
  *
  */
 public class GnuLecture extends JFrame implements ActionListener 
@@ -502,6 +503,8 @@ public class GnuLecture extends JFrame implements ActionListener
 						}
 						else if (evt.getPropertyName() == "newTranspose")
 						{
+							// BUG : suposes that "transposition" key is in 
+							// file.properties 
 							System.out.println("Set new transposition...");
 							transposition = Integer.parseInt(prefs.getProperty("transposition"));
 						}
@@ -519,6 +522,7 @@ public class GnuLecture extends JFrame implements ActionListener
 	 
 	 private boolean isLanguageSupported(String lang)
 	 {
+		 // TODO: for (int i = 0; i < supportedLanguages.length; i++) 
 		 for (int i = 0; i < 13; i++)
 			 if (lang.equals(supportedLanguages[i]))
 				 return true;

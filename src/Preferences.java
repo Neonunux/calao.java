@@ -1,5 +1,5 @@
 /***********************************************
-This file is part of the GnuLecture project (http://www.mindmatter.it/scoredate/).
+This file is part of the GnuLecture project (https://github.com/Neonunux/gnulecture/wiki).
 
 GnuLecture is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -108,7 +108,7 @@ public class Preferences
 	{
 	  try
 	  {
-		prefs.load(new FileInputStream("scoredate.properties"));
+		prefs.load(new FileInputStream("gnulecture.properties"));
  	    //  System.out.println("language = " + prefs.getProperty("language"));
 		prefs.list(System.out);
   	  }
@@ -135,7 +135,7 @@ public class Preferences
 	{
 		try 
 		{ 
-			prefs.store(new FileOutputStream("scoredate.properties"), null); 
+			prefs.store(new FileOutputStream("gnulecture.properties"), null); 
 			prefs.list(System.out);
         } 
         catch (IOException e) { }

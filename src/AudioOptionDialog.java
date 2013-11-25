@@ -1,5 +1,5 @@
 /***********************************************
-This file is part of the GnuLecture project (http://www.mindmatter.it/scoredate/).
+This file is part of the GnuLecture project (https://github.com/Neonunux/gnulecture/wiki).
 
 GnuLecture is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

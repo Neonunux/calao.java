@@ -1,5 +1,5 @@
 /***********************************************
-This file is part of the ScoreDate project (http://www.mindmatter.it/scoredate/).
+This file is part of the ScoreDate project (https://github.com/Neonunux/gnulecture/wiki).
 
 ScoreDate is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -296,7 +296,7 @@ public class LMenuBar extends JMenuBar implements ActionListener
 			this.firePropertyChange("exitProgram", false, true);
 		
 		else if (ae.getSource() == websiteMenu)
-			openURL("http://www.mindmatter.it/scoredate/");
+			openURL("https://github.com/Neonunux/gnulecture/wiki");
 		else if (ae.getSource() == creditsMenu)
 		{
 			String text = "<html><b>ScoreDate v. 3.2<br>written by Massimo Callegari<br><br>";
