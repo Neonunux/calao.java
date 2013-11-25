@@ -25,8 +25,11 @@ public class NoteGenerator
 
 	int baseNote = 24; // pitch of C0
 	int CLEF_G2_BASEPITCH = 50; // D2
+	int CLEF_C1_BASEPITCH = 47; // B1
+	int CLEF_C2_BASEPITCH = 43; // G1
 	int CLEF_C3_BASEPITCH = 40; // E1 
 	int CLEF_C4_BASEPITCH = 36; // C1
+	int CLEF_C5_BASEPITCH = 33; // A0
 	int CLEF_F4_BASEPITCH = 29; // F0
 	
 	// intervals from base note to build chords or intervals 
