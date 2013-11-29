@@ -25,32 +25,31 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import java.io.File; 
-import java.io.FilenameFilter;
-import java.io.FileInputStream;
-import java.io.DataInputStream;
 import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FilenameFilter;
 import java.io.InputStreamReader;
 import java.util.ResourceBundle;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JCheckBox;
 import javax.swing.JTree;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeSelectionModel;
 import javax.swing.tree.TreePath;
-import javax.swing.event.TreeSelectionEvent; 
-import javax.swing.event.TreeSelectionListener;
+import javax.swing.tree.TreeSelectionModel;
 
 public class StatsPanel extends JPanel implements TreeSelectionListener, ActionListener
 {

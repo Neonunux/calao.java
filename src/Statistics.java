@@ -16,10 +16,10 @@ along with ScoreDate.  If not, see <http://www.gnu.org/licenses/>.
 
 **********************************************/
 
-import java.util.Calendar;
-import java.text.SimpleDateFormat;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class Statistics 
 {

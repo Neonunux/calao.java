@@ -16,6 +16,10 @@ along with GnuLecture.  If not, see <http://www.gnu.org/licenses/>.
 
 **********************************************/
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 import javax.sound.midi.Instrument;
@@ -31,15 +35,10 @@ import javax.sound.midi.Receiver;
 import javax.sound.midi.Sequence;
 import javax.sound.midi.Sequencer;
 import javax.sound.midi.ShortMessage;
-import javax.sound.midi.Track;
-import javax.sound.midi.Transmitter;
 import javax.sound.midi.Soundbank;
 import javax.sound.midi.Synthesizer;
-
-import java.util.List;
-import java.util.ArrayList;
-import java.io.File;
-import java.io.IOException;
+import javax.sound.midi.Track;
+import javax.sound.midi.Transmitter;
 
 public class MidiController 
 {

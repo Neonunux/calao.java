@@ -16,20 +16,22 @@ along with GnuLecture.  If not, see <http://www.gnu.org/licenses/>.
 
 **********************************************/
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
 import java.util.Vector;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.TargetDataLine;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.nio.channels.FileChannel;
-import java.io.FileOutputStream;
-
-import java.io.IOException;
-import java.nio.ByteBuffer;
-
-import org.jpab.*;
+import org.jpab.Callback;
+import org.jpab.Device;
+import org.jpab.PortAudio;
+import org.jpab.PortAudioException;
+import org.jpab.Stream;
+import org.jpab.StreamConfiguration;
 import org.jpab.StreamConfiguration.SampleFormat;
 
 public class AudioInputController

@@ -31,8 +31,8 @@ import java.util.Vector;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLayeredPane;
-import javax.swing.JPanel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 public class InlinePanel extends JPanel implements ActionListener 
 {

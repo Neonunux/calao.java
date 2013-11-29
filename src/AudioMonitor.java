@@ -16,10 +16,10 @@ along with GnuLecture.  If not, see <http://www.gnu.org/licenses/>.
 
 **********************************************/
 
-import java.util.ResourceBundle;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.util.ResourceBundle;
 
 import javax.swing.JPanel;
 

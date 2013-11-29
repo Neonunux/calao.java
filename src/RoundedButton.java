@@ -16,16 +16,16 @@ along with GnuLecture.  If not, see <http://www.gnu.org/licenses/>.
 
 **********************************************/
 
-import java.awt.BasicStroke; 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.geom.QuadCurve2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
+import java.awt.geom.QuadCurve2D;
 import java.util.ResourceBundle;
 
 import javax.swing.JButton;

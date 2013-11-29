@@ -23,11 +23,11 @@ import java.util.ResourceBundle;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.JCheckBoxMenuItem; 
 import javax.swing.JRadioButtonMenuItem;
 
 public class LMenuBar extends JMenuBar implements ActionListener

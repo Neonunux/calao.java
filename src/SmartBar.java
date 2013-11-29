@@ -18,32 +18,30 @@ along with ScoreDate.  If not, see <http://www.gnu.org/licenses/>.
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ResourceBundle;
 
 import javax.swing.BorderFactory;
-import javax.swing.border.Border;
-import javax.swing.border.TitledBorder;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.ChangeEvent;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
-import javax.swing.JTextField; 
 import javax.swing.JSlider;
+import javax.swing.JTextField;
 import javax.swing.UIManager;
+import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 public class SmartBar extends JPanel implements ActionListener, ChangeListener 
 {

@@ -30,7 +30,7 @@ import java.util.ResourceBundle;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField; 
+import javax.swing.JTextField;
 
 public class GameBar extends JPanel implements ActionListener
 {

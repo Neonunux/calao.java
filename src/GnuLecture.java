@@ -20,29 +20,27 @@ along with GnuLecture.  If not, see <http://www.gnu.org/licenses/>.
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.Font;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Locale;
+import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
-import java.util.PropertyResourceBundle; 
 
 import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiMessage;
-import javax.sound.midi.ShortMessage;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Receiver;
+import javax.sound.midi.ShortMessage;
 import javax.sound.midi.Transmitter;
-
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;

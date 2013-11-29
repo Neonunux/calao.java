@@ -16,14 +16,14 @@ along with ScoreDate.  If not, see <http://www.gnu.org/licenses/>.
 
 **********************************************/
 
-import java.net.URL;
 import java.awt.Graphics;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.net.MalformedURLException;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import javax.swing.JDialog;
 import javax.swing.WindowConstants;

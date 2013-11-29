@@ -31,9 +31,9 @@ import java.util.Vector;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JLabel;
 
 public class EarTrainingPanel extends JPanel implements ActionListener 
 {
