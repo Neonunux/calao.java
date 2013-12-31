@@ -521,7 +521,7 @@ public class GnuLecture extends JFrame implements ActionListener
 	 private boolean isLanguageSupported(String lang)
 	 {
 		 // TODO: for (int i = 0; i < supportedLanguages.length; i++) 
-		 for (int i = 0; i < 13; i++)
+		 for (int i = 0; i < supportedLanguages.length; i++)
 			 if (lang.equals(supportedLanguages[i]))
 				 return true;
 		 return false;
