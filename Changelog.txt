@@ -1,3 +1,8 @@
+September 05, 2014 - version 3.3
+- NEW: Project is ported in Maven to manage dependencies easily
+- NEW: Project respects now more standards: coding, directories, etc.
+- NEW: All empty tests are added (TDD could begin)
+
 July ??, 2012 - version 3.2
 - NEW: increased exercise editor size. Now it can be scrolled vertically
 - NEW: full double clef support added !
