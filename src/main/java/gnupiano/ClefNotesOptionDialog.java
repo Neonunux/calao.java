@@ -35,6 +35,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
+@SuppressWarnings({"rawtypes","unchecked"})
 public class ClefNotesOptionDialog extends JDialog implements ActionListener
 {
 	private static final long serialVersionUID = -2654540587350157146L;

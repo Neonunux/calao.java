@@ -46,7 +46,7 @@ public class HomePanel extends JPanel
 		appBundle = b;
         try 
         {
-    		MainPic = ImageIO.read(getClass().getResourceAsStream("resources/logo.png"));
+    		MainPic = ImageIO.read(getClass().getResourceAsStream("logo.png"));
         }
         catch(Exception e)
         {

@@ -32,7 +32,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
+@SuppressWarnings({"rawtypes","unchecked"})
 public class GameBar extends JPanel implements ActionListener
 {
 	private static final long serialVersionUID = 6433532306226295481L;

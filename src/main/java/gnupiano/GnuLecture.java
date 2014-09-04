@@ -48,6 +48,9 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
+import org.apache.logging.log4j.core.Logger;
+import org.apache.logging.log4j.LogManager;
+
 /**
  * @author Regis Leloup
  * @author Massimo Callegari
@@ -58,6 +61,7 @@ import javax.swing.UIManager.LookAndFeelInfo;
 public class GnuLecture extends JFrame implements ActionListener 
 {
 	 private static final long serialVersionUID = 0x5C03EDA7EL;
+	 static final Logger logger = (Logger) LogManager.getLogger(GnuLecture.class.getName());
 	 private Preferences prefs; 
 	 private ResourceBundle bundle;
 	 Font MusiSync; // font used to render scores
@@ -657,5 +661,6 @@ public class GnuLecture extends JFrame implements ActionListener
 	 public static void main(String[] args) 
 	 {
 		 new GnuLecture();
+		 logger.trace("Exiting GnuLecture"); 
 	 }
 }

@@ -114,6 +114,7 @@ public class ExerciseWizard extends JDialog
  *                  EXERCISE WIZARD - SECOND STEP DIALOG
  * 
  */
+@SuppressWarnings({"rawtypes","unchecked"})
 class ExerciseScoreWizard extends JDialog implements ActionListener, ChangeListener
 {
 	private static final long serialVersionUID = 4264234519336822654L;

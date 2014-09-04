@@ -44,6 +44,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+@SuppressWarnings({"rawtypes","unchecked"})
 public class SmartBar extends JPanel implements ActionListener, ChangeListener 
 {
 	private static final long serialVersionUID = 4914147249638690529L;

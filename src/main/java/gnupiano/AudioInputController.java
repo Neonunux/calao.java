@@ -35,6 +35,7 @@ import org.jpab.Stream;
 import org.jpab.StreamConfiguration;
 import org.jpab.StreamConfiguration.SampleFormat;
 
+@SuppressWarnings("resource")
 public class AudioInputController
 {
 	Preferences appPrefs;

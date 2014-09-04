@@ -50,9 +50,7 @@ import org.jpab.Device;
 import org.jpab.PortAudio;
 import org.jpab.PortAudioException;
 
-
-
-@SuppressWarnings("rawtypes")
+@SuppressWarnings({"rawtypes","unchecked"})
 public class MidiOptionsDialog extends JDialog implements ActionListener
 {
 	private static final long serialVersionUID = 1L;
@@ -91,7 +89,6 @@ public class MidiOptionsDialog extends JDialog implements ActionListener
     AudioOptionDialog audioOptions;
     AudioInputController appAudioController;
 
-	@SuppressWarnings("unchecked")
 	public MidiOptionsDialog(ResourceBundle b, Preferences p, MidiController midiCtrl, AudioInputController audioCtrl)
 	{
 		appBundle = b;
