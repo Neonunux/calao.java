@@ -21,6 +21,7 @@ package gnulecture;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.MediaTracker;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
@@ -35,6 +36,7 @@ import java.util.Locale;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
+import javax.imageio.ImageIO;
 import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiMessage;
 import javax.sound.midi.MidiUnavailableException;
@@ -263,8 +265,7 @@ public class GnuLecture extends JFrame implements ActionListener {
 	 * ACTION LISTENER - listens to all buttons that require a switch of context
 	 */
 	public void actionPerformed(ActionEvent ae) {
-		logger.debug("Event received !! (cmd:" + ae.getActionCommand()
-				+ ")");
+		logger.debug("Event received !! (cmd:" + ae.getActionCommand() + ")");
 		Dimension wSize = new Dimension(getWidth(), getHeight());
 		if (ae.getSource() == homePanel.inlineBtn) {
 			homePanel.setVisible(false);
@@ -605,8 +606,7 @@ public class GnuLecture extends JFrame implements ActionListener {
 						earPanel.noteEvent(pitch, vel, false);
 					break;
 				/*
-				 * case 0x80:
-				 * logger.debug("   Note Off  Pitch: "+((ShortMessage
+				 * case 0x80: logger.debug("   Note Off  Pitch: "+((ShortMessage
 				 * )event).getData1()+
 				 * " Velocity: "+((ShortMessage)event).getData2()); break; case
 				 * 0xb0: if (((ShortMessage)event).getData1() < 120) {
@@ -634,8 +634,32 @@ public class GnuLecture extends JFrame implements ActionListener {
 		}
 	}
 
+	/**
+	 * Displays splash.png during the loading
+	 */
+	public void displaySplashScreen() {
+		ImageIcon splashScreenImage = new ImageIcon();
+		try {
+			splashScreenImage.setImage(ImageIO.read(getClass().getResource("splash.png")));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		// while the image is not on screen
+		while (splashScreenImage.getImageLoadStatus() == MediaTracker.LOADING) {
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				System.out.printf("splash screen loading interrupted", e); //$NON-NLS-1$
+			}
+		}
+		// should normally be run in the EDT, but launched at once in order to
+		// display the screen as soon as possible
+		new SplashScreen(splashScreenImage, 2000);
+	}
+
 	public static void main(String[] args) {
-		new GnuLecture();
+		new GnuLecture().displaySplashScreen();
+
 		logger.trace("Exiting GnuLecture");
 	}
 }
