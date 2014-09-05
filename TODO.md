@@ -1,3 +1,3 @@
-  * Logger option in menu 
-  * Splashscreen at the beginning 
+  * Logger button in menu 
+  * DONE Splashscreen at the beginning 
 
