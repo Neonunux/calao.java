@@ -5,7 +5,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
 
-@RunWith(MockitoJUnitRunner.class)
+@SuppressWarnings("unused") @RunWith(MockitoJUnitRunner.class)
 public class StatsPanelTest {
 //	@InjectMocks
 //	private StatsPanel statsPanel;

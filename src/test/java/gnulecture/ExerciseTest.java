@@ -9,7 +9,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
-@RunWith(MockitoJUnitRunner.class)
+@SuppressWarnings("unused") @RunWith(MockitoJUnitRunner.class)
 public class ExerciseTest {
 //	@Mock
 //	private Accidentals acc;

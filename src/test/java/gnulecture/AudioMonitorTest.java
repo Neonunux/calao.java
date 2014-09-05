@@ -5,6 +5,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
 
+@SuppressWarnings("unused")
 @RunWith(MockitoJUnitRunner.class)
 public class AudioMonitorTest {
 //	@InjectMocks

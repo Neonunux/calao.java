@@ -12,7 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-@RunWith(MockitoJUnitRunner.class)
+@SuppressWarnings("unused") @RunWith(MockitoJUnitRunner.class)
 public class SDMenuBarTest {
 //	@Mock
 //	private JMenu aboutMenu;
