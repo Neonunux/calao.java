@@ -223,7 +223,7 @@ public class Staff extends JPanel
         	{
         		numberOfMeasuresPerRow = (getWidth() - scoreLineWidth) / beatW;
         		numberOfRows = (int)Math.ceil((double)forcedNumberOfMeasures / (double)numberOfMeasuresPerRow);
-        		//logger.debug("[Staff] numberOfMeasuresPerRow: " + numberOfMeasuresPerRow + ", numberOfRows: " + numberOfRows);
+        		logger.debug("[Staff] numberOfMeasuresPerRow: " + numberOfMeasuresPerRow + ", numberOfRows: " + numberOfRows);
         	}
         	
         	scoreLineWidth += (numberOfMeasuresPerRow * beatW);
@@ -247,7 +247,7 @@ public class Staff extends JPanel
  		g.fillRect(0, 0, getWidth(), getHeight());
 		g.setColor(Color.black);
 		
-		//logger.debug("[Staff - paintComponent] w = " + getWidth());
+		logger.debug("[Staff - paintComponent] w = " + getWidth());
 
         int yPos = scoreYpos;
         int vXPos = calculateSize();
