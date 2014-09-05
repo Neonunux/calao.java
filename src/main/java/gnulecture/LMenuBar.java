@@ -1,19 +1,19 @@
 package gnulecture;
 /***********************************************
-This file is part of the ScoreDate project (https://github.com/Neonunux/gnulecture/wiki).
+This file is part of the GnuLecture project (https://github.com/Neonunux/gnulecture/wiki).
 
-ScoreDate is free software: you can redistribute it and/or modify
+GnuLecture is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
-
-ScoreDate is distributed in the hope that it will be useful,
+GnuLecture
+GnuLecture is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with ScoreDate.  If not, see <http://www.gnu.org/licenses/>.
+along with GnuLecture.  If not, see <http://www.gnu.org/licenses/>.
 
 **********************************************/
 
@@ -32,11 +32,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JRadioButtonMenuItem;
 
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.Logger;
-
+import org.apache.logging.log4j.Logger;
+/**
+ * @author Neonunux
+ *
+ */
 public class LMenuBar extends JMenuBar implements ActionListener
 {
-	static final Logger logger = (Logger) LogManager.getLogger(MidiController.class.getName());
+	private static final Logger logger =  LogManager.getLogger(MidiController.class.getName());
     private static final long serialVersionUID = 1L;
     private ResourceBundle appBundle;
     private Preferences appPrefs;
@@ -254,7 +257,7 @@ public class LMenuBar extends JMenuBar implements ActionListener
     // It fires event to the main class using strings
     public void actionPerformed(ActionEvent ae)
     {
-        //System.out.println("LMenuBar Event received !! (" + ae.getActionCommand() + ")");
+        //logger.debug("LMenuBar Event received !! (" + ae.getActionCommand() + ")");
 
 		if (ae.getSource() == rblanguageen)
 			this.firePropertyChange("langEN", false, true);
@@ -304,8 +307,9 @@ public class LMenuBar extends JMenuBar implements ActionListener
 			openURL("https://github.com/Neonunux/gnulecture/wiki");
 		else if (ae.getSource() == creditsMenu)
 		{
-			String text = "<html><b>ScoreDate v. 3.2<br>written by Massimo Callegari<br><br>";
-			text += "This is an open source software written in Java, inspired<br>by the Jalmus project<br><br>";
+			String text = "<html><b>GnuLecturenuLecture v. 3.3<br>written by Neonunux<br><br>";
+			text += "This is an open source software written in Java, inspired<br>by the GnuLecture project<br><br>";
+			text += "himself inspired<br>by the Jalmus project<br><br>";
 			text += "It is distributed under the GPL 3.0 license<br>(http://www.gnu.org/licenses/gpl-3.0.txt)";
 			text += "</b></html>";
 			JOptionPane.showMessageDialog(this.getParent(), text, 

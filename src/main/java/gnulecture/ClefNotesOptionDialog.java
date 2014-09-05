@@ -36,13 +36,16 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.Logger;
-
+import org.apache.logging.log4j.Logger;
+/**
+ * @author Neonunux
+ *
+ */
 @SuppressWarnings({"rawtypes","unchecked"})
 public class ClefNotesOptionDialog extends JDialog implements ActionListener
 {
 	private static final long serialVersionUID = -2654540587350157146L;
-	static final Logger logger = (Logger) LogManager.getLogger(ClefNotesOptionDialog.class.getName());
+	private static final Logger logger =  LogManager.getLogger(ClefNotesOptionDialog.class.getName());
 	ResourceBundle appBundle;
 	Font appFont;
 	Preferences appPrefs;
@@ -117,7 +120,7 @@ public class ClefNotesOptionDialog extends JDialog implements ActionListener
 		if (lowerPitch == -1) lowerPitch = 64; // default, set to E3
 		int higherPitch = Integer.parseInt(appPrefs.getProperty("ClefG2Upper"));
 		if (higherPitch == -1) higherPitch = 77; // default, set to F4
-		System.out.println("Treble Clef pitches: " + lowerPitch + " to " + higherPitch);
+		logger.debug("Treble Clef pitches: " + lowerPitch + " to " + higherPitch);
 		ClefG2.setLevels(24 - tmpNG.getIndexFromPitch(tmpNG.CLEF_G2_BASEPITCH, lowerPitch, false), 
 							 24 - tmpNG.getIndexFromPitch(tmpNG.CLEF_G2_BASEPITCH, higherPitch, false));
 		
@@ -134,7 +137,7 @@ public class ClefNotesOptionDialog extends JDialog implements ActionListener
 		if (lowerPitch == -1) lowerPitch = 43; // default, set to G1
 		higherPitch = Integer.parseInt(appPrefs.getProperty("ClefF4Upper"));
 		if (higherPitch == -1) higherPitch = 57; // default, set to A2
-		System.out.println("Bass Clef pitches: " + lowerPitch + " to " + higherPitch);
+		logger.debug("Bass Clef pitches: " + lowerPitch + " to " + higherPitch);
 		ClefF4.setLevels(24 - tmpNG.getIndexFromPitch(tmpNG.CLEF_F4_BASEPITCH, lowerPitch, false), 
 						   24 - tmpNG.getIndexFromPitch(tmpNG.CLEF_F4_BASEPITCH, higherPitch, false));
 
@@ -151,7 +154,7 @@ public class ClefNotesOptionDialog extends JDialog implements ActionListener
 		if (lowerPitch == -1) lowerPitch = 53; // default, set to F2
 		higherPitch = Integer.parseInt(appPrefs.getProperty("ClefC3Upper"));
 		if (higherPitch == -1) higherPitch = 67; // default, set to G3
-		System.out.println("C3 Clef pitches: " + lowerPitch + " to " + higherPitch);
+		logger.debug("C3 Clef pitches: " + lowerPitch + " to " + higherPitch);
 		ClefC3.setLevels(24 - tmpNG.getIndexFromPitch(tmpNG.CLEF_C3_BASEPITCH, lowerPitch, false), 
 						   24 - tmpNG.getIndexFromPitch(tmpNG.CLEF_C3_BASEPITCH, higherPitch, false));
 		
@@ -168,7 +171,7 @@ public class ClefNotesOptionDialog extends JDialog implements ActionListener
 		if (lowerPitch == -1) lowerPitch = 50; // default, set to D2
 		higherPitch = Integer.parseInt(appPrefs.getProperty("ClefC4Upper"));
 		if (higherPitch == -1) higherPitch = 64; // default, set to E3
-		System.out.println("C4 Clef pitches: " + lowerPitch + " to " + higherPitch);
+		logger.debug("C4 Clef pitches: " + lowerPitch + " to " + higherPitch);
 		ClefC4.setLevels(24 - tmpNG.getIndexFromPitch(tmpNG.CLEF_C4_BASEPITCH, lowerPitch, false), 
 							24 - tmpNG.getIndexFromPitch(tmpNG.CLEF_C4_BASEPITCH, higherPitch, false));
 		
@@ -376,7 +379,7 @@ public class ClefNotesOptionDialog extends JDialog implements ActionListener
 			{
 				int lowerPitch = tmpNG.getPitchFromLevel(tmpNG.CLEF_G2_BASEPITCH, 24 - ClefG2.getLowerLevel());
 				int higherPitch = tmpNG.getPitchFromLevel(tmpNG.CLEF_G2_BASEPITCH, 24 - ClefG2.getHigherLevel());
-				System.out.println("Treble Clef pitches: " + lowerPitch + " to " + higherPitch);
+				logger.debug("Treble Clef pitches: " + lowerPitch + " to " + higherPitch);
 				clefsMask = clefsMask | appPrefs.CLEF_G2;
 				appPrefs.setProperty("ClefG2Upper", Integer.toString(higherPitch));
 				appPrefs.setProperty("ClefG2Lower", Integer.toString(lowerPitch));
@@ -385,7 +388,7 @@ public class ClefNotesOptionDialog extends JDialog implements ActionListener
 			{
 				int lowerPitch = tmpNG.getPitchFromLevel(tmpNG.CLEF_F4_BASEPITCH, 24 - ClefF4.getLowerLevel());
 				int higherPitch = tmpNG.getPitchFromLevel(tmpNG.CLEF_F4_BASEPITCH, 24 - ClefF4.getHigherLevel());
-				System.out.println("Bass Clef pitches: " + lowerPitch + " to " + higherPitch);
+				logger.debug("Bass Clef pitches: " + lowerPitch + " to " + higherPitch);
 				clefsMask = clefsMask | appPrefs.CLEF_F4;
 				appPrefs.setProperty("ClefF4Upper", Integer.toString(higherPitch));
 				appPrefs.setProperty("ClefF4Lower", Integer.toString(lowerPitch));
@@ -394,7 +397,7 @@ public class ClefNotesOptionDialog extends JDialog implements ActionListener
 			{
 				int lowerPitch = tmpNG.getPitchFromLevel(tmpNG.CLEF_C3_BASEPITCH, 24 - ClefC3.getLowerLevel());
 				int higherPitch = tmpNG.getPitchFromLevel(tmpNG.CLEF_C3_BASEPITCH, 24 - ClefC3.getHigherLevel());
-				System.out.println("C3 Clef pitches: " + lowerPitch + " to " + higherPitch);
+				logger.debug("C3 Clef pitches: " + lowerPitch + " to " + higherPitch);
 				clefsMask = clefsMask | appPrefs.CLEF_C3;
 				appPrefs.setProperty("ClefC3Upper", Integer.toString(higherPitch));
 				appPrefs.setProperty("ClefC3Lower", Integer.toString(lowerPitch));
@@ -403,7 +406,7 @@ public class ClefNotesOptionDialog extends JDialog implements ActionListener
 			{
 				int lowerPitch = tmpNG.getPitchFromLevel(tmpNG.CLEF_C4_BASEPITCH, 24 - ClefC4.getLowerLevel());
 				int higherPitch = tmpNG.getPitchFromLevel(tmpNG.CLEF_C4_BASEPITCH, 24 - ClefC4.getHigherLevel());
-				System.out.println("C4 Clef pitches: " + lowerPitch + " to " + higherPitch);
+				logger.debug("C4 Clef pitches: " + lowerPitch + " to " + higherPitch);
 				clefsMask = clefsMask | appPrefs.CLEF_C4;
 				appPrefs.setProperty("ClefC4Upper", Integer.toString(higherPitch));
 				appPrefs.setProperty("ClefC4Lower", Integer.toString(lowerPitch));

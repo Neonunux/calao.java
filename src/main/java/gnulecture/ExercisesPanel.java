@@ -48,11 +48,14 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeSelectionModel;
 
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.Logger;
-
+import org.apache.logging.log4j.Logger;
+/**
+ * @author Neonunux
+ *
+ */
 public class ExercisesPanel extends JPanel implements TreeSelectionListener, ActionListener, PropertyChangeListener
 {
-	static final Logger logger = (Logger) LogManager.getLogger(ExercisesPanel.class.getName());
+	private static final Logger logger =  LogManager.getLogger(ExercisesPanel.class.getName());
 	private static final long serialVersionUID = -1142716145008143198L;
 	Font appFont;
 	Preferences appPrefs;
@@ -212,7 +215,7 @@ public class ExercisesPanel extends JPanel implements TreeSelectionListener, Act
 	
 	public void updateLanguage(ResourceBundle bundle)
 	{
-		System.out.println("EXERCISE - update language");
+		logger.debug("EXERCISE - update language");
 		appBundle = bundle;
 	}
 	
@@ -244,7 +247,7 @@ public class ExercisesPanel extends JPanel implements TreeSelectionListener, Act
             	DefaultMutableTreeNode dirNode = new DefaultMutableTreeNode(f.getName());
             	parentNode.add(dirNode);
                 walk( f.getAbsolutePath(), dirNode );
-                System.out.println( "Dir: " + f.getAbsolutePath() );
+                logger.debug( "Dir: " + f.getAbsolutePath() );
             }
             else 
             {
@@ -254,7 +257,7 @@ public class ExercisesPanel extends JPanel implements TreeSelectionListener, Act
             		DefaultMutableTreeNode dirNode = new DefaultMutableTreeNode(nInfo);
             		dirNode.setUserObject(nInfo);
             		parentNode.add(dirNode);
-            		System.out.println( "File: " + f.getAbsolutePath() );
+            		logger.debug( "File: " + f.getAbsolutePath() );
             	}
             }
         }
@@ -405,7 +408,7 @@ public class ExercisesPanel extends JPanel implements TreeSelectionListener, Act
 	
 	public void valueChanged(TreeSelectionEvent e) 
 	{
-		System.out.println("valueChanged---");
+		logger.debug("valueChanged---");
 		//Returns the last path element of the selection.
 	    DefaultMutableTreeNode selNode = (DefaultMutableTreeNode)exercisesList.getLastSelectedPathComponent();
 	    
@@ -417,7 +420,7 @@ public class ExercisesPanel extends JPanel implements TreeSelectionListener, Act
 	    }
 
 	    ExNodeInfo nInfo = (ExNodeInfo)selNode.getUserObject();
-        System.out.println("Tree node clicked. Absolute path: " + nInfo.filePath);
+        logger.debug("Tree node clicked. Absolute path: " + nInfo.filePath);
         selectedExercise = new Exercise(appPrefs);
         selectedExercise.loadFromFile(nInfo.filePath);
         
@@ -491,7 +494,7 @@ public class ExercisesPanel extends JPanel implements TreeSelectionListener, Act
 		int scaledWidth = (int)(panelsWidth * 1.66) - 10;
 		//int scaledHeight = (int)(totalStaffHeight * 1.66);
 
-		//System.out.println("panelsW: " + panelsWidth + ", panelsH: " + panelsHeight + ", totalH:" + totalStaffHeight + ", scaledW: " + scaledWidth + ", scaledH: " + scaledHeight);
+		//logger.debug("panelsW: " + panelsWidth + ", panelsH: " + panelsHeight + ", totalH:" + totalStaffHeight + ", scaledW: " + scaledWidth + ", scaledH: " + scaledHeight);
 
 		layers.setPreferredSize(new Dimension(panelsWidth, totalStaffHeight));
 		scoreStaff.setBounds(10, 0, scaledWidth, totalStaffHeight);

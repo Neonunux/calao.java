@@ -25,11 +25,14 @@ import java.util.ResourceBundle;
 import javax.swing.JPanel;
 
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.Logger;
-
+import org.apache.logging.log4j.Logger;
+/**
+ * @author Neonunux
+ *
+ */
 public class AudioMonitor extends JPanel
 {
-	static final Logger logger = (Logger) LogManager.getLogger(AudioMonitor.class.getName());
+	private static final Logger logger =  LogManager.getLogger(AudioMonitor.class.getName());
 	ResourceBundle appBundle;
 
 	double[] inputFFT;
@@ -96,7 +99,7 @@ public class AudioMonitor extends JPanel
 
 	public void showPitch(int p)
 	{
-		//System.out.println("[audioMon] got pitch " + p);
+		//logger.debug("[audioMon] got pitch " + p);
 		if (p == 23)
 		{
 			currentNote = "";

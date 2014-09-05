@@ -7,10 +7,13 @@ import java.util.List;
 import javax.sound.midi.ShortMessage;
 
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.Logger;
-
+import org.apache.logging.log4j.Logger;
+/**
+ * @author Neonunux
+ *
+ */
 public class Fluidsynth {
-	static final Logger logger = (Logger) LogManager.getLogger(Fluidsynth.class.getName());
+	private static final Logger logger =  LogManager.getLogger(Fluidsynth.class.getName());
 
 	private static final int NAME_MAX_LENGTH = 32;
 	
@@ -177,7 +180,7 @@ public class Fluidsynth {
 		String LINUX_ARCH_PATH = "linux";
 		File directory = null;
 		String arch = System.getProperty("sun.arch.data.model");
-		System.out.println("Running on " + arch + "bit system");
+		logger.debug("Running on " + arch + "bit system");
 
 		if (NativeUtils.isWindows()) {
 			if (arch.equals("64"))
@@ -195,7 +198,7 @@ public class Fluidsynth {
 					NativeUtils.load(new File(directory, "portaudio_x86.dll"));
 				NativeUtils.load(new File(directory, "libfluidsynth.dll"));
 			} catch (UnsatisfiedLinkError error) {
-				System.out.println("Dependencies not provided" + error);
+				logger.debug("Dependencies not provided" + error);
 			}
 		}
 
@@ -213,7 +216,7 @@ public class Fluidsynth {
 			NativeUtils.load(directory, "fluidsynthJNI");
 			//NativeUtils.load(new File(directory, "fluidsynthJNI.dll"));
 		} catch (UnsatisfiedLinkError error) {
-			System.out.println("Fluidsynth error: " + error);
+			logger.debug("Fluidsynth error: " + error);
 			throw new NoClassDefFoundError();
 		}
 	}	

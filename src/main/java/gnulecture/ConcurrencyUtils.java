@@ -40,7 +40,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.ThreadFactory;
 
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.Logger;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Concurrency utilities.
@@ -52,7 +52,7 @@ public class ConcurrencyUtils {
      * Thread pool.
      */
     private static final ExecutorService THREAD_POOL = Executors.newCachedThreadPool(new CustomThreadFactory(new CustomExceptionHandler()));
-	static final Logger logger = (Logger) LogManager.getLogger(ConcurrencyUtils.class.getName());
+	private static final Logger logger =  LogManager.getLogger(ConcurrencyUtils.class.getName());
 
     private static int THREADS_BEGIN_N_1D_FFT_2THREADS = 8192;
 

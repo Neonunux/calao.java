@@ -27,11 +27,14 @@ import java.util.Vector;
 import javax.swing.JPanel;
 
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.Logger;
-
+import org.apache.logging.log4j.Logger;
+/**
+ * @author Neonunux
+ *
+ */
 public class Piano extends JPanel 
 {
-static final Logger logger = (Logger) LogManager.getLogger(Piano.class.getName());
+private static final Logger logger =  LogManager.getLogger(Piano.class.getName());
 private static final long serialVersionUID = -5581159862523677986L;
   Vector<Key> whiteKeys = new Vector<Key>();
   Vector<Key> blackKeys = new Vector<Key>();

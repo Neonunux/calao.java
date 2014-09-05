@@ -30,11 +30,14 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.Logger;
-
+import org.apache.logging.log4j.Logger;
+/**
+ * @author Neonunux
+ *
+ */
 public class HomePanel extends JPanel
 {
-	static final Logger logger = (Logger) LogManager.getLogger(HomePanel.class.getName());
+	private static final Logger logger =  LogManager.getLogger(HomePanel.class.getName());
 	private static final long serialVersionUID = 1L;
 	Font appFont;
 	private ResourceBundle appBundle;
@@ -54,10 +57,10 @@ public class HomePanel extends JPanel
         }
         catch(Exception e)
         {
-            System.out.println("Cannot load logo image");
+            logger.debug("Cannot load logo image");
         }
         btnWidth = (d.width / 3) - 30;
-        System.out.println("Buttons width = "+ btnWidth);
+        logger.debug("Buttons width = "+ btnWidth);
 
 	    //setLayout(new BoxLayout( this, BoxLayout.Y_AXIS ) );
         //setLayout(null);
@@ -105,11 +108,11 @@ public class HomePanel extends JPanel
 	{
 		((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		
-		//System.out.println("[paintComponent] width = "+ this.getWidth());
+		//logger.debug("[paintComponent] width = "+ this.getWidth());
 		g.setColor(Color.white);
 		g.fillRect(0, 0, getWidth(), getHeight());
 		btnWidth = (this.getWidth() / 3) - 26;
-		//System.out.println("Buttons width = "+ btnWidth);
+		//logger.debug("Buttons width = "+ btnWidth);
 		g.drawImage(MainPic, (this.getWidth() / 2) - 300, 10, null);
 		homeButtons.setBounds(0, logoHeight, this.getWidth(), this.getHeight() - logoHeight);
 		int btnHeight = (this.getHeight() - logoHeight) / 2 - 16;

@@ -36,11 +36,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.Logger;
-
+import org.apache.logging.log4j.Logger;
+/**
+ * @author Neonunux
+ *
+ */
 public class InlinePanel extends JPanel implements ActionListener 
 {
-	static final Logger logger = (Logger) LogManager.getLogger(InlinePanel.class.getName());
+	private static final Logger logger =  LogManager.getLogger(InlinePanel.class.getName());
 	private static final long serialVersionUID = 1L;
 	private Font appFont;
 	private ResourceBundle appBundle;
@@ -112,7 +115,7 @@ public class InlinePanel extends JPanel implements ActionListener
 			{
 				if (evt.getPropertyName() == "updateParameters")
 				{
-					System.out.println("INLINE panel update parameters !");
+					logger.debug("INLINE panel update parameters !");
 					refreshPanel();
 				}
 			}
@@ -204,7 +207,7 @@ public class InlinePanel extends JPanel implements ActionListener
 			else
 				inlineNG.setNotesList(currEx.notes, currEx.notes2, false);
 			rowsDistance = inlineNG.getRowsDistanceFromClefs(currEx.clefMask);
-			System.out.println("[INLINE] rowsDistance: " + rowsDistance);
+			logger.debug("[INLINE] rowsDistance: " + rowsDistance);
 		}
 
 		sBar.tempoContainer.setEnabled(false);
@@ -216,7 +219,7 @@ public class InlinePanel extends JPanel implements ActionListener
 	
 	public void updateLanguage(ResourceBundle bundle)
 	{
-		System.out.println("INLINE - update language");
+		logger.debug("INLINE - update language");
 		appBundle = bundle;
 		sBar.updateLanguage(appBundle);
 		gameBar.updateLanguage(appBundle);
@@ -447,7 +450,7 @@ public class InlinePanel extends JPanel implements ActionListener
 			if (gameIdx == 3)
 			{
 //				sBar.tempoContainer.
-				System.out.println("temps : " + System.currentTimeMillis());
+				logger.debug("temps : " + System.currentTimeMillis());
 				//sBar.setTraining(true);
 			}
 		}
@@ -455,7 +458,7 @@ public class InlinePanel extends JPanel implements ActionListener
 	
 	private void pianoKeyPressed(Key k, boolean pressed)
 	{
-		System.out.println("[pianoKeyPressed] pitch = " + k.pitch);
+		logger.debug("[pianoKeyPressed] pitch = " + k.pitch);
 		if (pressed)
 		{
 			if (gameType == appPrefs.GAME_STOPPED)
@@ -545,7 +548,7 @@ public class InlinePanel extends JPanel implements ActionListener
 			System.out.print(game.get(i).pitch + " ");
 		System.out.print("  ");
 		System.out.print(user);
-    	System.out.println("");
+    	logger.debug("");
 		*/
 		if (gameType != appPrefs.INLINE_MORE_NOTES)
 		{
@@ -673,7 +676,7 @@ public class InlinePanel extends JPanel implements ActionListener
 				marginX = inlineStaff.getFirstNoteXPosition();
 				sleepVal *= 2; // slow down baby !
 			}
-			System.out.println("Thread increment: " + noteXincrement + ", sleep: " + sleepVal);
+			logger.debug("Thread increment: " + noteXincrement + ", sleep: " + sleepVal);
 		}
 
 		public void run() 
@@ -682,7 +685,7 @@ public class InlinePanel extends JPanel implements ActionListener
 			{
 				try
 				{
-					//System.out.println("Thread is running");
+					//logger.debug("Thread is running");
 					if (needNewNote == true)
 					{
 						if (gameType != appPrefs.INLINE_MORE_NOTES)
@@ -718,7 +721,7 @@ public class InlinePanel extends JPanel implements ActionListener
 							gameNotes.add(newNote);
 							if (gameType == appPrefs.INLINE_LEARN_NOTES)
 								setLearningInfo(true, -1);
-							System.out.println("Got note with pitch: " + newNote.pitch + " (level:" + newNote.level + ")");
+							logger.debug("Got note with pitch: " + newNote.pitch + " (level:" + newNote.level + ")");
 							if (gameType != appPrefs.INLINE_MORE_NOTES)
 								appMidi.playNote(newNote.pitch, 90);
 						}

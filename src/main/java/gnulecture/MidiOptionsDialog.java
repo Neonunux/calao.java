@@ -47,15 +47,18 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.filechooser.FileFilter;
 
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.Logger;
+import org.apache.logging.log4j.Logger;
 import org.jpab.Device;
 import org.jpab.PortAudio;
 import org.jpab.PortAudioException;
-
+/**
+ * @author Neonunux
+ *
+ */
 @SuppressWarnings({"rawtypes","unchecked"})
 public class MidiOptionsDialog extends JDialog implements ActionListener
 {
-	static final Logger logger = (Logger) LogManager.getLogger(MidiOptionsDialog.class.getName());
+	private static final Logger logger =  LogManager.getLogger(MidiOptionsDialog.class.getName());
 	private static final long serialVersionUID = 1L;
 	private ResourceBundle appBundle;
 	private Preferences appPrefs;
@@ -342,7 +345,7 @@ public class MidiOptionsDialog extends JDialog implements ActionListener
     	}
   	    catch (Exception e) 
   	    {
-  	      System.out.println(e);
+  	      logger.debug(e);
   	    }
 
     	// ******************************* buttons panel *****************************
@@ -417,7 +420,7 @@ public class MidiOptionsDialog extends JDialog implements ActionListener
 	{
 		instrumentsComboBox.removeAllItems();
 		if (iList != null)
-			System.out.println("Number of instruments: " +  iList.size());
+			logger.debug("Number of instruments: " +  iList.size());
 		if (iList != null && iList.size() > 0)
 		{
             for (int i=0; i<iList.size(); i++) 
@@ -469,9 +472,9 @@ public class MidiOptionsDialog extends JDialog implements ActionListener
 						if (inputDevIndex == idx)
 							inputDeviceComboBox.setSelectedIndex(inputDeviceComboBox.getItemCount() - 1);
 					}
-					//System.out.println(device);
-					System.out.println("Dev #" + idx + ": " + devName);
-					//System.out.println("Host API ID: " + device.getHostAPI().toString());
+					//logger.debug(device);
+					logger.debug("Dev #" + idx + ": " + devName);
+					//logger.debug("Host API ID: " + device.getHostAPI().toString());
 					idx++;
 				}
 				PortAudio.terminate();
@@ -655,7 +658,7 @@ public class MidiOptionsDialog extends JDialog implements ActionListener
 	        	int idx = 0;
 	            File file = fc.getSelectedFile();
 	            //This is where a real application would open the file.
-	            System.out.println("Opening: " + file.getAbsolutePath() + "(" + file.getName() + ")");
+	            logger.debug("Opening: " + file.getAbsolutePath() + "(" + file.getName() + ")");
 	            sbankPath.setText(file.getAbsolutePath());
 	            appPrefs.setProperty("soundfontPath", file.getAbsolutePath());
 	            if (NativeUtils.isWindows())
@@ -668,7 +671,7 @@ public class MidiOptionsDialog extends JDialog implements ActionListener
 	        } 
 	        else 
 	        {
-	        	System.out.println("Open command cancelled by user.");
+	        	logger.debug("Open command cancelled by user.");
 	        }
 		}
 	}

@@ -1,19 +1,19 @@
 package gnulecture;
 /***********************************************
-This file is part of the ScoreDate project (https://github.com/Neonunux/gnulecture/wiki).
+This file is part of the GnuLecture project (https://github.com/Neonunux/gnulecture/wiki).
 
-ScoreDate is free software: you can redistribute it and/or modify
+GnuLecture is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
 
-ScoreDate is distributed in the hope that it will be useful,
+GnuLecture is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with ScoreDate.  If not, see <http://www.gnu.org/licenses/>.
+along with GnuLecture.  If not, see <http://www.gnu.org/licenses/>.
 
 **********************************************/
 
@@ -45,12 +45,15 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.Logger;
-
+import org.apache.logging.log4j.Logger;
+/**
+ * @author Neonunux
+ *
+ */
 @SuppressWarnings({"rawtypes","unchecked"})
 public class SmartBar extends JPanel implements ActionListener, ChangeListener 
 {
-	static final Logger logger = (Logger) LogManager.getLogger(SmartBar.class.getName());
+	private static final Logger logger =  LogManager.getLogger(SmartBar.class.getName());
 	private static final long serialVersionUID = 4914147249638690529L;
 	ResourceBundle appBundle;
 	Preferences appPrefs;
@@ -322,7 +325,7 @@ public class SmartBar extends JPanel implements ActionListener, ChangeListener
 	{
 		if (ae.getSource() == clefNoteBtn)
 		{
-			System.out.println("SmartBar Event received !! (" + ae.getActionCommand() + ")");
+			logger.debug("SmartBar Event received !! (" + ae.getActionCommand() + ")");
 			clefNotesDialog = new ClefNotesOptionDialog(appFont, appBundle, appPrefs);
 			clefNotesDialog.setVisible(true);
 			clefNotesDialog.addPropertyChangeListener(new PropertyChangeListener() {
@@ -330,7 +333,7 @@ public class SmartBar extends JPanel implements ActionListener, ChangeListener
 				{
 					if (evt.getPropertyName() == "updateParameters")
 					{
-						System.out.println("ClefNotesOptionDialog update parameters.");
+						logger.debug("ClefNotesOptionDialog update parameters.");
 						firePropertyChange("updateParameters", false, true);
 					}
 				}
@@ -365,7 +368,7 @@ public class SmartBar extends JPanel implements ActionListener, ChangeListener
 	protected void paintComponent(Graphics g) 
 	{
 		((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		//System.out.println("SmartBar paintComponent. w: " + getWidth() + ", h: " + getHeight());
+		//logger.debug("SmartBar paintComponent. w: " + getWidth() + ", h: " + getHeight());
 		//g.setColor(Color.decode("0xAFC6E9"));
 		GradientPaint vertGrad = new GradientPaint(0, 0, Color.decode("0xAFC6E9"), 0, getHeight() - 50, Color.decode("0x4D5D8F"));
 		((Graphics2D) g).setPaint(vertGrad);

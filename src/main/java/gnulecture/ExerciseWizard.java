@@ -37,16 +37,15 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.Logger;
-
-/*
- * 
+import org.apache.logging.log4j.Logger;
+/**
  *                EXERCISE WIZARD - FIRST STEP DIALOG
- * 
+ * @author Neonunux
+ *
  */
 public class ExerciseWizard extends JDialog
 {
-	static final Logger logger = (Logger) LogManager.getLogger(ExerciseWizard.class.getName());
+	private static final Logger logger =  LogManager.getLogger(ExerciseWizard.class.getName());
 	private static final long serialVersionUID = 2656910435412692590L;
 	ResourceBundle appBundle;
 	Preferences appPrefs;

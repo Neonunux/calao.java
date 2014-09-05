@@ -20,11 +20,14 @@ along with GnuLecture.  If not, see <http://www.gnu.org/licenses/>.
 import java.util.Vector;
 
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.Logger;
-
+import org.apache.logging.log4j.Logger;
+/**
+ * @author Neonunux
+ *
+ */
 public class NoteGenerator 
 {
-	static final Logger logger = (Logger) LogManager.getLogger(NoteGenerator.class.getName());
+	private static final Logger logger =  LogManager.getLogger(NoteGenerator.class.getName());
 	Preferences appPrefs;
 	Accidentals accidentals;
 
@@ -312,7 +315,7 @@ public class NoteGenerator
     			ts2 = n2.get(idx2).timestamp;
     			if (ts == -1) ts = 999999;
     		}
-    		System.out.println("[NG setNotesList] idx: " + idx + " (ts="+ ts + ") idx2: " + idx2 + " (ts2=" + ts2 + ")");
+    		logger.debug("[NG setNotesList] idx: " + idx + " (ts="+ ts + ") idx2: " + idx2 + " (ts2=" + ts2 + ")");
     		if (ts <= ts2)
     		{
     			randomPitchList.add(n.get(idx));
@@ -375,7 +378,7 @@ public class NoteGenerator
     	// find the index on sharpsMatrix/flatsMatrix to add correctly alterated notes
     	int matrixIdx = lowIdx % 7;
     	
-    	System.out.println("[NG addRange] clef: " + clef + ", lower: " + lower + ", upper: " + upper);
+    	logger.debug("[NG addRange] clef: " + clef + ", lower: " + lower + ", upper: " + upper);
 
     	if (randomPitchList.size() == 0)
     		baseRangeClef = clef;
@@ -404,7 +407,7 @@ public class NoteGenerator
 
     	for (int n = 0; n < randomPitchList.size(); n++)
     		System.out.print(randomPitchList.get(n).pitch + ", ");
-    	System.out.println("");
+    	logger.debug("");
     }
     
     public int getNotesNumber()
@@ -508,7 +511,7 @@ public class NoteGenerator
     		int altIdx = alteredList.indexOf(randNote.pitch);
     		int altOffset = alteredList.get(altIdx) - baseList.get(altIdx);
     		
-    		//System.out.println("[NG getRandomNote] pitch: " + randNote.pitch + ", randAlt: " + randAlt + ", altOffset: " + altOffset);
+    		//logger.debug("[NG getRandomNote] pitch: " + randNote.pitch + ", randAlt: " + randAlt + ", altOffset: " + altOffset);
     		randNote.pitch += randAlt;
     		
     		switch (altOffset)
@@ -531,9 +534,9 @@ public class NoteGenerator
     		}
     	}
 
-    	//System.out.println("[NG getRandomNote] clef: " + baseRangeClef + ", addRangeIndex: " + addRangeIndex);
-    	//System.out.println("selClef: " + selClef + ", level: " + level);
-    	//System.out.println("New random pitch = " + pitch);
+    	//logger.debug("[NG getRandomNote] clef: " + baseRangeClef + ", addRangeIndex: " + addRangeIndex);
+    	//logger.debug("selClef: " + selClef + ", level: " + level);
+    	//logger.debug("New random pitch = " + pitch);
 
     	return randNote;
     }
@@ -571,8 +574,8 @@ public class NoteGenerator
     	Note newNote = randomPitchList.get(randIndex);
     	Note randNote = new Note(0, baseNote.clef, newNote.level, newNote.pitch, 4, baseNote.secondRow, newNote.altType);
 
-    	//System.out.println("Triplet base: " + basePitch + ", baseIndex: " + baseIndex + ", randIdx: " + randIndex);
-    	//System.out.println("Triplet new note: " +  randNote.pitch + ", level: " + randNote.level + ", dur: " + randNote.duration);
+    	//logger.debug("Triplet base: " + basePitch + ", baseIndex: " + baseIndex + ", randIdx: " + randIndex);
+    	//logger.debug("Triplet new note: " +  randNote.pitch + ", level: " + randNote.level + ", dur: " + randNote.duration);
     	
     	return randNote;
     }
@@ -635,11 +638,11 @@ public class NoteGenerator
     				
 					measureCounter--; // one quarter for the triplet group
     				seq.add(tmpNote);
-    				System.out.println("Random Note: #" + seq.size() + ": Pitch: " + tmpNote.pitch + ", level: " + tmpNote.level);
+    				logger.debug("Random Note: #" + seq.size() + ": Pitch: " + tmpNote.pitch + ", level: " + tmpNote.level);
     				seq.add(secondNote);
-    				System.out.println("Random Note: #" + seq.size() + ": Pitch: " + secondNote.pitch + ", level: " + secondNote.level);
+    				logger.debug("Random Note: #" + seq.size() + ": Pitch: " + secondNote.pitch + ", level: " + secondNote.level);
     				seq.add(thirdNote);
-    				System.out.println("Random Note: #" + seq.size() + ": Pitch: " + thirdNote.pitch + ", level: " + thirdNote.level);
+    				logger.debug("Random Note: #" + seq.size() + ": Pitch: " + thirdNote.pitch + ", level: " + thirdNote.level);
     				continue;
     				
     			}
@@ -660,7 +663,7 @@ public class NoteGenerator
     				tmpNote.pitch = getRhythmPitch(tmpNote.clef);
     			}
 
-    			//System.out.println("Generated note pitch: " + tmpNote.pitch + ", duration: " + tmpNote.duration);
+    			//logger.debug("Generated note pitch: " + tmpNote.pitch + ", duration: " + tmpNote.duration);
     			if (tmpNote.duration <= measureCounter)
     			{
     				measureCounter -= tmpNote.duration;
@@ -668,10 +671,10 @@ public class NoteGenerator
     				if (tmpNote.type == 3)
     					eighthPresent = true;
     				tmpNote.setTimeStamp(timeCounter);
-    				//System.out.println("Random Note: #" + seq.size() + ": p: " + tmpNote.pitch + ", lev: " + tmpNote.level + ", type: " + tmpNote.type + ", ts: " + timeCounter);
+    				//logger.debug("Random Note: #" + seq.size() + ": p: " + tmpNote.pitch + ", lev: " + tmpNote.level + ", type: " + tmpNote.type + ", ts: " + timeCounter);
     				timeCounter+=tmpNote.duration;
     			}
-    			//System.out.println("tempMesCnt: " + measureCounter);
+    			//logger.debug("tempMesCnt: " + measureCounter);
     		}
     	}
     }
@@ -694,7 +697,7 @@ public class NoteGenerator
     	int[] addNotes = { 0, 0 };
     	Note baseNote = getRandomNote(0, false, -1);
     	
-    	System.out.println("[getRandomChordorInterval] randType: " + randType);
+    	logger.debug("[getRandomChordorInterval] randType: " + randType);
     	
     	baseNote.xpos = xpos;
     	seq.add(baseNote);
@@ -719,7 +722,7 @@ public class NoteGenerator
         	int addNoteIdx = baseList.indexOf(addNoteBasePitch);
         	int altOnClef = alteredList.get(addNoteIdx) - baseList.get(addNoteIdx);
         	int altType = addNotes[i] - alteredList.get(addNoteIdx);
-        	System.out.println("BEFORE altType: " + altType + ", altOnClef: " + altOnClef);
+        	logger.debug("BEFORE altType: " + altType + ", altOnClef: " + altOnClef);
         	if (altType != 0 && altOnClef != 0)
         	{
         		if (altType + altOnClef == 0)
@@ -728,8 +731,8 @@ public class NoteGenerator
         			altType += altOnClef;
         	}
 
-    		//System.out.println("addNotes: " + addNotes[i] + ", idx: " + addIndex + ", lev: " + level);
-        	System.out.println("AFTER altType: " + altType + ", altOnClef: " + altOnClef);
+    		//logger.debug("addNotes: " + addNotes[i] + ", idx: " + addIndex + ", lev: " + level);
+        	logger.debug("AFTER altType: " + altType + ", altOnClef: " + altOnClef);
         	if (chord == false && intervalDegree == 2)
         		xpos -= 20;
         	Note newNote = new Note(xpos, baseNote.clef, level, addNotes[i], 0, baseNote.secondRow, altType);

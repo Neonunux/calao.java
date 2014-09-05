@@ -33,11 +33,14 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.Logger;
-
+import org.apache.logging.log4j.Logger;
+/**
+ * @author Neonunux
+ *
+ */
 public class RoundedButton extends JButton
 {
-	static final Logger logger = (Logger) LogManager.getLogger(RoundedButton.class.getName());
+	private static final Logger logger =  LogManager.getLogger(RoundedButton.class.getName());
 	  private static final long serialVersionUID = 8458705986423151858L;
 	  private String bLabel;
 	  private ResourceBundle appBundle;

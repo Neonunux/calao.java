@@ -1,19 +1,19 @@
 package gnulecture;
 /***********************************************
-This file is part of the ScoreDate project (https://github.com/Neonunux/gnulecture/wiki).
+This file is part of the GnuLecture project (https://github.com/Neonunux/gnulecture/wiki).
 
-ScoreDate is free software: you can redistribute it and/or modify
+GnuLecture is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
 
-ScoreDate is distributed in the hope that it will be useful,
+GnuLecture is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with ScoreDate.  If not, see <http://www.gnu.org/licenses/>.
+along with GnuLecture.  If not, see <http://www.gnu.org/licenses/>.
 
 **********************************************/
 
@@ -28,15 +28,16 @@ import java.util.Vector;
 import javax.swing.JPanel;
 
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.Logger;
+import org.apache.logging.log4j.Logger;
 
 /**
+ * @author Neonunux
  * @author Massimo Callegari
  *
  */
 public class Staff extends JPanel 
 {
-	static final Logger logger = (Logger) LogManager.getLogger(Staff.class.getName());
+	private static final Logger logger =  LogManager.getLogger(Staff.class.getName());
 	private static final long serialVersionUID = 7759085255881441116L;
 
 	Font appFont;
@@ -183,7 +184,7 @@ public class Staff extends JPanel
     	else 
     		scoreLineWidth = getWidth();
 
-    	//System.out.println("[getStaffWidth] staff width: " + scoreLineWidth);
+    	//logger.debug("[getStaffWidth] staff width: " + scoreLineWidth);
     	return scoreLineWidth;
     }
     
@@ -222,7 +223,7 @@ public class Staff extends JPanel
         	{
         		numberOfMeasuresPerRow = (getWidth() - scoreLineWidth) / beatW;
         		numberOfRows = (int)Math.ceil((double)forcedNumberOfMeasures / (double)numberOfMeasuresPerRow);
-        		//System.out.println("[Staff] numberOfMeasuresPerRow: " + numberOfMeasuresPerRow + ", numberOfRows: " + numberOfRows);
+        		//logger.debug("[Staff] numberOfMeasuresPerRow: " + numberOfMeasuresPerRow + ", numberOfRows: " + numberOfRows);
         	}
         	
         	scoreLineWidth += (numberOfMeasuresPerRow * beatW);
@@ -246,7 +247,7 @@ public class Staff extends JPanel
  		g.fillRect(0, 0, getWidth(), getHeight());
 		g.setColor(Color.black);
 		
-		//System.out.println("[Staff - paintComponent] w = " + getWidth());
+		//logger.debug("[Staff - paintComponent] w = " + getWidth());
 
         int yPos = scoreYpos;
         int vXPos = calculateSize();

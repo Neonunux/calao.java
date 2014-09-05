@@ -27,11 +27,14 @@ import java.awt.Graphics2D;
 import javax.swing.JProgressBar;
 
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.Logger;
-
+import org.apache.logging.log4j.Logger;
+/**
+ * @author Neonunux
+ *
+ */
 public class GradientBar extends JProgressBar
 {
-	static final Logger logger = (Logger) LogManager.getLogger(GradientBar.class.getName());
+	private static final Logger logger =  LogManager.getLogger(GradientBar.class.getName());
 	private static final long serialVersionUID = 5027733950216091052L;
 
 	public GradientBar(int min, int max)

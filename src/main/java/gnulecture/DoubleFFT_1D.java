@@ -36,7 +36,7 @@ package gnulecture;
 import java.util.concurrent.Future;
 
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.Logger;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Computes 1D Discrete Fourier Transform (DFT) of complex and real, double
@@ -52,7 +52,7 @@ import org.apache.logging.log4j.core.Logger;
  * 
  */
 public class DoubleFFT_1D {
-	static final Logger logger = (Logger) LogManager.getLogger(DoubleFFT_1D.class.getName());
+	private static final Logger logger =  LogManager.getLogger(DoubleFFT_1D.class.getName());
 
     private static enum Plans {
         SPLIT_RADIX, MIXED_RADIX, BLUESTEIN

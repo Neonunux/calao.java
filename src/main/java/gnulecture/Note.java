@@ -1,7 +1,7 @@
 package gnulecture;
 
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.Logger;
+import org.apache.logging.log4j.Logger;
 
 /***********************************************
 This file is part of the GnuLecture project (https://github.com/Neonunux/gnulecture/wiki).
@@ -20,10 +20,13 @@ You should have received a copy of the GNU General Public License
 along with GnuLecture.  If not, see <http://www.gnu.org/licenses/>.
 
 **********************************************/
-
+/**
+ * @author Neonunux
+ *
+ */
 public class Note 
 {
-	static final Logger logger = (Logger) LogManager.getLogger(Note.class.getName());
+	private static final Logger logger =  LogManager.getLogger(Note.class.getName());
 	public int xpos;
 	public int ypos;
 	public int type; // 0 whole, 1 half, 2 quarter, 3 eighth, 4 triplet, 5 silence, 6 dotted half, 7 dotted quarter
@@ -66,7 +69,7 @@ public class Note
 			case 7: duration = 1.5; break;
 		}
 		
-		//System.out.println("[Note] t: " + type + ", p: " + pitch + ", l: " + level + ", dur: " + duration + ", alt: " + altType);
+		//logger.debug("[Note] t: " + type + ", p: " + pitch + ", l: " + level + ", dur: " + duration + ", alt: " + altType);
 		
 		ypos = 0; // y positions are calculated by the NotesPanel
 	}

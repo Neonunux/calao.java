@@ -9,7 +9,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ScoreDateTest {
+public class GnuLectureTest {
 //	@Mock
 //	private AudioInputController audioControl;
 //
@@ -22,10 +22,10 @@ public class ScoreDateTest {
 //	@Mock
 //	private Font musiSync;
 //	@InjectMocks
-//	private ScoreDate scoreDate;
+//	private GnuLecture scoreDate;
 
 	@Test
-	public void testScoreDate() throws Exception {
+	public void testGnuLecture() throws Exception {
 		return;
 	}
 

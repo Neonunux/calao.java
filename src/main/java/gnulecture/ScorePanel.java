@@ -1,19 +1,19 @@
 package gnulecture;
 /***********************************************
-This file is part of the ScoreDate project (https://github.com/Neonunux/gnulecture/wiki).
+This file is part of the GnuLecture project (https://github.com/Neonunux/gnulecture/wiki).
 
-ScoreDate is free software: you can redistribute it and/or modify
+GnuLecture is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
 
-ScoreDate is distributed in the hope that it will be useful,
+GnuLecture is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with ScoreDate.  If not, see <http://www.gnu.org/licenses/>.
+along with GnuLecture.  If not, see <http://www.gnu.org/licenses/>.
 
 **********************************************/
 
@@ -40,12 +40,15 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.Logger;
+import org.apache.logging.log4j.Logger;
 
-
+/**
+ * @author Neonunux
+ *
+ */
 public class ScorePanel extends JPanel implements ActionListener, KeyListener
 {
-	static final Logger logger = (Logger) LogManager.getLogger(ScorePanel.class.getName());
+	private static final Logger logger =  LogManager.getLogger(ScorePanel.class.getName());
 	private static final long serialVersionUID = 1L;
 	Font appFont;
 	Preferences appPrefs;
@@ -135,7 +138,7 @@ public class ScorePanel extends JPanel implements ActionListener, KeyListener
 			{
 				if (evt.getPropertyName() == "updateParameters")
 				{
-					System.out.println("SCORE panel update parameters !");
+					logger.debug("SCORE panel update parameters !");
 					refreshPanel();
 				}
 			}
@@ -207,7 +210,7 @@ public class ScorePanel extends JPanel implements ActionListener, KeyListener
 			notesLayer.setRowsDistance(rowsDistance);
 			staffLayer.setClefs(scoreNG.getClefMask());
 			notesLayer.setClefs(scoreNG.getClefMask());
-			System.out.println("[ScorePanel] Staff width: " + staffLayer.getStaffWidth() + ", rowsDistance: " + rowsDistance);
+			logger.debug("[ScorePanel] Staff width: " + staffLayer.getStaffWidth() + ", rowsDistance: " + rowsDistance);
 			tsIdx = Integer.parseInt(appPrefs.getProperty("timeSignature"));
 		}
 		else
@@ -402,7 +405,7 @@ public class ScorePanel extends JPanel implements ActionListener, KeyListener
 			}
 
 			if (n.size() == 0) return; // security check
-		    System.out.println("[checkNote *pressed*] noteIdx: " + noteIdx + 
+		    logger.debug("[checkNote *pressed*] noteIdx: " + noteIdx + 
 					   ", xpos: " + n.get(noteIdx).xpos +
 					   ", cursor: " + cursorPos +
 			           ", noteMargin: " + noteMargin);
@@ -414,7 +417,7 @@ public class ScorePanel extends JPanel implements ActionListener, KeyListener
 			if (idx > 0 && pitch != n.get(idx).pitch) 
 				idx--;
 			int releaseXpos = n.get(idx).xpos + (int)(72 * n.get(idx).duration) + (accuracy / 2);
-			System.out.println("[checkNote *release*] cursorPos: " +  cursorPos + 
+			logger.debug("[checkNote *release*] cursorPos: " +  cursorPos + 
 						", noteXpos: " + n.get(idx).xpos + ", releaseXpos: " + releaseXpos);
 			 
 			if (((cursorPos < releaseXpos - (accuracy * 2) && cursorPos > cursorStartX + accuracy) || cursorPos > releaseXpos) && 
@@ -449,7 +452,7 @@ public class ScorePanel extends JPanel implements ActionListener, KeyListener
 		byte[] metaData = msg.getData();
         String strData = new String(metaData);
        
-        //System.out.println("*SCOREPANEL* META message: text= " + strData);
+        //logger.debug("*SCOREPANEL* META message: text= " + strData);
 
         if ("beat".equals(strData)) 
         {
@@ -477,7 +480,7 @@ public class ScorePanel extends JPanel implements ActionListener, KeyListener
 	        	{
 	        		int scrollAmount = scoreScrollPanel.getVerticalScrollBar().getMaximum() + rowsDistance - scoreScrollPanel.getVerticalScrollBar().getVisibleAmount();
 	        		int newPos = (scrollAmount * ((currentNoteIndex * 100) / gameNotes.size())) / 100;
-	        		//System.out.println("Scrollbar amount: " + newPos);
+	        		//logger.debug("Scrollbar amount: " + newPos);
 	        		scoreScrollPanel.getVerticalScrollBar().setValue(newPos);
 	        	}
         	}
@@ -498,7 +501,7 @@ public class ScorePanel extends JPanel implements ActionListener, KeyListener
 	        	{
 	        		int scrollAmount = scoreScrollPanel.getVerticalScrollBar().getMaximum() + rowsDistance - scoreScrollPanel.getVerticalScrollBar().getVisibleAmount();
 	        		int newPos = (scrollAmount * ((currentNoteIndex * 100) / gameNotes.size())) / 100;
-	        		//System.out.println("Scrollbar amount: " + newPos);
+	        		//logger.debug("Scrollbar amount: " + newPos);
 	        		scoreScrollPanel.getVerticalScrollBar().setValue(newPos);
 	        	}
         	}
@@ -534,7 +537,7 @@ public class ScorePanel extends JPanel implements ActionListener, KeyListener
     /** Handle the key-pressed event from the text field. */
     public void keyPressed(KeyEvent e) 
     {
-    	//System.out.println("GOT KEYPRESS");
+    	//logger.debug("GOT KEYPRESS");
     	if (isKeyPressed == false)
     	{
     		noteEvent(71, 90);
@@ -545,7 +548,7 @@ public class ScorePanel extends JPanel implements ActionListener, KeyListener
     /** Handle the key-released event from the text field. */
     public void keyReleased(KeyEvent e) 
     {
-    	//System.out.println("GOT KEYRELEASE");
+    	//logger.debug("GOT KEYRELEASE");
     	noteEvent(71, 0);
     	isKeyPressed = false;
     }
@@ -688,7 +691,7 @@ public class ScorePanel extends JPanel implements ActionListener, KeyListener
 		scoreScrollPanel.validate();
 		gameBar.setBounds(0, getHeight() - gBarHeight, getWidth(), gBarHeight);		
 
-		//System.out.println("--------- REFRESH PANEL ********** w: " + w + ", vH: " + visibleStaffHeight + ", tH: " + totalStaffHeight);
+		//logger.debug("--------- REFRESH PANEL ********** w: " + w + ", vH: " + visibleStaffHeight + ", tH: " + totalStaffHeight);
 		/*
 		rowsDistance = scoreNG.getRowsDistance();
 		staffLayer.setRowsDistance(rowsDistance);
@@ -710,7 +713,7 @@ public class ScorePanel extends JPanel implements ActionListener, KeyListener
 
 		private ScoreGameThread()
 		{
-			//System.out.println("beatsPerRow: " + beatsPerRow);
+			//logger.debug("beatsPerRow: " + beatsPerRow);
 		}
 
 		public void run() 
@@ -733,15 +736,15 @@ public class ScorePanel extends JPanel implements ActionListener, KeyListener
 							startTime = System.currentTimeMillis();
 							if (cursorY > 10 + rowsDistance)
 							{
-								//System.out.println("Scrollbar min: " + scoreScrollPanel.getVerticalScrollBar().getMinimum() + ", max: "
+								//logger.debug("Scrollbar min: " + scoreScrollPanel.getVerticalScrollBar().getMinimum() + ", max: "
 								//		+ scoreScrollPanel.getVerticalScrollBar().getMaximum());
-								//System.out.println("Scrollbar value: " + scoreScrollPanel.getVerticalScrollBar().getValue());
-								//System.out.println("Scrollbar amount: " + scoreScrollPanel.getVerticalScrollBar().getVisibleAmount());
+								//logger.debug("Scrollbar value: " + scoreScrollPanel.getVerticalScrollBar().getValue());
+								//logger.debug("Scrollbar amount: " + scoreScrollPanel.getVerticalScrollBar().getVisibleAmount());
 								
 					        	if (scoreScrollPanel.getVerticalScrollBar().isVisible() == true)
 					        	{
 					        		//int newPos = (scrollAmount * (drawnPixels + cursorX - cursorStartX)) / totalPixels;
-					        		//System.out.println("Scrollbar amount: " + newPos);
+					        		//logger.debug("Scrollbar amount: " + newPos);
 					        		int newPos = scoreScrollPanel.getVerticalScrollBar().getValue() + scrollStep;
 					        		scoreScrollPanel.getVerticalScrollBar().setValue(newPos);
 					        	}

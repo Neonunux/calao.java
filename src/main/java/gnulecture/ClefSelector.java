@@ -33,13 +33,16 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.Logger;
-
+import org.apache.logging.log4j.Logger;
+/**
+ * @author Neonunux
+ *
+ */
 @SuppressWarnings({"unchecked","rawtypes"})
 public class ClefSelector extends JPanel implements MouseListener
 {
 	private static final long serialVersionUID = -3872352788125977616L;
-	static final Logger logger = (Logger) LogManager.getLogger(ClefSelector.class.getName());
+	private static final Logger logger =  LogManager.getLogger(ClefSelector.class.getName());
 
 	ResourceBundle appBundle;
 	String clefSymbol;
@@ -149,8 +152,8 @@ public class ClefSelector extends JPanel implements MouseListener
 
 	public void mouseClicked(MouseEvent e) 
 	{
-		//System.out.println("Mouse clicked (# of clicks: " + e.getClickCount() + ")");
-		System.out.println("X pos: " + e.getX() + ", Y pos: " + e.getY());
+		//logger.debug("Mouse clicked (# of clicks: " + e.getClickCount() + ")");
+		logger.debug("X pos: " + e.getX() + ", Y pos: " + e.getY());
 
 		if (e.getX() < 50 )
 		{
@@ -207,7 +210,7 @@ public class ClefSelector extends JPanel implements MouseListener
 		{
 			int relYpos = e.getY() - 14;
 			int level = (relYpos / 7);
-			System.out.println("[ClefSelector] New level = " + level);
+			logger.debug("[ClefSelector] New level = " + level);
 
 			if (e.getX() < 90)
 			{
@@ -229,22 +232,22 @@ public class ClefSelector extends JPanel implements MouseListener
 
 	public void mousePressed(MouseEvent e) 
 	{
-		//System.out.println("Mouse pressed; # of clicks: " + e.getClickCount());
+		//logger.debug("Mouse pressed; # of clicks: " + e.getClickCount());
 	}
 
 	public void mouseReleased(MouseEvent e) 
 	{
-		//System.out.println("Mouse released; # of clicks: " + e.getClickCount());
+		//logger.debug("Mouse released; # of clicks: " + e.getClickCount());
 	}
 
 	public void mouseEntered(MouseEvent e) 
 	{
-		//System.out.println("Mouse entered");
+		//logger.debug("Mouse entered");
 	}
 
 	public void mouseExited(MouseEvent e) 
 	{
-		//System.out.println("Mouse exited");
+		//logger.debug("Mouse exited");
 	}
 
 	protected void paintComponent(Graphics g) 

@@ -37,12 +37,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.Logger;
-
+import org.apache.logging.log4j.Logger;
+/**
+ * @author Neonunux
+ *
+ */
 public class EarTrainingPanel extends JPanel implements ActionListener 
 {
 	private static final long serialVersionUID = 1L;
-	static final Logger logger = (Logger) LogManager.getLogger(EarTrainingPanel.class.getName());
+	private static final Logger logger =  LogManager.getLogger(EarTrainingPanel.class.getName());
 	Font appFont;
 	Preferences appPrefs;
 	private ResourceBundle appBundle;
@@ -97,7 +100,7 @@ public class EarTrainingPanel extends JPanel implements ActionListener
 			{
 				if (evt.getPropertyName() == "updateParameters")
 				{
-					System.out.println("EAR TRAINING panel update parameters !");
+					logger.debug("EAR TRAINING panel update parameters !");
 					refreshPanel();
 				}
 			}
@@ -249,7 +252,7 @@ public class EarTrainingPanel extends JPanel implements ActionListener
 	
 	public void updateLanguage(ResourceBundle bundle)
 	{
-		System.out.println("EAR TRAINING - update language");
+		logger.debug("EAR TRAINING - update language");
 		appBundle = bundle;
 		sBar.updateLanguage(appBundle);
 		gameBar.updateLanguage(appBundle);
@@ -454,7 +457,7 @@ public class EarTrainingPanel extends JPanel implements ActionListener
 	
 	private void pianoKeyPressed(Key k, boolean pressed)
 	{
-		System.out.println("[pianoKeyPressed] pitch = " + k.pitch);
+		logger.debug("[pianoKeyPressed] pitch = " + k.pitch);
 		checkNote(k.pitch, false);
 	}
 

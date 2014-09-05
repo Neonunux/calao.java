@@ -23,7 +23,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.Logger;
+import org.apache.logging.log4j.Logger;
 
 /*
  *  Preferences map:
@@ -74,9 +74,13 @@ import org.apache.logging.log4j.core.Logger;
  *  inputDevice      | input device to use to acquire notes [MIDI | Audio],index
  *  outputDevice     | outputDevice to reproduce notes [Java | Fluidsynth],index
  */
+/**
+ * @author Neonunux
+ *
+ */
 public class Preferences 
 {
-	static final Logger logger = (Logger) LogManager.getLogger(Preferences.class.getName());
+	private static final Logger logger =  LogManager.getLogger(Preferences.class.getName());
 	public int CLEF_G2 = 0x0001;
 	public int CLEF_F4 = 0x0002;
 	public int CLEF_C3 = 0x0004;
@@ -115,12 +119,12 @@ public class Preferences
 	  try
 	  {
 		prefs.load(new FileInputStream("gnulecture.properties"));
- 	    //  System.out.println("language = " + prefs.getProperty("language"));
+ 	    //  logger.debug("language = " + prefs.getProperty("language"));
 		prefs.list(System.out);
   	  }
   	  catch (Exception e) 
   	  {
- 	      System.out.println(e);
+ 	      logger.debug(e);
   	  }
 	}
 

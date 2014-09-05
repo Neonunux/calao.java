@@ -1,19 +1,19 @@
 package gnulecture;
 /***********************************************
-This file is part of the ScoreDate project (https://github.com/Neonunux/gnulecture/wiki).
+This file is part of the GnuLecture project (https://github.com/Neonunux/gnulecture/wiki).
 
-ScoreDate is free software: you can redistribute it and/or modify
+GnuLecture is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
 
-ScoreDate is distributed in the hope that it will be useful,
+GnuLecture is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with ScoreDate.  If not, see <http://www.gnu.org/licenses/>.
+along with GnuLecture.  If not, see <http://www.gnu.org/licenses/>.
 
 **********************************************/
 
@@ -53,11 +53,14 @@ import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.Logger;
-
+import org.apache.logging.log4j.Logger;
+/**
+ * @author Neonunux
+ *
+ */
 public class StatsPanel extends JPanel implements TreeSelectionListener, ActionListener
 {
-	static final Logger logger = (Logger) LogManager.getLogger(StatsPanel.class.getName());
+	private static final Logger logger =  LogManager.getLogger(StatsPanel.class.getName());
 	private static final long serialVersionUID = -3725519060278100632L;
 	Font appFont;
 	Preferences appPrefs;
@@ -77,7 +80,7 @@ public class StatsPanel extends JPanel implements TreeSelectionListener, ActionL
 	private JTree statsList;
 	private DefaultMutableTreeNode selNode; // currently selected node
 	private GraphPanel graphPanel;
-	File currDir; // the ScoreDate directory path
+	File currDir; // the GnuLecturenuLecture directory path
 	String[] SDSfiles; // Array of filenames (.sds) of the saved stats
 	Vector<statRecord> currentStats = new Vector<statRecord>(); // Vector of the currently selected statistics
 	private boolean[] showGame = { true, true, true };
@@ -222,13 +225,13 @@ public class StatsPanel extends JPanel implements TreeSelectionListener, ActionL
 		{
 		    public boolean accept(File dir, String name) 
 		    {
-		        return name.startsWith("ScoreDateStats_");
+		        return name.startsWith("GnuLectureGnuLectureStats_");
 		    }
 		};
 		
 		SDSfiles = SDdir.list(filter);
 		
-		System.out.println("Stats found in current dir: " + SDSfiles.length);
+		logger.debug("Stats found in current dir: " + SDSfiles.length);
 		
 		treePanel = new JPanel();
 		treePanel.setLayout(null);
@@ -382,7 +385,7 @@ public class StatsPanel extends JPanel implements TreeSelectionListener, ActionL
 		  while ((strLine = br.readLine()) != null)   
 		  {
 			  // Print the content on the console
-			  System.out.println (strLine);
+			  logger.debug (strLine);
 			  String[] recFields = strLine.split(","); 
 			  statRecord record = new statRecord();
 
@@ -434,14 +437,14 @@ public class StatsPanel extends JPanel implements TreeSelectionListener, ActionL
 		  in.close();
 		  fstream.close();
 		  
-		  System.out.println("--INLINE-- done. startDay: " + statInfo[0][0] + ", endDay: " + statInfo[0][1] + ", minScore: " + statInfo[0][2] + ", maxScore: " + statInfo[0][3]);
-		  System.out.println("--RHTYHM-- done. startDay: " + statInfo[1][0] + ", endDay: " + statInfo[1][1] + ", minScore: " + statInfo[1][2] + ", maxScore: " + statInfo[1][3]);
-		  System.out.println("--SCORE-- done. startDay: " + statInfo[2][0] + ", endDay: " + statInfo[2][1] + ", minScore: " + statInfo[2][2] + ", maxScore: " + statInfo[2][3]);
-		  System.out.println("--GLOBAL-- done. startDay: " + globalInfo[0] + ", endDay: " + globalInfo[1] + ", minScore: " + globalInfo[2] + ", maxScore: " + globalInfo[3]);
+		  logger.debug("--INLINE-- done. startDay: " + statInfo[0][0] + ", endDay: " + statInfo[0][1] + ", minScore: " + statInfo[0][2] + ", maxScore: " + statInfo[0][3]);
+		  logger.debug("--RHTYHM-- done. startDay: " + statInfo[1][0] + ", endDay: " + statInfo[1][1] + ", minScore: " + statInfo[1][2] + ", maxScore: " + statInfo[1][3]);
+		  logger.debug("--SCORE-- done. startDay: " + statInfo[2][0] + ", endDay: " + statInfo[2][1] + ", minScore: " + statInfo[2][2] + ", maxScore: " + statInfo[2][3]);
+		  logger.debug("--GLOBAL-- done. startDay: " + globalInfo[0] + ", endDay: " + globalInfo[1] + ", minScore: " + globalInfo[2] + ", maxScore: " + globalInfo[3]);
 		}
 		catch (Exception e)
 		{
-		  System.out.println("An exception occured while reading the file !!");	
+		  logger.debug("An exception occured while reading the file !!");	
 		}
 	}
 	
@@ -506,7 +509,7 @@ public class StatsPanel extends JPanel implements TreeSelectionListener, ActionL
 		    if (node.getLevel() == 1)
 		    {
 		    	DefaultMutableTreeNode parent = (DefaultMutableTreeNode)node.getParent();
-		        System.out.println("Node selected idx: " + parent.getIndex(node));
+		        logger.debug("Node selected idx: " + parent.getIndex(node));
 
 		        DefaultTreeModel treeModel = (DefaultTreeModel)statsList.getModel();
 
@@ -529,7 +532,7 @@ public class StatsPanel extends JPanel implements TreeSelectionListener, ActionL
 		    else if (node.getLevel() == 2)
 		    {
 		    	String[] lblFields = node.toString().split(" ");
-		    	System.out.println("Day: " + lblFields[lblFields.length - 1] + " selected");
+		    	logger.debug("Day: " + lblFields[lblFields.length - 1] + " selected");
 		    	singleDay = Integer.parseInt(lblFields[lblFields.length - 1]);
 		    	graphPanel.repaint();
 		    	updateResults();
@@ -676,10 +679,10 @@ public class StatsPanel extends JPanel implements TreeSelectionListener, ActionL
 					lastEntryIdx[tmpRec.gameType] = d;
 			}
 
-			System.out.println("[Pre-parse done] maxCount = " + maxCount + ", daysPlayed: "+ daysPlayed + ", exerciseMaxCount: " + exerciseMaxCount);
+			logger.debug("[Pre-parse done] maxCount = " + maxCount + ", daysPlayed: "+ daysPlayed + ", exerciseMaxCount: " + exerciseMaxCount);
 			if (maxCount > 1)
 				xAxisStep =  graphW / (maxCount - 1);
-			System.out.println("---> xAxisStep = " + xAxisStep);
+			logger.debug("---> xAxisStep = " + xAxisStep);
 
 			if (xAxisStep < 10 && xAxisStep != 0)
 			{
@@ -741,7 +744,7 @@ public class StatsPanel extends JPanel implements TreeSelectionListener, ActionL
 				{
 				  relYPos = ((tmpRec.totalScore - minScore) * (graphH - 5)) / scoreDiff;
 				  relYPos = graphH - 5 - relYPos;
-				  //System.out.println("count = " + sCount[tmpRec.gameType]);
+				  //logger.debug("count = " + sCount[tmpRec.gameType]);
 				  if (sCount[tmpRec.gameType] == 1)
 				  {
 				    g.setColor(getGameColor(tmpRec.gameType));
@@ -782,7 +785,7 @@ public class StatsPanel extends JPanel implements TreeSelectionListener, ActionL
 				  }
 				  else if (tmpRec.day != prevInfo[tmpRec.gameType][3] || s == lastEntryIdx[tmpRec.gameType])
 				  {
-					//System.out.println("avgScore: " + prevInfo[tmpRec.gameType][0]/prevInfo[tmpRec.gameType][1]);
+					//logger.debug("avgScore: " + prevInfo[tmpRec.gameType][0]/prevInfo[tmpRec.gameType][1]);
 					if (prevInfo[tmpRec.gameType][0] == 0)
 						relYPos = 0;
 					else
@@ -808,8 +811,8 @@ public class StatsPanel extends JPanel implements TreeSelectionListener, ActionL
 
 					if (s == lastEntryIdx[tmpRec.gameType])
 					{
-						//System.out.println("[Last index] gameType: " + tmpRec.gameType + ", day: " + tmpRec.day + ", last x pos:" + lastPos[tmpRec.gameType][0]);
-						//System.out.println("[Last index] lastDay: " + prevInfo[tmpRec.gameType][3] + ", last score: " + prevInfo[tmpRec.gameType][0]);
+						//logger.debug("[Last index] gameType: " + tmpRec.gameType + ", day: " + tmpRec.day + ", last x pos:" + lastPos[tmpRec.gameType][0]);
+						//logger.debug("[Last index] lastDay: " + prevInfo[tmpRec.gameType][3] + ", last score: " + prevInfo[tmpRec.gameType][0]);
 						if (tmpRec.day != prevInfo[tmpRec.gameType][3])
 						{
 							prevInfo[tmpRec.gameType][0] = tmpRec.totalScore;

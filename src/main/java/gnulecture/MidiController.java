@@ -42,11 +42,14 @@ import javax.sound.midi.Track;
 import javax.sound.midi.Transmitter;
 
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.Logger;
-
+import org.apache.logging.log4j.Logger;
+/**
+ * @author Neonunux
+ *
+ */
 public class MidiController 
 {
-	static final Logger logger = (Logger) LogManager.getLogger(LMenuBar.class.getName());
+	private static final Logger logger =  LogManager.getLogger(LMenuBar.class.getName());
 	Preferences appPrefs; 
 	
 	private MidiDevice inputDevice = null;
@@ -76,7 +79,7 @@ public class MidiController
 		appPrefs = p;
 		instrumentsList = new ArrayList<String>();
 		String outDevice = appPrefs.getProperty("outputDevice");
-		System.out.println("----------> Selected driver = " + outDevice);
+		logger.debug("----------> Selected driver = " + outDevice);
 		if (outDevice == "-1" || outDevice.equals("Java"))
 			initJavaSynth();
 		else if (outDevice.split(",")[0].equals("Fluidsynth"))
@@ -122,7 +125,7 @@ public class MidiController
            {
                if ((midiSynth = MidiSystem.getSynthesizer()) == null) 
                {
-                   System.out.println("getSynthesizer() failed!");
+                   logger.debug("getSynthesizer() failed!");
                    errorCode = 1;
                    return false;
                }
@@ -131,7 +134,7 @@ public class MidiController
        }
        catch (MidiUnavailableException e) 
        {
-           System.out.println("Midi System not available: MIDI output busy - please stop all the other applications using the MIDI system. "+e);
+           logger.debug("Midi System not available: MIDI output busy - please stop all the other applications using the MIDI system. "+e);
            midierror = true;
        }
 
@@ -149,12 +152,12 @@ public class MidiController
                else
                {
                    midierror = true;
-                   System.out.println("No instruments found !!");
+                   logger.debug("No instruments found !!");
                }
            }
            else
            {
-        	   System.out.println("NO SOUNDBANK FOUND !! Download one...");
+        	   logger.debug("NO SOUNDBANK FOUND !! Download one...");
         	   errorCode = 2;
            }
 
@@ -168,7 +171,7 @@ public class MidiController
 	 
 	public List<String> getInstruments()
 	{
-		System.out.println("Number of instruments: " +  instrumentsList.size());
+		logger.debug("Number of instruments: " +  instrumentsList.size());
 		if (useFluidsynth == false)
 		{
 			instrumentsList.clear();
@@ -189,7 +192,7 @@ public class MidiController
 		if (inputDevice != null && inputDevice.isOpen())
 			inputDevice.close();
 		 
-		//System.out.println("[TEST] selectedDeviceIdx: " + selectedDeviceIdx);
+		//logger.debug("[TEST] selectedDeviceIdx: " + selectedDeviceIdx);
 
 		if (selectedDeviceIdx > 0) // 0 means there are no available MIDI devices 
 		{
@@ -208,11 +211,11 @@ public class MidiController
 	                if (bAllowsInput == false) // non-input devices are excluded from the list !!
 	                	continue;
 
-	                System.out.println("[TEST] device #" + i + " bAllowsInput: " + bAllowsInput + ", name: " + aInfos[i].getName() + " (tmpIdx = " + tmpIdx + ")");
+	                logger.debug("[TEST] device #" + i + " bAllowsInput: " + bAllowsInput + ", name: " + aInfos[i].getName() + " (tmpIdx = " + tmpIdx + ")");
 
 	                if (bAllowsInput == true && tmpIdx == selectedDeviceIdx - 1) 
 	                {
-	                	System.out.println("[openDevice] Found selected device. Name: " + aInfos[i].getName());
+	                	logger.debug("[openDevice] Found selected device. Name: " + aInfos[i].getName());
 	                	deviceName = aInfos[i].getName();
 	                	try 
 	                    {
@@ -221,7 +224,7 @@ public class MidiController
 		       	        }
 		       	        catch (MidiUnavailableException e) 
 		       	        {
-		       	            System.out.println("Unable to open MIDI device (" + deviceName + ")");
+		       	            logger.debug("Unable to open MIDI device (" + deviceName + ")");
 		       	            return null;
 	       	            }
 		                    
@@ -271,7 +274,7 @@ public class MidiController
 			try {
 				fluidSynth = new Fluidsynth("fluidDriver", 1, 16, 256, 44100.0f, "portaudio", "", devIndex, 8, 1024, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f);
 			} catch (IOException expected) {
-				System.out.println("Cannot open Fluidsynth audio output driver!!");
+				logger.debug("Cannot open Fluidsynth audio output driver!!");
 				errorCode = 1;
 				return false;
 			}
@@ -282,18 +285,18 @@ public class MidiController
 		   if (devIndex == -1) devIndex = 0;
 		   for (String driver : drivers)
 		   {
-			System.out.println(driver);
+			logger.debug(driver);
 			if (driver.equals("file"))
 				continue;
 
 			fluidDevicesList.add(driver);
 			if (matchIdx == devIndex)
 			{
-				System.out.println("Fluidsynth is going to output on: " + driver);
+				logger.debug("Fluidsynth is going to output on: " + driver);
 				try {
 					fluidSynth = new Fluidsynth("fluidDriver", 1, 16, 256, 44100.0f, driver, null, devIndex, 8, 1024, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f);
 				} catch (IOException expected) {
-					System.out.println("Cannot open Fluidsynth audio output driver!!");
+					logger.debug("Cannot open Fluidsynth audio output driver!!");
 					errorCode = 1;
 					return false;
 				}
@@ -307,7 +310,7 @@ public class MidiController
 			if (bankPath != "-1")
 				fluidSynth.soundFontLoad(new File(bankPath));
 		} catch (IOException expected) {
-			System.out.println("Cannot load Fluidsynth soundfont !!");
+			logger.debug("Cannot load Fluidsynth soundfont !!");
 			fluidSynth.destroy();
 			errorCode = 2;
 			return false;
@@ -320,7 +323,7 @@ public class MidiController
 			//int i = 0;
 			for (String program : programs)
 			{
-				//System.out.println("Program #" + i + ": " + program);
+				//logger.debug("Program #" + i + ": " + program);
 				instrumentsList.add(program);
 				//i++;
 			}
@@ -366,7 +369,7 @@ public class MidiController
 		byte[] metaData = msg.getData();
         String strData = new String(metaData);
        
-        //System.out.println("*FS* META message: text= " + strData);
+        //logger.debug("*FS* META message: text= " + strData);
 
         if ("fsbOnLow".equals(strData))
         	fluidSynth.send(9, ShortMessage.NOTE_ON, 77, 100);
@@ -477,7 +480,7 @@ public class MidiController
                  Transmitter seqTransmitter = sequencers[index].getTransmitter();
                  seqTransmitter.setReceiver(synthReceiver);
                  //long latency = sm_synthesizer.getLatency()/1000;  
-                 //System.out.println("MIDI latency " + latency);
+                 //logger.debug("MIDI latency " + latency);
              }
              catch (MidiUnavailableException e) {
                  e.printStackTrace();
@@ -499,7 +502,7 @@ public class MidiController
              final int metaType = 0x01;
              int beatsNumber;
 
-         	 //System.out.println("[createMetronome] timeSignNumerator = " + timeSignNumerator);
+         	 //logger.debug("[createMetronome] timeSignNumerator = " + timeSignNumerator);
              if (useFluidsynth == true)
              	 fluidSynth.send(9, ShortMessage.PROGRAM_CHANGE, 0, 0);
 
@@ -542,7 +545,7 @@ public class MidiController
 
         		if (i > ((timeSignNumerator / timeDivision) - 1)) 
         		{
-         			//System.out.println("adding metronome beat : "+i);
+         			//logger.debug("adding metronome beat : "+i);
          			String textb="beat";
          			addMidiEvent(metronomeTrack, metaType, textb.getBytes(), (int)i*ppq);
         		}

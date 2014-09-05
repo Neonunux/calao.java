@@ -32,16 +32,19 @@ import javax.xml.transform.stream.StreamResult;
 
 
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.Logger;
+import org.apache.logging.log4j.Logger;
 //import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
+/**
+ * @author Neonunux
+ *
+ */
 public class Exercise 
 {
-	static final Logger logger = (Logger) LogManager.getLogger(Exercise.class.getName());
+	private static final Logger logger =  LogManager.getLogger(Exercise.class.getName());
 	Preferences appPrefs;
 	
 	int type; // 0 - notes in line, 1 - rhythm, 2 - score
@@ -82,25 +85,25 @@ public class Exercise
 	
 	public void setTitle(String t)
 	{
-		System.out.println("Set exercise title to - " + t);
+		logger.debug("Set exercise title to - " + t);
 		title = t;
 	}
 	
 	public void setClefMask(int mask)
 	{
-		System.out.println("Set exercise clefs mask to - " + mask);
+		logger.debug("Set exercise clefs mask to - " + mask);
 		clefMask = mask;
 	}
 	
 	public void setMeasure(int mes)
 	{
-		System.out.println("Set exercise measure to - " + mes);
+		logger.debug("Set exercise measure to - " + mes);
 		timeSign = mes;
 	}
 	
 	public void setSpeed(int s)
 	{
-		System.out.println("Set exercise speed to - " + s);
+		logger.debug("Set exercise speed to - " + s);
 		speed = s;
 	}
 	
@@ -236,7 +239,7 @@ public class Exercise
 			
 			transformer.transform(source, result);
 	 
-			System.out.println("XML File successfully saved !");
+			logger.debug("XML File successfully saved !");
 	 
 		  } catch (ParserConfigurationException pce) {
 			pce.printStackTrace();
@@ -275,9 +278,9 @@ public class Exercise
 			Document doc = dBuilder.parse(fXmlFile);
 			doc.getDocumentElement().normalize();
 	 
-			//System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
+			//logger.debug("Root element :" + doc.getDocumentElement().getNodeName());
 			NodeList nList = doc.getElementsByTagName("header");
-			//System.out.println("-----------------------");
+			//logger.debug("-----------------------");
 	 
 		    Node nNode = nList.item(0);
 			if (nNode.getNodeType() == Node.ELEMENT_NODE) 
@@ -295,14 +298,14 @@ public class Exercise
 				speed = Integer.parseInt(getTagValue("speed", eElement));
 				randomize = Integer.parseInt(getTagValue("random", eElement));
 
-				System.out.println("Type: " + type);
-			    System.out.println("Title: " + title);
-			    System.out.println("Clef: " + clefMask);
-		        System.out.println("accType: " + acc.getType());
-			    System.out.println("accCount: " + acc.getNumber());
-			    System.out.println("Time signature: " + timeSign);
-			    System.out.println("Speed: " + speed);
-			    System.out.println("Randomize: " + randomize);
+				logger.debug("Type: " + type);
+			    logger.debug("Title: " + title);
+			    logger.debug("Clef: " + clefMask);
+		        logger.debug("accType: " + acc.getType());
+			    logger.debug("accCount: " + acc.getNumber());
+			    logger.debug("Time signature: " + timeSign);
+			    logger.debug("Speed: " + speed);
+			    logger.debug("Randomize: " + randomize);
 			}
 			
 			NodeList sList = doc.getElementsByTagName("sequence");
@@ -313,7 +316,7 @@ public class Exercise
 			   NodeList notesList = sElem.getElementsByTagName("note");
 			   if (notesList != null)
 			   {
-				   System.out.println("Sequence #" + seq + ": notes: " + notesList.getLength());
+				   logger.debug("Sequence #" + seq + ": notes: " + notesList.getLength());
 				   for (int n = 0; n < notesList.getLength(); n++)
 				   {
 					   Note tmpNote;

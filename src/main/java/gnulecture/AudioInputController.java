@@ -28,7 +28,7 @@ import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.TargetDataLine;
 
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.Logger;
+import org.apache.logging.log4j.Logger;
 import org.jpab.Callback;
 import org.jpab.Device;
 import org.jpab.PortAudio;
@@ -36,11 +36,14 @@ import org.jpab.PortAudioException;
 import org.jpab.Stream;
 import org.jpab.StreamConfiguration;
 import org.jpab.StreamConfiguration.SampleFormat;
-
+/**
+ * @author Neonunux
+ *
+ */
 @SuppressWarnings("resource")
 public class AudioInputController
 {
-	static final Logger logger = (Logger) LogManager.getLogger(AudioInputController.class.getName());
+	private static final Logger logger =  LogManager.getLogger(AudioInputController.class.getName());
 
 	Preferences appPrefs;
 	Vector<Double> freqList = new Vector<Double>(); // vector holding the generated frequencies lookup table
@@ -127,7 +130,7 @@ public class AudioInputController
 			{
 				if (device.getMaxInputChannels() > 0)
 				{
-					//System.out.println(device);
+					//logger.debug(device);
 					devList.add(device.getName());
 					if (tmpIdx == devIdx)
 						paInputDev = device;
@@ -161,7 +164,7 @@ public class AudioInputController
 	
 	public void setSensitivity(int s)
 	{
-		System.out.println("Set new sensitivity: " + s);
+		logger.debug("Set new sensitivity: " + s);
 		sensitivity = 100 - s;
 	}
 
@@ -188,7 +191,7 @@ public class AudioInputController
 		try {
 			paStream = PortAudio.createStream(InputStream, new Callback() {
 			public State callback(ByteBuffer input, ByteBuffer output) {
-				System.out.println("Input buffer received ! Size: " + input.capacity() );
+				logger.debug("Input buffer received ! Size: " + input.capacity() );
 				performPeakDetection(input); // <------- perform magic here :)
 				return State.RUNNING;
 			  }
@@ -241,7 +244,7 @@ public class AudioInputController
 	{
 		int bufLength = tmpBuf.capacity();
 		//saveToFile(tmpBuf); // Just for debug: this call prevents the FFT to work
-		System.out.println("Performing FFT on " + bufLength + " bytes");
+		logger.debug("Performing FFT on " + bufLength + " bytes");
 		DoubleFFT_1D fft = new DoubleFFT_1D(bufLength);
 		double[] audioDataDoubles = new double[bufLength*2];
 
@@ -300,8 +303,8 @@ public class AudioInputController
 	    	return;
 	    if (infoEnabled == true)
 	    	audioMon.showSpectrum(magnitude);
-	    //System.out.println("[AudioCaptureThread] FFT took " + (System.currentTimeMillis() - time) + "ms");
-	    System.out.println("[AudioCaptureThread] Peak at: " + frequency + "Hz (value: " + peak + ")");
+	    //logger.debug("[AudioCaptureThread] FFT took " + (System.currentTimeMillis() - time) + "ms");
+	    logger.debug("[AudioCaptureThread] Peak at: " + frequency + "Hz (value: " + peak + ")");
 	    
 	    if ( currentVolume - previousVolume > sensitivity)
 		{
@@ -321,7 +324,7 @@ public class AudioInputController
 		
 		public AudioCaptureThread()
 		{
-			System.out.println("[AudioCaptureThread] created");
+			logger.debug("[AudioCaptureThread] created");
 		}
 		
 		public void saveToFile(byte buf[])
@@ -339,7 +342,7 @@ public class AudioInputController
 
 		public void run() 
 		{
-			System.out.println("[AudioCaptureThread] started");
+			logger.debug("[AudioCaptureThread] started");
 			while(captureStarted)
 			{
 				if (checkLatency == true)
@@ -348,14 +351,14 @@ public class AudioInputController
 				if (checkLatency == true)
 				{
 					latency = System.currentTimeMillis() - latency;
-					System.out.println("[AudioCaptureThread] latency = " + latency);
+					logger.debug("[AudioCaptureThread] latency = " + latency);
 					checkLatency = false;
 				}
 					
 				if (readBytes > 0)
 				{
 					//long time = System.currentTimeMillis();
-					//System.out.println("[AudioCaptureThread] got " + readBytes + " bytes);
+					//logger.debug("[AudioCaptureThread] got " + readBytes + " bytes);
 					//saveToFile(buffer);
 					performPeakDetection();
 				}

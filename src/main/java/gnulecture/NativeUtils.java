@@ -3,13 +3,14 @@ import java.io.File;
 import java.io.IOException;
 
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.Logger;
-	
+import org.apache.logging.log4j.Logger;
+
 /**
  * Collection of utility methods for native code.
+ * @author Neonunux
  */
 public class NativeUtils {
-	static final Logger logger = (Logger) LogManager.getLogger(NativeUtils.class.getName());
+	private static final Logger logger =  LogManager.getLogger(NativeUtils.class.getName());
 
     /**
      * Load a named library from a directory.<br>

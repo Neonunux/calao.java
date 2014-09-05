@@ -33,12 +33,15 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.Logger;
-
+import org.apache.logging.log4j.Logger;
+/**
+ * @author Neonunux
+ *
+ */
 @SuppressWarnings("unused")
 public class AudioOptionDialog extends JDialog implements ActionListener, ChangeListener 
 {
-	static final Logger logger = (Logger) LogManager.getLogger(AudioOptionDialog.class.getName());
+	private static final Logger logger =  LogManager.getLogger(AudioOptionDialog.class.getName());
 	private static final long serialVersionUID = 6932887852996919458L;
 	private ResourceBundle appBundle;
 	private Preferences appPrefs;

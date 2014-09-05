@@ -27,11 +27,14 @@ import java.awt.RenderingHints;
 import javax.swing.JButton;
 
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.Logger;
-
+import org.apache.logging.log4j.Logger;
+/**
+ * @author Neonunux
+ *
+ */
 public class Key extends JButton
 {
-	static final Logger logger = (Logger) LogManager.getLogger(Key.class.getName());
+	private static final Logger logger =  LogManager.getLogger(Key.class.getName());
 	private static final long serialVersionUID = 8886689336934022704L;
 
     boolean is_black = false;
@@ -106,7 +109,7 @@ public class Key extends JButton
     protected void paintComponent(Graphics g) 
     {
     	((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-   		//System.out.println("Draw Key: size = " + getSize().width);
+   		//logger.debug("Draw Key: size = " + getSize().width);
     	
     	g.setColor(Color.black);
     	if (is_black == false)

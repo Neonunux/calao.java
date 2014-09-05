@@ -10,12 +10,15 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.Logger;
-
+import org.apache.logging.log4j.Logger;
+/**
+ * @author Neonunux
+ *
+ */
 public class AnswersPanel extends JPanel  
 {
 	private static final long serialVersionUID = 448119751116801373L;
-	static final Logger logger = (Logger) LogManager.getLogger(AnswersPanel.class.getName());
+	private static final Logger logger =  LogManager.getLogger(AnswersPanel.class.getName());
 	private boolean showCursorAndBeats = false;
 
 	int currWidth = 0, currHeight = 0;
@@ -43,7 +46,7 @@ public class AnswersPanel extends JPanel
 		int tmpHeight = getHeight();
 		if (tmpWidth != currWidth || tmpHeight != currHeight)
 		{
-			//System.out.println("answersLayer size changed !!");
+			//logger.debug("answersLayer size changed !!");
 			currWidth = tmpWidth;
 			currHeight = tmpHeight;
 			bImage = new BufferedImage(currWidth, currHeight, BufferedImage.TYPE_INT_ARGB);

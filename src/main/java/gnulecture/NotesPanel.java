@@ -31,11 +31,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.Logger;
-
+import org.apache.logging.log4j.Logger;
+/**
+ * @author Neonunux
+ *
+ */
 public class NotesPanel extends JPanel implements MouseListener
 {
-	static final Logger logger = (Logger) LogManager.getLogger(NotesPanel.class.getName());
+	private static final Logger logger =  LogManager.getLogger(NotesPanel.class.getName());
 	private static final long serialVersionUID = -1735923156425027329L;
 	Font appFont;
 	Preferences appPrefs;
@@ -133,7 +136,7 @@ public class NotesPanel extends JPanel implements MouseListener
     
     public void setStaffWidth(int w)
     {
-    	//System.out.println("[NP] staff width: " + w);
+    	//logger.debug("[NP] staff width: " + w);
     	staffWidth = w;
     }
     
@@ -181,7 +184,7 @@ public class NotesPanel extends JPanel implements MouseListener
     			if (lev < minLev) minLev = lev;
     			if (lev > maxLev) maxLev = lev;
     		}
-    		System.out.println("Clef 1: minLev: " + minLev + ", maxLev: " + maxLev);
+    		logger.debug("Clef 1: minLev: " + minLev + ", maxLev: " + maxLev);
     		if (maxLev > 17) row1H += (maxLev - 17) * 5;
     		if (minLev < 9) row1H += (9 - minLev) * 5;
     	}
@@ -197,12 +200,12 @@ public class NotesPanel extends JPanel implements MouseListener
     			if (lev < minLev) minLev = lev;
     			if (lev > maxLev) maxLev = lev;
     		}
-    		System.out.println("Clef 2: minLev: " + minLev + ", maxLev: " + maxLev);
+    		logger.debug("Clef 2: minLev: " + minLev + ", maxLev: " + maxLev);
     		if (maxLev > 17) row2H += (maxLev - 17) * 5;
     		if (minLev < 9) row2H += (9 - minLev) * 5;
     	}
     	rowsDistance = row1H + row2H;
-    	System.out.println("[setNotesSequence] rowsDistance set to: " + rowsDistance);
+    	logger.debug("[setNotesSequence] rowsDistance set to: " + rowsDistance);
     }
 
     public void setNotesPositions()
@@ -216,7 +219,7 @@ public class NotesPanel extends JPanel implements MouseListener
     	for (int i = 0; i < notes.size(); i++)
     	{
     		setSingleNotePosition(notes.get(i), true);
-    		//System.out.println("[Note(1): #" + i + "] type: " + notes.get(i).type + ", xpos: " + notes.get(i).xpos + ", ypos: " + notes.get(i).ypos);
+    		//logger.debug("[Note(1): #" + i + "] type: " + notes.get(i).type + ", xpos: " + notes.get(i).xpos + ", ypos: " + notes.get(i).ypos);
     	}
     	
     	if (notes2 == null)
@@ -228,7 +231,7 @@ public class NotesPanel extends JPanel implements MouseListener
     	for (int i = 0; i < notes2.size(); i++)
     	{
     		setSingleNotePosition(notes2.get(i), true);
-    		//System.out.println("[Note(2): #" + i + "] type: " + notes.get(i).type + ", xpos: " + notes.get(i).xpos + ", ypos: " + notes.get(i).ypos);
+    		//logger.debug("[Note(2): #" + i + "] type: " + notes.get(i).type + ", xpos: " + notes.get(i).xpos + ", ypos: " + notes.get(i).ypos);
     	}
     }
 
@@ -331,11 +334,11 @@ public class NotesPanel extends JPanel implements MouseListener
 
     public void mouseClicked(MouseEvent e) 
 	{
-		//System.out.println("Mouse clicked (# of clicks: " + e.getClickCount() + ")");
+		//logger.debug("Mouse clicked (# of clicks: " + e.getClickCount() + ")");
     	int mouseX = e.getX();
     	int mouseY = e.getY();
-		System.out.println("[Edit mode] clicked X pos: " + mouseX + ", Y pos: " + mouseY);
-		//System.out.println("editNoteSelX: " + editNoteSelX + ",editNoteSelY: " + editNoteSelY + ", editNoteSelW: " + editNoteSelW + ", editNoteSelH: "+ editNoteSelH);
+		logger.debug("[Edit mode] clicked X pos: " + mouseX + ", Y pos: " + mouseY);
+		//logger.debug("editNoteSelX: " + editNoteSelX + ",editNoteSelY: " + editNoteSelY + ", editNoteSelW: " + editNoteSelW + ", editNoteSelH: "+ editNoteSelH);
 
 		if (editMode == false || editModeRhythm == true)
 			return;
@@ -391,14 +394,14 @@ public class NotesPanel extends JPanel implements MouseListener
 					this.firePropertyChange("levelWasAltered", origLevel, newLevel);
 				tmpNote.altType = 0;
 
-				System.out.println("[Edit mode] note level: " + tmpNote.level + ", pitch = " + tmpNote.pitch);
+				logger.debug("[Edit mode] note level: " + tmpNote.level + ", pitch = " + tmpNote.pitch);
 				this.firePropertyChange("levelChanged", origLevel, newLevel);
 				repaint();
 			}
 		}
 		else
 		{
-			System.out.println("[Edit mode] look for a note to select...");
+			logger.debug("[Edit mode] look for a note to select...");
 			// look for a note to select
 			int lookupY = 0, tmpClef = 1, selH = rowsDistance;
 			Vector<Note>tmpNotes = notes;
@@ -411,7 +414,7 @@ public class NotesPanel extends JPanel implements MouseListener
 			  {
 				Note tmpNote = tmpNotes.get(i);
 
-				//System.out.println("Clef: " + tmpClef + " - #" + i + ": nX: " + (lookupX - 5) + ", nY: " + lookupY + ", nX1: " + (int)(lookupX + (tmpNote.duration * noteDistance)) + ", nY1: " + (tmpY + selH));
+				//logger.debug("Clef: " + tmpClef + " - #" + i + ": nX: " + (lookupX - 5) + ", nY: " + lookupY + ", nX1: " + (int)(lookupX + (tmpNote.duration * noteDistance)) + ", nY1: " + (tmpY + selH));
 				if (mouseX >= lookupX - 5 && mouseX < (int)(lookupX + (tmpNote.duration * noteDistance)) && 
 					mouseY >= lookupY && mouseY < lookupY + selH)
 				{
@@ -420,7 +423,7 @@ public class NotesPanel extends JPanel implements MouseListener
 						this.firePropertyChange("newSelectedClef", selectedClef, tmpClef);
 						selectedClef = tmpClef;
 					}
-					System.out.println("[Edit mode] selected note #" + i + ", pitch = " + tmpNote.pitch);
+					logger.debug("[Edit mode] selected note #" + i + ", pitch = " + tmpNote.pitch);
 					this.firePropertyChange("selectionChanged", editNoteIndex, i);
 					setEditNoteIndex(i);
 					repaint();
@@ -459,22 +462,22 @@ public class NotesPanel extends JPanel implements MouseListener
 
 	public void mousePressed(MouseEvent e) 
 	{
-		//System.out.println("Mouse pressed; # of clicks: " + e.getClickCount());
+		//logger.debug("Mouse pressed; # of clicks: " + e.getClickCount());
 	}
 
     public void mouseReleased(MouseEvent e) 
     {
-    	//System.out.println("Mouse released; # of clicks: " + e.getClickCount());
+    	//logger.debug("Mouse released; # of clicks: " + e.getClickCount());
     }
 
     public void mouseEntered(MouseEvent e) 
     {
-    	//System.out.println("Mouse entered");
+    	//logger.debug("Mouse entered");
     }
 
     public void mouseExited(MouseEvent e) 
     {
-    	//System.out.println("Mouse exited");
+    	//logger.debug("Mouse exited");
     }
 
     private void drawNote(Graphics g, int index, int clef) 

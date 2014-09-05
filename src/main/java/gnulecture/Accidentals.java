@@ -26,15 +26,15 @@ import java.awt.RenderingHints;
 import java.util.ResourceBundle;
 
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.Logger;
-
+import org.apache.logging.log4j.Logger;
 
 /**
+ * @author Neonunux
  * @author Massimo Callegari
  *
  */
 public class Accidentals {
-	static final Logger logger = (Logger) LogManager.getLogger(Accidentals.class.getName());
+	private static final Logger logger =  LogManager.getLogger(Accidentals.class.getName());
 	Preferences appPrefs;
 	private String type;
 	private int amount;
@@ -50,7 +50,7 @@ public class Accidentals {
 	{
 		type = t;
 		amount = count;
-		//System.out.println("[Accidentals - setTypeAndCount] type: " + type + ", count: " + count);
+		//logger.debug("[Accidentals - setTypeAndCount] type: " + type + ", count: " + count);
 	}
 
 	public int getNumber()

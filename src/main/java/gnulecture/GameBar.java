@@ -34,11 +34,15 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.Logger;
+import org.apache.logging.log4j.Logger;
+/**
+ * @author Neonunux
+ *
+ */
 @SuppressWarnings({"rawtypes","unchecked"})
 public class GameBar extends JPanel implements ActionListener
 {
-	static final Logger logger = (Logger) LogManager.getLogger(GameBar.class.getName());
+	private static final Logger logger =  LogManager.getLogger(GameBar.class.getName());
 	private static final long serialVersionUID = 6433532306226295481L;
 	ResourceBundle appBundle;
 	Preferences appPrefs;
