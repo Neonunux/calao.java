@@ -69,7 +69,7 @@ public class Note
 			case 7: duration = 1.5; break;
 		}
 		
-		//logger.debug("[Note] t: " + type + ", p: " + pitch + ", l: " + level + ", dur: " + duration + ", alt: " + altType);
+		logger.debug("[Note] t: " + type + ", p: " + pitch + ", l: " + level + ", dur: " + duration + ", alt: " + altType);
 		
 		ypos = 0; // y positions are calculated by the NotesPanel
 	}
