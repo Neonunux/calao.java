@@ -38,25 +38,54 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+
 /**
- * @author Neonunux
+ * The Class Exercise.
  *
+ * @author Neonunux
  */
 public class Exercise 
 {
+	
+	
 	private static final Logger logger =  LogManager.getLogger(Exercise.class.getName());
+	
+	
 	Preferences appPrefs;
 	
+	/** The type. */
 	int type; // 0 - notes in line, 1 - rhythm, 2 - score
+	
+	/** The title. */
 	String title; // user defined exercise title
+	
+	/** The clef mask. */
 	int clefMask;
+	
+	/** The acc. */
 	Accidentals acc;
+	
+	/** The time sign. */
 	int timeSign;
+	
+	/** The speed. */
 	int speed;
+	
+	/** The randomize. */
 	int randomize;
+	
+	/** The notes. */
 	Vector<Note> notes;
+	
+	/** The notes2. */
 	Vector<Note> notes2;
 	
+	/**
+	 * Instantiates a new exercise.
+	 *
+	 * @param p the p
+	 */
 	public Exercise(Preferences p)
 	{
 		appPrefs = p;
@@ -65,6 +94,9 @@ public class Exercise
 		reset();
 	}
 	
+	/**
+	 * Reset.
+	 */
 	public void reset()
 	{
 		type = -1;
@@ -78,35 +110,67 @@ public class Exercise
 		notes2.clear();
 	}
 	
+	/**
+	 * Sets the type.
+	 *
+	 * @param t the new type
+	 */
 	public void setType(int t)
 	{
 		type = t;
 	}
 	
+	/**
+	 * Sets the title.
+	 *
+	 * @param t the new title
+	 */
 	public void setTitle(String t)
 	{
 		logger.debug("Set exercise title to - " + t);
 		title = t;
 	}
 	
+	/**
+	 * Sets the clef mask.
+	 *
+	 * @param mask the new clef mask
+	 */
 	public void setClefMask(int mask)
 	{
 		logger.debug("Set exercise clefs mask to - " + mask);
 		clefMask = mask;
 	}
 	
+	/**
+	 * Sets the measure.
+	 *
+	 * @param mes the new measure
+	 */
 	public void setMeasure(int mes)
 	{
 		logger.debug("Set exercise measure to - " + mes);
 		timeSign = mes;
 	}
 	
+	/**
+	 * Sets the speed.
+	 *
+	 * @param s the new speed
+	 */
 	public void setSpeed(int s)
 	{
 		logger.debug("Set exercise speed to - " + s);
 		speed = s;
 	}
 	
+	/**
+	 * Adds the sequence.
+	 *
+	 * @param d the d
+	 * @param root the root
+	 * @param n the n
+	 */
 	private void addSequence(Document d, Element root, Vector<Note> n)
 	{
 		Element exSequence = d.createElement("sequence");
@@ -161,6 +225,9 @@ public class Exercise
 		}
 	}
 	
+	/**
+	 * Save to xml.
+	 */
 	public void saveToXML()
 	{
 		try {
@@ -239,7 +306,7 @@ public class Exercise
 			
 			transformer.transform(source, result);
 	 
-			logger.debug("XML File successfully saved !");
+			logger.info("XML File successfully saved !");
 	 
 		  } catch (ParserConfigurationException pce) {
 			pce.printStackTrace();
@@ -249,6 +316,13 @@ public class Exercise
 	}
 	
 	
+	/**
+	 * Gets the tag value.
+	 *
+	 * @param sTag the s tag
+	 * @param eElement the e element
+	 * @return the tag value
+	 */
 	private static String getTagValue(String sTag, Element eElement) 
 	{
 		NodeList elList = eElement.getElementsByTagName(sTag);
@@ -264,6 +338,11 @@ public class Exercise
         	return "";
 	}
 	  
+	/**
+	 * Load from file.
+	 *
+	 * @param path the path
+	 */
 	public void loadFromFile(String path)
 	{
 		int version = 0;
@@ -278,7 +357,7 @@ public class Exercise
 			Document doc = dBuilder.parse(fXmlFile);
 			doc.getDocumentElement().normalize();
 	 
-			//logger.debug("Root element :" + doc.getDocumentElement().getNodeName());
+			logger.debug("Root element :" + doc.getDocumentElement().getNodeName());
 			NodeList nList = doc.getElementsByTagName("header");
 			//logger.debug("-----------------------");
 	 
