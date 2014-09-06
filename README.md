@@ -43,13 +43,13 @@ Installation
 All the installation instructions are located in the documentation.
 
 Continuous Integration
-------------
+----------------------
 
 GnuLecture is TestDriven developped with the [Travis-CI](https://travis-ci.org/Neonunux/gnuLecture)
 tool.
 
 Java Requirements
------
+-----------------
 
 Default 1.5 jre needed
 
@@ -59,6 +59,13 @@ License
 This software is created under the GPL v3.0 license. See the complete license :
 
     LICENSE
+    
+Credits
+-------
+
+This software has a complicated story. See the complete :
+
+    CREDITS
 
 About
 -----

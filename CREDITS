@@ -1,0 +1,66 @@
+Credits
+==========
+
+The idea
+--------
+
+GnuLecture has been forked from ScoreDate  
+ScoreDate has been inspired by Jalmus (http://www.jalmus.net/) written by Richard Christophe.
+A special credit goes to him, who had the idea of creating such a useful program.
+Font
+
+ScoreDate wouldn't look so cool without the MusiSync font, designed by Robert Allgeyer.
+I contacted the author and had the permission to modify the font to include the alto clef.
+Please note that the TTF included in ScoreDate is NOT the original MusiSync font.
+I named it "MusiSyncForScoreDate".
+The latest version of the original font is hosted by Luc Devroye site
+Translations
+
+Thanks to all the translators that worked on Jalmus, ScoreDate is now available in 14 languages
+The latest translations, done for ScoreDate are:
+
+    Hungarian: thanks to Balázs
+    Russian: thanks to Andrey Niakhaichyk
+    Spanish: thanks to Blanca and Juan
+    Portuguese: thanks to Raquel
+
+Icons
+
+A lot of thanks goes also to the designers who created the beautiful icons that I used in ScoreDate.
+Here's the list and references:
+
+Designer:Jack Cai
+Icon set: Siena
+License: Creative Commons Attribution No Derivatives (by-nd)
+URL: http://findicons.com/icon/177266/refresh_yellow?id=177514
+
+Designer: schollidesign
+Icon set: Human-O2
+License:GNU/GPL
+URL: http://findicons.com/icon/93765/media_playback_start?id=93765
+URL: http://findicons.com/icon/93652/media_playback_stop?id=93652
+
+Designer: Everaldo Coelho
+Icon set: Crystal Clear
+License:LGPL
+URL: http://icones.pro/en/sound-speaker-png-image.html
+
+Designer: Aha-Soft Team
+Icon set: 24x24 Free Application
+License:Freeware
+URL: http://findicons.com/icon/219104/yes
+URL: http://findicons.com/icon/219214/delete
+URL: http://findicons.com/icon/219209/warning
+Fluidsynth
+
+A particular credit goes to Sven Meier, owner of the great jOrgan project, who helped me with the JNI integration
+
+The Fluidsynth libraries available from these downloads are released under the Lesser General Public License (LGPL). Please see the Fluidsynth websitefor links to the project SourceCode.
+
+PortAudio
+The PortAudio libraries are released under the MIT license:
+
+PortAudio Portable Real-Time Audio Library Copyright (c) 1999-2011 Ross Bencina and Phil Burk
+
+The PortAudio ASIO library
+ASIO is a trademark of [Steinberg Media Technologies GmbH]. 
