@@ -1,9 +1,9 @@
-GnuLecture
+Calao
 ==========
 
 Learning music reading software on midi compatible instrument (Linux, Windows, MacOs)
 
-GnuLecture aims to be educational tool to learn music reading with computer.
+Calao aims to be educational tool to learn music reading with computer.
 It provides a flexible software to handle all MIDI instrument (through USB) to
 improve music reading on our favorite instrument
 
@@ -27,7 +27,7 @@ Features include:
 
 **Note:** All content isn't Gpl v3.0 yet [SecurityBundle](http://symfony.com/doc/current/book/security.html).
 
-**Caution:** Fluidsynth has a very bugged implementation in GnuLecture
+**Caution:** Fluidsynth has a very bugged implementation in Calao
 
 Documentation
 -------------
@@ -45,7 +45,7 @@ All the installation instructions are located in the documentation.
 Continuous Integration
 ----------------------
 
-GnuLecture is TestDriven developped with the [Travis-CI](https://travis-ci.org/Neonunux/gnuLecture)
+Calao is TestDriven developped with the [Travis-CI](https://travis-ci.org/Neonunux/gnuLecture)
 tool.
 
 Java Requirements
@@ -70,7 +70,7 @@ This software has a complicated story. See the complete :
 About
 -----
 
-GnuLecture is a free software.
+Calao is a free software.
 See also the list of [contributors](https://github.com/Neonunux/gnuLecture/contributors).
 
 Reporting an issue or a feature request

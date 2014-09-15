@@ -3,7 +3,7 @@ September 05, 2014 - version 3.3
 - NEW: Project is ported in Maven to manage dependencies easily
 - NEW: Project respects now more standards: coding, directories, etc.
 - NEW: All empty tests are added (TDD could begin)
-- NEW: All crapy 'System.out.println' replaced by log4j allows:
+- NEW: All crapy 'logger.debugln' replaced by log4j allows:
 	* Disable logger
 	* Storage in file
 	* En/Dis-able in menu options 
@@ -105,7 +105,7 @@ November 13th, 2011 - version 1.0
 - rhythm game: always shows one clef
 - fixed SmartBar and GameBar resize when going fullscreen
 - games are stopped when going to home screen
-- MusiSyncForGnuLecture passed FontForge validation + improved sharp symbol
+- MusiSyncForCalao passed FontForge validation + improved sharp symbol
 - added icon to main window 
 - fixed italian translation
 
