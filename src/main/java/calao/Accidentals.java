@@ -1,22 +1,21 @@
-package calao;
-
 /***********************************************
- This file is part of the Calao project (https://github.com/Neonunux/calao/wiki).
+This file is part of the Calao project (https://github.com/Neonunux/calao/wiki).
 
- Calao is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
+Calao is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
- Calao is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
+Calao is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
- You should have received a copy of the GNU General Public License
- along with Calao.  If not, see <http://www.gnu.org/licenses/>.
+You should have received a copy of the GNU General Public License
+along with Calao.  If not, see <http://www.gnu.org/licenses/>.
 
- **********************************************/
+**********************************************/
+package calao;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -51,12 +50,12 @@ public class Accidentals {
 	/**
 	 * Instantiates a new accidentals.
 	 *
-	 * @param t
-	 *            the t
-	 * @param count
-	 *            the count
-	 * @param p
-	 *            the p
+	 * @param String t 
+	 *            Type of Accidentals: # or b
+	 * @param Integer count 
+	 *            Amount of accidentals: 1 to 7 
+	 * @param Preferences p 
+	 *            The preferences configuration
 	 */
 	public Accidentals(String t, int count, Preferences p) {
 		appPrefs = p;
@@ -255,25 +254,33 @@ public class Accidentals {
 		}
 
 		if (type.equals("b")) {
-			// if (type.equals("b")) {
-			// xPos = getXYFlatAlteration().get(0);
-			// yPos = getXYFlatAlteration().get(1) + clefOffset;
-			// drawAlteration(g, f, xPos, yPos, flat);
-			// }
-			if (amount >= 1) // SIb
+			 Integer xPos2 = xPos + getXYFlatAlteration().get(0);
+			 Integer yPos2 = yPos + getXYFlatAlteration().get(1) + clefOffset;
+			 
+			 
+			if (amount >= 1) {// SIb
 				drawAlteration(g, f, xPos, yPos + 5 + clefOffset, flat);
-			if (amount >= 2) // MIb
+				logger.error("xPos " + xPos + " yPos " + (yPos + 5  + clefOffset));
+				logger.error("xPos2 " + xPos2 + " yPos2 " + yPos2);
+			}
+			if (amount >= 2) {// MIb
 				drawAlteration(g, f, xPos + 9, yPos - 10 + clefOffset, flat);
-			if (amount >= 3) // LAb
+			}
+			if (amount >= 3) {// LAb
 				drawAlteration(g, f, xPos + 18, yPos + 10 + clefOffset, flat);
-			if (amount >= 4) // REb
+			}
+			if (amount >= 4) {// REb
 				drawAlteration(g, f, xPos + 27, yPos - 5 + clefOffset, flat);
-			if (amount >= 5) // SOLb
+			}
+			if (amount >= 5) {// SOLb
 				drawAlteration(g, f, xPos + 36, yPos + 15 + clefOffset, flat);
-			if (amount >= 6) // DOb
+			}
+			if (amount >= 6) {// DOb
 				drawAlteration(g, f, xPos + 45, yPos + clefOffset, flat);
-			if (amount >= 7) // FAb
+			}
+			if (amount >= 7) {// FAb
 				drawAlteration(g, f, xPos + 54, yPos + 20 + clefOffset, flat);
+			}
 		}
 	}
 
@@ -306,30 +313,37 @@ public class Accidentals {
 	Vector<Integer> getXYFlatAlteration() {
 
 		Vector<Integer> alt = new Vector<Integer>();
+		//SIB
 		if (amount >= 1) {
 			alt.add(0);
 			alt.add(5);
 		}
+		//MIB
 		if (amount >= 2) {
 			alt.add(9);
 			alt.add(-10);
 		}
+		//LAB
 		if (amount >= 3) {
 			alt.add(18);
 			alt.add(10);
 		}
+		//REB
 		if (amount >= 4) {
 			alt.add(27);
 			alt.add(-5);
 		}
+		//SOLB
 		if (amount >= 5) {
 			alt.add(36);
 			alt.add(15);
 		}
+		//DOB
 		if (amount >= 6) {
 			alt.add(45);
 			alt.add(0);
 		}
+		//FAB
 		if (amount >= 7) {
 			alt.add(54);
 			alt.add(20);

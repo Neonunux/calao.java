@@ -1,9 +1,3 @@
-package calao;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-
 /***********************************************
 This file is part of the Calao project (https://github.com/Neonunux/calao/wiki).
 
@@ -21,6 +15,11 @@ You should have received a copy of the GNU General Public License
 along with Calao.  If not, see <http://www.gnu.org/licenses/>.
 
 **********************************************/
+package calao;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  * @author Neonunux
  *
