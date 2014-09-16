@@ -70,11 +70,6 @@ public class AccidentalsTest {
 	}
 
 	@Test
-	public void testPaint() throws Exception {
-		return;
-	}
-
-	@Test
 	public void testGetClefOffset() throws Exception {
 		Preferences appPrefs = new Preferences();
 		Accidentals acc = new Accidentals("b", 1, appPrefs);
@@ -83,18 +78,34 @@ public class AccidentalsTest {
 		assertThat(acc.getClefOffset(appPrefs.CLEF_G2)).isEqualTo(0);
 		assertThat(acc.getClefOffset(appPrefs.CLEF_C3)).isEqualTo(5);
 		assertThat(acc.getClefOffset(appPrefs.CLEF_C4)).isEqualTo(-5);
+	}
+
+	@Test
+	public void testGetXYAlterations() throws Exception {
+		Preferences appPrefs = new Preferences();
+		Accidentals acc = new Accidentals("b", 7, appPrefs);
 		
-		return;
-	}
-
+		assertThat(acc.getXYAlterations(appPrefs.CLEF_F4))
+		.containsExactly(0, 5, 9, -10, 18, 10, 27, -5, 36, 15, 45, 0, 54, 20);
+		assertThat(acc.getXYAlterations(appPrefs.CLEF_C4))
+		.containsExactly(0, 5, 9, -10, 18, 10, 27, -5, 36, 15, 45, 0, 54, 20);
+		assertThat(acc.getXYAlterations(appPrefs.CLEF_C3))
+		.containsExactly(0, 5, 9, -10, 18, 10, 27, -5, 36, 15, 45, 0, 54, 20);
+		assertThat(acc.getXYAlterations(appPrefs.CLEF_G2))
+		.containsExactly(0, 5, 9, -10, 18, 10, 27, -5, 36, 15, 45, 0, 54, 20);
+	}	
 	@Test
-	public void testGetXYFlatAlteration() throws Exception {
-		return;
-	}
+	public void testGetXYSharpAlterations() throws Exception {
+		Preferences appPrefs = new Preferences();
+		Accidentals acc = new Accidentals("#", 7, appPrefs);
 
-	@Test
-	public void testGetXYSharpAlteration() throws Exception {
-		return;
+		assertThat(acc.getXYAlterations(appPrefs.CLEF_F4))
+		.containsExactly(0, -15, 10, 0, 20, -20, 30, -5, 40, 10, 50, -10, 60, 5);
+		assertThat(acc.getXYAlterations(appPrefs.CLEF_C4))
+		.containsExactly(0, -15, 10, 0, 20, 15, 30, -5, 40, 10, 50, 25, 60, 5);
+		assertThat(acc.getXYAlterations(appPrefs.CLEF_C3))
+		.containsExactly(0, -15, 10, 0, 20, -20, 30, -5, 40, 10, 50, -10, 60, 5);
+		assertThat(acc.getXYAlterations(appPrefs.CLEF_G2))
+		.containsExactly(0, -15, 10, 0, 20, -20, 30, -5, 40, 10, 50, -10, 60, 5);
 	}
-
 }

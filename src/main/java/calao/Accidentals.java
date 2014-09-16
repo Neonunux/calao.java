@@ -1,20 +1,21 @@
-/***********************************************
-This file is part of the Calao project (https://github.com/Neonunux/calao/wiki).
-
-Calao is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-Calao is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with Calao.  If not, see <http://www.gnu.org/licenses/>.
-
-**********************************************/
+/**
+ * Calao is an educational platform to get started with musical
+ * reading and solfege.
+ * Copyright (C) 2012-2014 R. Leloup (http://github.com/Neonunux/Calao)
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package calao;
 
 import java.awt.Color;
@@ -211,76 +212,28 @@ public class Accidentals {
 	public void paint(Graphics g, Font f, int xPos, int yPos, int clefMask) {
 		String sharp = "B"; // # alteration
 		String flat = "b"; // b alteration
-		int clefOffset = 0;
-
+		
+		int clefOffset;
+		
+		Integer xPos2;
+		Integer yPos2;
+		
 		clefOffset = getClefOffset(clefMask);
 
+		String alteration = null;
+		
 		if (type.equals("#")) {
-			// if (type.equals("B")) {
-			// xPos = getXYFlatAlteration().get(0);
-			// yPos = getXYFlatAlteration().get(1) + clefOffset;
-			// drawAlteration(g, f, xPos, yPos, sharp);
-			// }
-			if (amount >= 1) // FA#
-				drawAlteration(g, f, xPos, yPos - 15 + clefOffset, sharp);
-			if (amount >= 2) // DO#
-				drawAlteration(g, f, xPos + 10, yPos + clefOffset, sharp);
-			if (amount >= 3) // SOL#
-			{
-				if (clefMask == appPrefs.CLEF_C4) {
-					drawAlteration(g, f, xPos + 20, yPos + clefOffset + 15,
-							sharp); // shift an octave down
-				} else {
-					drawAlteration(g, f, xPos + 20, yPos - 20 + clefOffset,
-							sharp);
-				}
-			}
-			if (amount >= 4) // RE#
-				drawAlteration(g, f, xPos + 30, yPos - 5 + clefOffset, sharp);
-			if (amount >= 5) // LA#
-				drawAlteration(g, f, xPos + 40, yPos + 10 + clefOffset, sharp);
-			if (amount >= 6) // MI#
-			{
-				if (clefMask == appPrefs.CLEF_C4) {
-					drawAlteration(g, f, xPos + 50, yPos + 25 + clefOffset,
-							sharp);
-				} else {
-					drawAlteration(g, f, xPos + 50, yPos - 10 + clefOffset,
-							sharp);
-				}
-			}
-			if (amount >= 7) // SI#
-				drawAlteration(g, f, xPos + 60, yPos + 5 + clefOffset, sharp);
+			alteration  = sharp;
 		}
 
 		if (type.equals("b")) {
-			 Integer xPos2 = xPos + getXYFlatAlteration().get(0);
-			 Integer yPos2 = yPos + getXYFlatAlteration().get(1) + clefOffset;
-			 
-			 
-			if (amount >= 1) {// SIb
-				drawAlteration(g, f, xPos, yPos + 5 + clefOffset, flat);
-				logger.error("xPos " + xPos + " yPos " + (yPos + 5  + clefOffset));
-				logger.error("xPos2 " + xPos2 + " yPos2 " + yPos2);
-			}
-			if (amount >= 2) {// MIb
-				drawAlteration(g, f, xPos + 9, yPos - 10 + clefOffset, flat);
-			}
-			if (amount >= 3) {// LAb
-				drawAlteration(g, f, xPos + 18, yPos + 10 + clefOffset, flat);
-			}
-			if (amount >= 4) {// REb
-				drawAlteration(g, f, xPos + 27, yPos - 5 + clefOffset, flat);
-			}
-			if (amount >= 5) {// SOLb
-				drawAlteration(g, f, xPos + 36, yPos + 15 + clefOffset, flat);
-			}
-			if (amount >= 6) {// DOb
-				drawAlteration(g, f, xPos + 45, yPos + clefOffset, flat);
-			}
-			if (amount >= 7) {// FAb
-				drawAlteration(g, f, xPos + 54, yPos + 20 + clefOffset, flat);
-			}
+			alteration = flat;
+		}
+		
+		for (int i = 0; i < amount; i++) {
+			xPos2 = xPos + getXYAlterations(clefMask).get(2 * i);
+			yPos2 = yPos + getXYAlterations(clefMask).get(2 * i + 1) + clefOffset;
+			drawAlteration(g, f, xPos2, yPos2, alteration);
 		}
 	}
 
@@ -310,95 +263,78 @@ public class Accidentals {
 		return clefOffset;
 	}
 
-	Vector<Integer> getXYFlatAlteration() {
-
+	Vector<Integer> getXYAlterations(int clefMask) {
 		Vector<Integer> alt = new Vector<Integer>();
-		//SIB
-		if (amount >= 1) {
-			alt.add(0);
-			alt.add(5);
-		}
-		//MIB
-		if (amount >= 2) {
-			alt.add(9);
-			alt.add(-10);
-		}
-		//LAB
-		if (amount >= 3) {
-			alt.add(18);
-			alt.add(10);
-		}
-		//REB
-		if (amount >= 4) {
-			alt.add(27);
-			alt.add(-5);
-		}
-		//SOLB
-		if (amount >= 5) {
-			alt.add(36);
-			alt.add(15);
-		}
-		//DOB
-		if (amount >= 6) {
-			alt.add(45);
-			alt.add(0);
-		}
-		//FAB
-		if (amount >= 7) {
-			alt.add(54);
-			alt.add(20);
-		}
-		return alt;
-	}
-
-	Vector<Integer> getXYSharpAlteration(int clefMask) {
-		// IN main method :
-		// if (type.equals("b")) {
-		// xPos = getXYFlatAlteration().get(0);
-		// yPos = getXYFlatAlteration().get(1) + clefOffset;
-		// drawAlteration(g, f, xPos, yPos, flat);
-		// }
-
-		Vector<Integer> alt = new Vector<Integer>();
-		if (amount >= 1) {
-			alt.add(0);
-			alt.add(-15);
-		}
-		if (amount >= 2) {
-			alt.add(10);
-			alt.add(0);
-		}
-		if (amount >= 3) {
-			alt.add(18);
-			alt.add(10);
-			if (clefMask == appPrefs.CLEF_C4) {
-				alt.add(20);
-				alt.add(15);
-			} else {
-				alt.add(20);
-				alt.add(-20);
+		if (type.equals("b")) {
+			if (amount >= 1) {
+				alt.add(0); // SIB
+				alt.add(5);
 			}
-		}
-		if (amount >= 4) {
-			alt.add(30);
-			alt.add(-5);
-		}
-		if (amount >= 5) {
-			alt.add(40);
-			alt.add(10);
-		}
-		if (amount >= 6) {
-			if (clefMask == appPrefs.CLEF_C4) {
-				alt.add(50);
-				alt.add(25);
-			} else {
-				alt.add(50);
+			if (amount >= 2) {
+				alt.add(9); // MIB
 				alt.add(-10);
 			}
+			if (amount >= 3) {
+				alt.add(18); // LAB
+				alt.add(10);
+			}
+			if (amount >= 4) {
+				alt.add(27); // REB
+				alt.add(-5);
+			}
+			if (amount >= 5) {
+				alt.add(36); // SOLB
+				alt.add(15);
+			}
+			if (amount >= 6) {
+				alt.add(45); // DOB
+				alt.add(0);
+			}
+			if (amount >= 7) {
+				alt.add(54); // FAB
+				alt.add(20);
+			}
 		}
-		if (amount >= 7) {
-			alt.add(60);
-			alt.add(5);
+
+		if (type.equals("#")) {
+			if (amount >= 1) {
+				alt.add(0); // SOL
+				alt.add(-15);
+			}
+			if (amount >= 2) {
+				alt.add(10); // RE
+				alt.add(0);
+			}
+			if (amount >= 3) {
+				if (clefMask == appPrefs.CLEF_C4) {
+					alt.add(20); // LA
+					alt.add(15);
+				} else {
+					alt.add(20);
+					alt.add(-20);
+				}
+			}
+			if (amount >= 4) {
+				alt.add(30); // MI
+				alt.add(-5);
+			}
+			if (amount >= 5) {
+				alt.add(40); // SI
+				alt.add(10);
+			}
+			if (amount >= 6) {
+				if (clefMask == appPrefs.CLEF_C4) {
+					alt.add(50); // FA#
+					alt.add(25);
+				} else {
+					alt.add(50);
+					alt.add(-10);
+				}
+			}
+			if (amount >= 7) {
+				alt.add(60); // DO#
+				alt.add(5);
+			}
 		}
 		return alt;
 	}

@@ -1,7 +1,7 @@
 /**
  * Calao is an educational platform to get started with musical
  * reading and solfege.
- * Copyright (C) 2013 R. Leloup (http://github.com/Neonunux/gnuLecture)
+ * Copyright (C) 2012-2014 R. Leloup (http://github.com/Neonunux/Calao)
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,7 +16,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package calao;
 
 import java.awt.BorderLayout;
