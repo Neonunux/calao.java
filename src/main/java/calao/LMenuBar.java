@@ -25,11 +25,15 @@ import java.util.ResourceBundle;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JEditorPane;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButtonMenuItem;
+import javax.swing.event.HyperlinkEvent;
+import javax.swing.event.HyperlinkEvent.EventType;
+import javax.swing.event.HyperlinkListener;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -374,15 +378,31 @@ public class LMenuBar extends JMenuBar implements ActionListener
 			openURL("https://github.com/Neonunux/calao/wiki");
 		else if (ae.getSource() == creditsMenu)
 		{
-			String text = "<html><b>CalaonuLecture v. 3.3<br>written by Neonunux<br><br>";
-			text += "This is an open source software written in Java, inspired<br>by the Calao project<br><br>";
-			text += "himself inspired<br>by the Jalmus project<br><br>";
-			text += "It is distributed under the GPL 3.0 license<br>(http://www.gnu.org/licenses/gpl-3.0.txt)";
-			text += "</b></html>";
-			JOptionPane.showMessageDialog(this.getParent(), text, 
-					appBundle.getString("_menuAbout"), JOptionPane.INFORMATION_MESSAGE);
+			JEditorPane text = new JEditorPane("text/html","<html><b>Calao v. 3.3<br>written by Neonunux<br><br>"
+			+ "This is an open source musical educational software written in Java, inspired<br>"
+			+ "by the ScoreDate project<br>"
+			+ "Written by Massimo Callegari"
+			+ "himself inspired<br>by the Jalmus project<br><br>"
+			+ "It is distributed under the <br> "
+			+ "<a href='http://www.gnu.org/licenses/gpl-3.0.txt'>GPL 3.0 license</a>"
+			+ "</b></html>");
+			
+			// Link license URL support click
+		    HyperlinkListener listener = new HyperlinkListener() {
+				public void hyperlinkUpdate(HyperlinkEvent e) {
+					java.net.URL uristring= e.getURL();
+					if (e.getEventType() == EventType.ACTIVATED) {
+						openURL(uristring.toString());
+					}
+				}
+			};
+		    text.addHyperlinkListener(listener);
+		    text.setEditable(false);
+
+		    // show
+		    JOptionPane.showMessageDialog(this.getParent(), text, 
+		    		appBundle.getString("_menuAbout"), JOptionPane.INFORMATION_MESSAGE);
 		}
-		
     }
     
     /**
