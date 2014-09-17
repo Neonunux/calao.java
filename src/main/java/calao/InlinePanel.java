@@ -151,6 +151,8 @@ public class InlinePanel extends JPanel implements ActionListener {
 	/** The curr ex. */
 	private Exercise currEx = null;
 
+	private TimerPanel timerPanel;
+
 	/**
 	 * Instantiates a new inline panel.
 	 *
@@ -185,6 +187,7 @@ public class InlinePanel extends JPanel implements ActionListener {
 		}
 		inlineNG = new NoteGenerator(appPrefs, inlineAccidentals, false);
 		stats = new Statistics();
+		timerPanel = new TimerPanel();
 
 		gameType = appPrefs.GAME_STOPPED;
 
@@ -193,7 +196,7 @@ public class InlinePanel extends JPanel implements ActionListener {
 		sBar.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
 				if (evt.getPropertyName() == "updateParameters") {
-					logger.debug("INLINE panel update parameters !");
+					logger.trace("INLINE panel update parameters !");
 					refreshPanel();
 				}
 			}
@@ -255,6 +258,7 @@ public class InlinePanel extends JPanel implements ActionListener {
 		add(layers);
 		add(piano);
 		add(gameBar);
+		add(timerPanel);
 		refreshPanel();
 	}
 
@@ -815,6 +819,7 @@ public class InlinePanel extends JPanel implements ActionListener {
 				.setBounds(0, 0, getWidth() - (staffHMargin * 2), staffHeight);
 		piano.setBounds(0, staffVMargin + staffHeight, getWidth(), pianoHeight);
 		gameBar.setBounds(0, getHeight() - gBarHeight, getWidth(), gBarHeight);
+		timerPanel.setBounds(0, sBarHeight, staffVMargin, staffHeight);
 	}
 
 	/**
@@ -908,7 +913,7 @@ public class InlinePanel extends JPanel implements ActionListener {
 							if (gameType == appPrefs.INLINE_LEARN_NOTES) {
 								setLearningInfo(true, -1);
 							}
-							logger.debug("Got note with pitch: "
+							logger.trace("Got note with pitch: "
 									+ newNote.pitch + " (level:"
 									+ newNote.level + ")");
 							if (gameType != appPrefs.INLINE_MORE_NOTES) {
