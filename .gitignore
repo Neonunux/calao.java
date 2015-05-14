@@ -1,8 +1,8 @@
 /bin
 /target
-/Calao*.sds
-/gnulecture.properties
 /.travis.yml
 /logs/
 /libs/
 /.settings
+/calao.properties
+/*.kls
