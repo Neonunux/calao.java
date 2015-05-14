@@ -13,6 +13,10 @@ import javax.swing.Timer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * TimerPanel is used to set a maximum time
+ * to answer.
+ */
 public class TimerPanel extends JPanel implements Runnable {
 	private static final long serialVersionUID = 6396633037556341891L;
 
