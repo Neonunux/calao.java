@@ -217,7 +217,7 @@ public class Statistics {
 	 */
 	public void storeData(int gameType) {
 		String fname = "CalaoCalaoStats_" + getDateTime("yyyyMM")
-				+ ".sds";
+				+ ".kls";
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(fname,
 					true));
