@@ -1,3 +1,19 @@
+2015 may 14 - version 3.3.2522
+- NEW: UI design improved to remove crapy Roundbutton style 
+
+2015 may 11 - version 3.3.2434
+- NEW: Remove old style button
+
+2015 may 10  - version 3.3.2424
+- fixed: maven autoincrement&autoexec work
+
+2015 may 08  - version 3.3.2378
+
+- NEW: Project version is managed by maven plugin
+- NEW: Encoding charset is set in pom.xml
+- NEW: Splashscreen support translucent
+- fixed: pom.xml on 'executions' 
+
 September 05, 2014 - version 3.3
 
 - NEW: Project is ported in Maven to manage dependencies easily
