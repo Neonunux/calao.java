@@ -1,7 +1,7 @@
 /**
  * Calao is an educational platform to get started with musical
  * reading and solfege.
- * Copyright (C) 2012-2014 R. Leloup (http://github.com/Neonunux/Calao)
+ * Copyright (C) 2012-2015 R. Leloup (http://github.com/Neonunux/Calao)
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,13 +27,10 @@ import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JWindow;
 import javax.swing.SwingUtilities;
-import javax.swing.border.Border;
-import javax.swing.border.EtchedBorder;
 
 
 /**
@@ -84,24 +81,25 @@ public class SplashScreen extends JWindow {
 		super();
 		int width = imageIcon.getIconWidth();
 		int height = imageIcon.getIconHeight();
-		BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+		BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 	    Graphics2D drawingGraphics  = (Graphics2D) bufferedImage.getGraphics();
 	    drawingGraphics.drawImage(imageIcon.getImage(), 0, 0, null);
 
-        Color titleColor = new Color (50,10,10);//Configuration.instance().getColor("tangara.title.color");//$NON-NLS-1$
-		String title = "";//Configuration.instance().getString("tangara.title");//$NON-NLS-1$
-		Font titleFont = new Font("Arial", Font.PLAIN, 19);//Configuration.instance().getFont("tangara.title.font");//$NON-NLS-1$
+        //Color titleColor = new Color (50,10,10,0);//Configuration.instance().getColor("calao.title.color");//$NON-NLS-1$
+		String title = "titre";//Configuration.instance().getString("calao.title");//$NON-NLS-1$
+		Font titleFont = new Font("Arial", Font.PLAIN, 19);//Configuration.instance().getFont("calao.title.font");//$NON-NLS-1$
 		
         // draws the title
-	    drawingGraphics.setColor(titleColor);
+	    //drawingGraphics.setColor(titleColor);
 	    drawingGraphics.setFont(titleFont);
+
         // Sets to on text anti-aliasing
         drawingGraphics.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         drawingGraphics.drawString(title, marginLeft, height/2-marginText);
 
         drawingGraphics.setFont(new Font("Arial", Font.PLAIN, 19));
+		//String developersNames = "R�gis LELOUP";
 		/*
-		String developersNames = IMPORT_DEVELOPERS_NAMES;
 		String tokenSeparator  = ",";
 		String developers = IMPORT_DEVELOPERS;
 		String colombbus = IMPORT_COLOMBBUS;
@@ -125,15 +123,16 @@ public class SplashScreen extends JWindow {
 		drawingGraphics.drawString(webSite, marginLeft, height/2 + lineHeight*i);
 */
 		JLabel l = new JLabel(new ImageIcon(bufferedImage) );
-		Border border = BorderFactory.createEtchedBorder(EtchedBorder.RAISED,Color.DARK_GRAY, Color.BLACK);
-		l.setBorder(border);
+//		Border border = BorderFactory.createEtchedBorder(EtchedBorder.RAISED,Color.DARK_GRAY, Color.BLACK);
+//		l.setBorder(border);
 		getContentPane().add(l, BorderLayout.CENTER);
 		pack();
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		Dimension labelSize = l.getPreferredSize();
 		setLocation(screenSize.width / 2 - (labelSize.width / 2),
 					screenSize.height / 2 - (labelSize.height / 2));
-
+		setBackground(new Color(0, 255, 0, 0));
+		//setOpacity(0.9f);
 		final int pause = waitTime;
 		final Runnable closerRunner = new Runnable() {
 			public void run() {
