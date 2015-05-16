@@ -25,17 +25,15 @@ Features include:
  * Custom sound banks load in SoundFont 2 format (.SF2)
  * Translated in 15 languages
 
-**Note:** All content isn't Gpl v3.0 yet [SecurityBundle](http://symfony.com/doc/current/book/security.html).
-
 **Caution:** Fluidsynth has a very bugged implementation in Calao
 
 Documentation
 -------------
 
-The bulk of the documentation is stored in the `Resources/doc/index.md`
+The bulk of the documentation is stored in the `Resources/docs/index.md`
 file in this bundle:
 
-[Read the Documentation for master](https://github.com/Neonunux/gnuLecture/blob/master/docs/index.md)
+[Read the Documentation for master](https://github.com/Neonunux/calao/blob/master/docs/index.md)
 
 Installation
 ------------
