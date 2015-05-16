@@ -14,7 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Calao.  If not, see <http://www.gnu.org/licenses/>.
 
-**********************************************/
+ **********************************************/
 package calao;
 
 import java.awt.Color;
@@ -58,8 +58,9 @@ import org.apache.logging.log4j.Logger;
  *
  * @author Neonunux
  * @author Massimo Callegari
- * @email regis.leloup@colombbus.org
- * @homepage https://github.com/Neonunux/calao/wiki
+ * email: regis.leloup@colombbus.org
+ * 
+ * @link https://github.com/Neonunux/calao/wiki
  */
 public class Calao extends JFrame implements ActionListener {
 
@@ -156,7 +157,7 @@ public class Calao extends JFrame implements ActionListener {
 					break;
 				}
 			}
-			logger.debug("Nimbus theme will be used");
+			logger.trace("Nimbus theme will be used");
 
 		} catch (Exception e) {
 			// If Nimbus is not available, use default look & feel (metal)
@@ -193,7 +194,7 @@ public class Calao extends JFrame implements ActionListener {
 						language));
 			}
 		} else {
-			//logger.error(ResourceBundle.getBundle("translation.language"));
+			// logger.error(ResourceBundle.getBundle("translation.language"));
 			bundle = ResourceBundle.getBundle("translation.language",
 					new Locale(language));
 		}
@@ -237,8 +238,8 @@ public class Calao extends JFrame implements ActionListener {
 				Transmitter t = midiDev.getTransmitter();
 				t.setReceiver(r);
 			} catch (MidiUnavailableException e) {
-				logger.debug("Unable to connect the device's Transmitter to the Receiver:");
-				logger.debug(e);
+				logger.error("Unable to connect the device's Transmitter to the Receiver:");
+				logger.error(e);
 				midiDev.close();
 			}
 		}
@@ -249,7 +250,7 @@ public class Calao extends JFrame implements ActionListener {
 			MusiSync = Font.createFont(Font.PLAIN, fInput);
 			logger.debug("MusiSync font loaded.");
 		} catch (Exception e) {
-			logger.debug("Cannot load MusiSync font !!");
+			logger.error("Cannot load MusiSync font !!");
 			System.exit(0);
 		}
 
@@ -280,7 +281,7 @@ public class Calao extends JFrame implements ActionListener {
 
 		addComponentListener(new ComponentAdapter() {
 			public void componentResized(ComponentEvent e) {
-				logger.debug("Calao has been resized !");
+				logger.trace("Calao has been resized !");
 				/*
 				 * if (prefs.globalExerciseMode == false) { if (rhythmPanel !=
 				 * null && currentContext == RHYTHMREADING)
@@ -293,7 +294,7 @@ public class Calao extends JFrame implements ActionListener {
 
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
-				logger.debug("Calao is going to be closed !");
+				logger.info("Calao is going to be closed !");
 				if (midiDev != null)
 					midiDev.close();
 				midiDev = null;
@@ -305,12 +306,12 @@ public class Calao extends JFrame implements ActionListener {
 		});
 
 		setVisible(true);
-		
-		CalaoDragDropListener myDragDropListener = new CalaoDragDropListener();
-	    // Connect the label with a drag and drop listener
-	    new DropTarget(homePanel, myDragDropListener);
-//	    JComponent cp = (JComponent) getContentPane();
-//	    cp.setTransferHandler(new MyFileTransferHandler()); // see below
+
+		CalaoDragDropListener dragDropListener = new CalaoDragDropListener();
+		// Connect the panel with a drag and drop listener
+		new DropTarget(homePanel, dragDropListener);
+		// JComponent cp = (JComponent) getContentPane();
+		// cp.setTransferHandler(new MyFileTransferHandler()); // see below
 	}
 
 	/*
@@ -323,7 +324,7 @@ public class Calao extends JFrame implements ActionListener {
 	 * java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 	 */
 	public void actionPerformed(ActionEvent ae) {
-		logger.debug("Event received !! (cmd:" + ae.getActionCommand() + ")");
+		logger.trace("Event received !! (cmd:" + ae.getActionCommand() + ")");
 		Dimension wSize = new Dimension(getWidth(), getHeight());
 		if (ae.getSource() == homePanel.inlineBtn) {
 			homePanel.setVisible(false);
@@ -389,7 +390,7 @@ public class Calao extends JFrame implements ActionListener {
 			earPanel.sBar.homeBtn.addActionListener(this);
 		}
 
-		// *************************** GAMES PANEL HOME BUTTON
+		// *********** GAMES PANEL HOME BUTTON ***********
 		else if (inlinePanel != null
 				&& ae.getSource() == inlinePanel.sBar.homeBtn) {
 			inlinePanel.stopGame();
@@ -422,7 +423,7 @@ public class Calao extends JFrame implements ActionListener {
 			homePanel.setVisible(true);
 			currentContext = HOMEPANEL;
 		}
-		// *************************** STATISTICS PANEL BUTTON ***************************
+		// *************** STATISTICS PANEL BUTTON ***************************
 		else if (statsPanel != null && ae.getSource() == statsPanel.homeBtn) {
 			this.remove(statsPanel);
 			statsPanel = null;
@@ -430,7 +431,7 @@ public class Calao extends JFrame implements ActionListener {
 			homePanel.setVisible(true);
 			currentContext = HOMEPANEL;
 		}
-		// ***************************** EXERCISE PANEL BUTTONS ***************************
+		// *************** EXERCISE PANEL BUTTONS ****************************
 		else if (exsPanel != null && ae.getSource() == exsPanel.homeBtn) {
 			exsPanel.stopPlayback();
 			this.remove(exsPanel);
@@ -520,15 +521,17 @@ public class Calao extends JFrame implements ActionListener {
 			midiOptions = new MidiOptionsDialog(bundle, prefs, midiControl,
 					audioControl);
 			midiOptions.setVisible(true);
-			midiOptions.addPropertyChangeListener(new PropertyChangeListener() {
+			PropertyChangeListener propListener = new PropertyChangeListener() {
 				public void propertyChange(PropertyChangeEvent evt) {
 					if (evt.getPropertyName() == "newMidiDevice") {
 						logger.debug("Going to reconfigure MIDI system...");
-						if (midiControl != null)
+						if (midiControl != null) {
 							midiControl.close();
+						}
 						midiControl = null;
-						if (midiDev != null)
+						if (midiDev != null) {
 							midiDev.close();
+						}
 						midiDev = null;
 						midiControl = new MidiController(prefs);
 						if (midiControl.checkError() != 0) {
@@ -569,7 +572,8 @@ public class Calao extends JFrame implements ActionListener {
 								.getProperty("transposition"));
 					}
 				}
-			});
+			};
+			midiOptions.addPropertyChangeListener(propListener);
 		} else if (s == "exitProgram") {
 			// dispose(); // why this doesn't work ??
 			System.exit(0);
@@ -752,8 +756,9 @@ public class Calao extends JFrame implements ActionListener {
 	 *            the arguments
 	 */
 	public static void main(String[] args) {
-		new Calao().displaySplashScreen();
+		Calao app = new Calao();
+		app.displaySplashScreen();
 
-		logger.trace("Exiting Calao");
+		logger.info("Exiting Calao");
 	}
 }
