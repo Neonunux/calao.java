@@ -29,20 +29,4 @@ of the bundle.
 
 The following documents are available:
 
-- [Overriding Templates](overriding_templates.md)
-- [Hooking into the controllers](controller_events.md)
-- [Overriding Controllers](overriding_controllers.md)
-- [Overriding Forms](overriding_forms.md)
-- [Using the UserManager](user_manager.md)
-- [Command Line Tools](command_line_tools.md)
-- [Logging by username or email](logging_by_username_or_email.md)
-- [Transforming a username to a user in forms](form_type.md)
-- [Emails](emails.md)
-- [Using the groups](groups.md)
-- [More about the Doctrine implementations](doctrine.md)
-- [Supplemental Documentation](supplemental.md)
-- [Replacing the canonicalizer](canonicalizer.md)
-- [Using a custom storage layer](custom_storage_layer.md)
-- [Configuration Reference](configuration_reference.md)
-- [Adding invitations to registration](adding_invitation_registration.md)
-- [Advanced routing configuration](routing.md)
+- [Usefull Tools](usefull_tools.md)
