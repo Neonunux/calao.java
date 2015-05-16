@@ -3,12 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>Calao</groupId>
 	<artifactId>Calao</artifactId>
-	<version>3.3.2523</version>
+	<version>3.3.2674</version>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<build>
-		<defaultGoal>install</defaultGoal>
 
 		<resources>
 			<resource>
@@ -17,86 +16,109 @@
 			<resource>
 				<directory>src/main/resources</directory>
 			</resource>
+			<resource>
+				<directory>libs</directory>
+			</resource>
 		</resources>
 
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>autoincrement-versions-maven-plugin</artifactId>
+				<version>2.0-SNAPSHOT</version>
+				<executions>
+					<execution>
+						<id>update-pom-versions</id>
+						<goals>
+							<goal>increment</goal>
+							<goal>commit</goal>
+						</goals>
+						<phase>compile</phase>
+						<configuration>
+							<autoIncrementVersion>true</autoIncrementVersion>
+							<mainClass>calao.Calao</mainClass>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.3</version>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.1.1</version>
+				<executions>
+					<execution>
+						<phase>test</phase>
+						<goals>
+							<goal>java</goal>
+						</goals>
+						<configuration>
+							<mainClass>calao.Calao</mainClass>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+
+
+			</plugin>
+		</plugins>
+		<pluginManagement>
 			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
 				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>autoincrement-versions-maven-plugin</artifactId>
-					<version>2.0-SNAPSHOT</version>
-					<executions>
-						<execution>
-							<id>update-pom-versions</id>
-							<goals>
-								<goal>increment</goal>
-								<goal>commit</goal>
-							</goals>
-							<phase>compile</phase>
-							<configuration>
-								<autoIncrementVersion>true</autoIncrementVersion>
-								<mainClass>calao.Calao</mainClass>
-							</configuration>
-						</execution>
-					</executions>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<version>3.3</version>
-				</plugin>
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>exec-maven-plugin</artifactId>
-					<version>1.1.1</version>
-					<executions>
-						<execution>
-							<phase>test</phase>
-							<goals>
-								<goal>java</goal>
-							</goals>
-							<configuration>
-								<mainClass>calao.Calao</mainClass>
-							</configuration>
-						</execution>
-					</executions>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.codehaus.mojo
+										</groupId>
+										<artifactId>
+											autoincrement-versions-maven-plugin
+										</artifactId>
+										<versionRange>
+											[2.0-SNAPSHOT,)
+										</versionRange>
+										<goals>
+											<goal>increment</goal>
+											<goal>commit</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
 				</plugin>
 			</plugins>
-			<pluginManagement>
-				<plugins>
-					<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
-					<plugin>
-						<groupId>org.eclipse.m2e</groupId>
-						<artifactId>lifecycle-mapping</artifactId>
-						<version>1.0.0</version>
-						<configuration>
-							<lifecycleMappingMetadata>
-								<pluginExecutions>
-									<pluginExecution>
-										<pluginExecutionFilter>
-											<groupId>
-												org.codehaus.mojo
-											</groupId>
-											<artifactId>
-												autoincrement-versions-maven-plugin
-											</artifactId>
-											<versionRange>
-												[2.0-SNAPSHOT,)
-											</versionRange>
-											<goals>
-												<goal>increment</goal>
-												<goal>commit</goal>
-											</goals>
-										</pluginExecutionFilter>
-										<action>
-											<ignore></ignore>
-										</action>
-									</pluginExecution>
-								</pluginExecutions>
-							</lifecycleMappingMetadata>
-						</configuration>
-					</plugin>
-				</plugins>
-			</pluginManagement>
+		</pluginManagement>
+		<sourceDirectory>src/main/java</sourceDirectory>
+		<testSourceDirectory>src/test/java</testSourceDirectory>
+		<outputDirectory>target/classes</outputDirectory>
+		<finalName>${project.artifactId}-${project.version}</finalName>
+		<testOutputDirectory>target/test-classes</testOutputDirectory>
 	</build>
 	<pluginRepositories>
 		<pluginRepository>
@@ -108,7 +130,7 @@
 			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -165,6 +187,57 @@
 
 	<profiles>
 		<profile>
+			<id>release-profile</id>
+
+			<activation>
+				<property>
+					<name>performRelease</name>
+				</property>
+			</activation>
+
+			<build>
+				<plugins>
+					<plugin>
+						<inherited>true</inherited>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+
+						<executions>
+							<execution>
+								<id>attach-sources</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<inherited>true</inherited>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+
+						<executions>
+							<execution>
+								<id>attach-javadocs</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<inherited>true</inherited>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-deploy-plugin</artifactId>
+
+						<configuration>
+							<updateReleaseInfo>true</updateReleaseInfo>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
 			<id>code-generator</id>
 			<build>
 				<plugins>
@@ -188,4 +261,29 @@
 		</profile>
 	</profiles>
 
+	<name>Calao</name>
+	<url>https://github.com/Neonunux/calao</url>
+	<description>A tool to learn, improve musical reading skills</description>
+	<ciManagement>
+		<system>travis-CI</system>
+		<url>https://travis-ci.org/Neonunux/calao</url>
+	</ciManagement>
+	<organization>
+		<name>Neonunux</name>
+		<url>https://github.com/Neonunux</url>
+	</organization>
+	<issueManagement>
+		<url>https://github.com/Neonunux/calao/issues</url>
+		<system>Github</system>
+	</issueManagement>
+	<reporting>
+		<outputDirectory>target/site</outputDirectory>
+		<plugins>
+			<plugin>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<groupId>org.apache.maven.plugins</groupId>
+				<configuration></configuration>
+			</plugin>
+		</plugins>
+	</reporting>
 </project>
