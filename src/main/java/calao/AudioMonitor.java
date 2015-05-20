@@ -37,6 +37,7 @@ public class AudioMonitor extends JPanel
 {
 	
 	
+	@SuppressWarnings("unused")
 	private static final Logger logger =  LogManager.getLogger(AudioMonitor.class.getName());
 	
 	/** The app bundle. */
