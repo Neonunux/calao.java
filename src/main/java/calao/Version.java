@@ -14,46 +14,73 @@ public class Version {
 	private int major;
 	private int minor;
 	private int build;
-	private String version;
-	
+	private String rest;
+
+
+	private String release;
+	private String versionString;
+
 	private static final Logger logger = LogManager.getLogger(Version.class
 			.getName());
-	
-	public Version(){
-		major = 3;
-		minor = 4;
-		build = getBuildFromPomXml();
+
+	public Version() {
+		this(null);
 	}
-	public int getBuildFromPomXml(){
-		int i =2800;
-//		try {
-//			//String pomXml = getClass().getResource("icon.png");
-//			//File pom = new File();
-//		} catch (URISyntaxException e) {
-//			e.printStackTrace();
-//		}
+
+	public Version(String v) {
+		if (v == null)
+			versionString = getBuildStringFromPomXml();
+		else
+			versionString = v;
+		parseAttributesFromVersionString(versionString);
 		
+	}
+
+	public void parseAttributesFromVersionString(String v) {
+		logger.trace("versionString " + v);
+		String parts[] = v.split("\\.");
 		
+		setMajor(Integer.parseInt(parts[0]));
+		logger.trace("Major " + major);
+
+		setMinor(Integer.parseInt(parts[1]));
+		logger.trace("Minor " + minor);
+		
+		String rel = parts[2];
+		String buildAndRelease[] = rel.split("[\\._-]");
+		if (buildAndRelease[0].matches("^[0-9]{4,}$*")){
+			setBuild(Integer.parseInt(buildAndRelease[0]));
+		}
+//		String r = buildAndRelease[1];
+//		if (r != null)
+//			setRest(r);
+		setRelease(rel);
+		logger.trace("Release " + rel);
+		if (rel.matches("-"))
+			;
+
+	}
+
+	public String getBuildStringFromPomXml() {
 		Model model = null;
 		FileReader reader = null;
 		MavenXpp3Reader mavenreader = new MavenXpp3Reader();
 
 		try {
-		    File pomfile = new File("pom.xml"); 
-			reader = new FileReader(pomfile); // <-- pomfile is your pom.xml
-		     model = mavenreader.read(reader);
-		     model.setPomFile(pomfile);
-		}catch(Exception ex){
-		     // do something better here
-		     ex.printStackTrace();
+			File pomfile = new File("pom.xml");
+			reader = new FileReader(pomfile);
+			model = mavenreader.read(reader);
+			model.setPomFile(pomfile);
+		} catch (Exception ex) {
+			ex.printStackTrace();
 		}
 
 		MavenProject project = new MavenProject(model);
-		version = project.getVersion(); // <-- thats what you need
-		logger.debug("version " + version);
-		
-		return i;
+
+		logger.trace("version " + project.getVersion());
+		return project.getVersion();
 	}
+
 	public int getMajor() {
 		return major;
 	}
@@ -78,6 +105,27 @@ public class Version {
 		this.build = build;
 	}
 
+	public String getRelease() {
+		return release;
+	}
 
-	
+	public void setRelease(String release) {
+		this.release = release;
+	}
+
+	public String getVersionString() {
+		return versionString;
+	}
+
+	public void setVersionString(String versionString) {
+		this.versionString = versionString;
+	}
+	public String getRest() {
+		return rest;
+	}
+
+	public void setRest(String rest) {
+		this.rest = rest;
+	}
+
 }
