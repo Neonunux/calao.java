@@ -30,12 +30,9 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.nio.file.FileSystems;
 import java.util.Locale;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
@@ -59,9 +56,8 @@ import org.apache.logging.log4j.Logger;
 /**
  * Main Class.
  *
- * @author Neonunux
- * @author Massimo Callegari
- * email: regis.leloup@colombbus.org
+ * @author Neonunux <regis.leloup@colombbus.org>
+ * @author Massimo Callegari 
  * 
  * @link https://github.com/Neonunux/calao/wiki
  */
@@ -129,6 +125,7 @@ public class Calao extends JFrame implements ActionListener {
 	/** The midi options. */
 	private MidiOptionsDialog midiOptions;
 
+	private Version version = new Version();
 	/**
 	 * The current context
 	 * 
@@ -166,7 +163,7 @@ public class Calao extends JFrame implements ActionListener {
 			// If Nimbus is not available, use default look & feel (metal)
 			logger.debug("Default theme will be used");
 		}
-
+		version = new Version();
 		this.setIconImage(new ImageIcon(getClass().getResource("icon.png"))
 				.getImage());
 		prefs = new Preferences();
@@ -202,7 +199,7 @@ public class Calao extends JFrame implements ActionListener {
 					new Locale(language));
 		}
 
-		setTitle("Calao");
+		setTitle("Calao - " + version.getMajor() + "." + version.getMinor() + " - build " + version.getBuild());
 		Dimension wSize = new Dimension(800, 600);
 		setSize(wSize); // default size is 0,0
 		setMinimumSize(wSize);
@@ -730,8 +727,9 @@ public class Calao extends JFrame implements ActionListener {
 
 	/**
 	 * Displays splash.png during the loading
+	 * @return 
 	 */
-	public void displaySplashScreen() {
+	public SplashScreen displaySplashScreen() {
 		ImageIcon splashScreenImage = new ImageIcon();
 		try {
 			splashScreenImage.setImage(ImageIO.read(getClass().getResource(
@@ -749,7 +747,7 @@ public class Calao extends JFrame implements ActionListener {
 		}
 		// should normally be run in the EDT, but launched at once in order to
 		// display the screen as soon as possible
-		new SplashScreen(splashScreenImage, 2000);
+		return  new SplashScreen(splashScreenImage, 2000, version);
 	}
 
 	/**
@@ -760,7 +758,9 @@ public class Calao extends JFrame implements ActionListener {
 	 */
 	public static void main(String[] args) {
 		Calao app = new Calao();
-		app.displaySplashScreen();
+		SplashScreen splashscreen = app.displaySplashScreen();
+		app.setAlwaysOnTop(true);
+		splashscreen.setAlwaysOnTop(true);
 
 		logger.info("Exiting Calao");
 	}
