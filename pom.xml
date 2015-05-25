@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>Calao</groupId>
 	<artifactId>Calao</artifactId>
-	<version>3.3.2851</version>
+	<version>3.3.2903</version>
 
 	<packaging>pom</packaging>
 
@@ -58,6 +58,7 @@
 						</goals>
 						<configuration>
 							<mainClass>calao.Calao</mainClass>
+							<?executable maven?>
 						</configuration>
 					</execution>
 				</executions>
@@ -270,9 +271,6 @@
 								<goals>
 									<goal>java</goal>
 								</goals>
-								<configuration>
-									<mainClass>calao.Calao</mainClass>
-								</configuration>
 							</execution>
 						</executions>
 					</plugin>
