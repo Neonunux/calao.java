@@ -32,7 +32,6 @@ import javax.swing.JPanel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-
 /**
  * The Class HomePanel.
  *
@@ -40,8 +39,6 @@ import org.apache.logging.log4j.Logger;
  */
 public class HomePanel extends JPanel
 {
-	
-	
 	private static final Logger logger =  LogManager.getLogger(HomePanel.class.getName());
 	
 	/** The Constant serialVersionUID. */
@@ -81,40 +78,38 @@ public class HomePanel extends JPanel
 		appBundle = b;
         try 
         {
-    		MainPic = ImageIO.read(getClass().getResourceAsStream("logo.png"));
+    		MainPic = ImageIO.read(getClass().getResourceAsStream("accueil.png"));
         }
         catch(Exception e)
         {
             logger.debug("Cannot load logo image");
         }
-        btnWidth = (d.width / 3) - 30;
-        logger.debug("Buttons width = "+ btnWidth);
-
-	    //setLayout(new BoxLayout( this, BoxLayout.Y_AXIS ) );
-        //setLayout(null);
+        btnWidth = 233;
+        //logger.debug("Buttons width = "+ btnWidth);
+        Color backgroundColor = Color.decode("0xAFC6E9");
 		inlineBtn = new RoundedButton("RBL_INLINE", appBundle);
 		inlineBtn.setFont(appFont);
-		inlineBtn.setBackground(Color.decode("0xAFC6E9"));
+		inlineBtn.setBackground(backgroundColor);
 		inlineBtn.setPreferredSize(new Dimension(btnWidth, 300));
 	    rhythmBtn = new RoundedButton("RBL_RHYTHM", appBundle);
 	    rhythmBtn.setFont(appFont);
-	    rhythmBtn.setBackground(Color.decode("0xAFC6E9"));
+	    rhythmBtn.setBackground(backgroundColor);
 	    rhythmBtn.setPreferredSize(new Dimension(btnWidth, 300));
 	    scoreBtn = new RoundedButton("RBL_SCORE", appBundle);
 	    scoreBtn.setFont(appFont);
-	    scoreBtn.setBackground(Color.decode("0xAFC6E9"));
+	    scoreBtn.setBackground(backgroundColor);
 	    scoreBtn.setPreferredSize(new Dimension(btnWidth, 300));
 	    statsBtn = new RoundedButton("RBL_STATS", appBundle);
 	    statsBtn.setFont(appFont);
-	    statsBtn.setBackground(Color.decode("0xAFC6E9"));
+	    statsBtn.setBackground(backgroundColor);
 	    statsBtn.setPreferredSize(new Dimension(btnWidth, 300));
 	    lessonsBtn = new RoundedButton("RBL_LESSONS", appBundle);
 	    lessonsBtn.setFont(appFont);
-	    lessonsBtn.setBackground(Color.decode("0xAFC6E9"));
+	    lessonsBtn.setBackground(backgroundColor);
 	    lessonsBtn.setPreferredSize(new Dimension(btnWidth, 300));
 	    earTrainBtn = new RoundedButton("RBL_EARTRAIN", appBundle);
 	    earTrainBtn.setFont(appFont);
-	    earTrainBtn.setBackground(Color.decode("0xAFC6E9"));
+	    earTrainBtn.setBackground(backgroundColor);
 	    earTrainBtn.setPreferredSize(new Dimension(btnWidth, 300));
 
 	    homeButtons = new JPanel();
@@ -139,21 +134,24 @@ public class HomePanel extends JPanel
 	{
 		((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		
-		//logger.debug("[paintComponent] width = "+ this.getWidth());
+		// logger.debug("[paintComponent] width = "+ this.getWidth());
 		g.setColor(Color.white);
 		g.fillRect(0, 0, getWidth(), getHeight());
-		btnWidth = (this.getWidth() / 3) - 26;
-		//logger.debug("Buttons width = "+ btnWidth);
-		g.drawImage(MainPic, (this.getWidth() / 2) - 300, 10, null);
-		homeButtons.setBounds(0, logoHeight, this.getWidth(), this.getHeight() - logoHeight);
-		int btnHeight = (this.getHeight() - logoHeight) / 2 - 16;
-		inlineBtn.setBounds(30, 10, btnWidth, btnHeight);
-		rhythmBtn.setBounds(40 + btnWidth, 10, btnWidth, btnHeight);
-		scoreBtn.setBounds(50 + (btnWidth * 2), 10, btnWidth, btnHeight);
-		//statsBtn.setBounds(30 + (btnWidth/2), 20 + btnHeight, btnWidth, btnHeight);
-		//lessonsBtn.setBounds(40 + (int)(btnWidth*1.5), 20 + btnHeight, btnWidth, btnHeight);
-		statsBtn.setBounds(30, 20 + btnHeight, btnWidth, btnHeight);
-		lessonsBtn.setBounds(40 + btnWidth, 20 + btnHeight, btnWidth, btnHeight);
-		earTrainBtn.setBounds(50 + (btnWidth * 2), 20 + btnHeight, btnWidth, btnHeight);
+
+		btnWidth = 254;
+		int prefWidth = 800 ;
+		int btnHeight = 163;
+		int margin = 10;
+		logger.debug("Buttons width = "+ btnWidth);
+		g.drawImage(MainPic, (this.getWidth() / 2) - 300, 0, null);
+		homeButtons.setBounds(((this.getWidth() - prefWidth) / 2) + margin, logoHeight, prefWidth-(margin*2), margin + btnHeight *2 );
+
+		inlineBtn.setBounds(0, 0, btnWidth, btnHeight);
+		rhythmBtn.setBounds(margin + btnWidth, 0, btnWidth, btnHeight);
+		scoreBtn.setBounds(margin*2 + (btnWidth * 2), 0, btnWidth, btnHeight);
+
+		statsBtn.setBounds(0, margin + btnHeight, btnWidth, btnHeight);
+		lessonsBtn.setBounds(margin + btnWidth, margin + btnHeight, btnWidth, btnHeight);
+		earTrainBtn.setBounds(margin*2 + (btnWidth * 2), margin + btnHeight, btnWidth, btnHeight);
 	}
 }
