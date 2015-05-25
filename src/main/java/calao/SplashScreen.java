@@ -76,7 +76,7 @@ public class SplashScreen extends JWindow {
 	 * @param imageIcon the image icon
 	 * @param waitTime the time to wait
 	 */
-	public SplashScreen(ImageIcon imageIcon, int waitTime)
+	public SplashScreen(ImageIcon imageIcon, int waitTime, Version v)
 	{
 		super();
 		int width = imageIcon.getIconWidth();
@@ -98,7 +98,7 @@ public class SplashScreen extends JWindow {
         drawingGraphics.drawString(title, marginLeft, height/2-marginText);
 
         drawingGraphics.setFont(new Font("Arial", Font.PLAIN, 19));
-		//String developersNames = "R�gis LELOUP";
+		//String developersNames = "Régis LELOUP";
 		/*
 		String tokenSeparator  = ",";
 		String developers = IMPORT_DEVELOPERS;
