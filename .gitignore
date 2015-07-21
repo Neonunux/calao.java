@@ -2,7 +2,5 @@
 /target
 /.travis.yml
 /logs/
-/libs/
-/.settings
 /calao.properties
 /*.kls
