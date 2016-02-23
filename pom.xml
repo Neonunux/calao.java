@@ -3,9 +3,8 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>Calao</groupId>
 	<artifactId>Calao</artifactId>
-	<version>3.3.2929</version>
+	<version>3.3.3061</version>
 
-	<packaging>pom</packaging>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -202,6 +201,12 @@
 			<artifactId>maven-core</artifactId>
 			<version>3.0.5</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-jar-plugin</artifactId>
+			<version>2.6</version>
+			<type>maven-plugin</type>
+		</dependency>
 	</dependencies>
 
 	<profiles>
@@ -315,4 +320,5 @@
 			<name>Régis Leloup</name>
 		</developer>
 	</developers>
+	<packaging>pom</packaging>
 </project>
