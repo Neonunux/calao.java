@@ -49,4 +49,10 @@ public class NativeUtilsTest {
 		return;
 	}
 
+	@Test
+	public void testGetSeparator() throws Exception {
+		//throw new RuntimeException("not yet implemented");
+		return;
+	}
+
 }

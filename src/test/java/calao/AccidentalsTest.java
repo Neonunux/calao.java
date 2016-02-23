@@ -74,10 +74,10 @@ public class AccidentalsTest {
 		Preferences appPrefs = new Preferences();
 		Accidentals acc = new Accidentals("b", 1, appPrefs);
 		
-		assertThat(acc.getClefOffset(appPrefs.CLEF_F4)).isEqualTo(10);
-		assertThat(acc.getClefOffset(appPrefs.CLEF_G2)).isEqualTo(0);
-		assertThat(acc.getClefOffset(appPrefs.CLEF_C3)).isEqualTo(5);
-		assertThat(acc.getClefOffset(appPrefs.CLEF_C4)).isEqualTo(-5);
+		assertThat(acc.getClefOffset(appPrefs.F4_CLEF)).isEqualTo(10);
+		assertThat(acc.getClefOffset(appPrefs.G2_CLEF)).isEqualTo(0);
+		assertThat(acc.getClefOffset(appPrefs.C3_CLEF)).isEqualTo(5);
+		assertThat(acc.getClefOffset(appPrefs.C4_CLEF)).isEqualTo(-5);
 	}
 
 	@Test
@@ -85,27 +85,27 @@ public class AccidentalsTest {
 		Preferences appPrefs = new Preferences();
 		Accidentals acc = new Accidentals("b", 7, appPrefs);
 		
-		assertThat(acc.getXYAlterations(appPrefs.CLEF_F4))
-		.containsExactly(0, 5, 9, -10, 18, 10, 27, -5, 36, 15, 45, 0, 54, 20);
-		assertThat(acc.getXYAlterations(appPrefs.CLEF_C4))
-		.containsExactly(0, 5, 9, -10, 18, 10, 27, -5, 36, 15, 45, 0, 54, 20);
-		assertThat(acc.getXYAlterations(appPrefs.CLEF_C3))
-		.containsExactly(0, 5, 9, -10, 18, 10, 27, -5, 36, 15, 45, 0, 54, 20);
-		assertThat(acc.getXYAlterations(appPrefs.CLEF_G2))
-		.containsExactly(0, 5, 9, -10, 18, 10, 27, -5, 36, 15, 45, 0, 54, 20);
+		assertThat(acc.getXYAlterations(appPrefs.F4_CLEF))
+		.containsExactly(54, 20, 45, 0, 36, 15, 27, -5, 18, 10, 9, -10, 0, 5);
+		assertThat(acc.getXYAlterations(appPrefs.C4_CLEF))
+		.containsExactly(54, 20, 45, 0, 36, 15, 27, -5, 18, 10, 9, -10, 0, 5);
+		assertThat(acc.getXYAlterations(appPrefs.C3_CLEF))
+		.containsExactly(54, 20, 45, 0, 36, 15, 27, -5, 18, 10, 9, -10, 0, 5);
+		assertThat(acc.getXYAlterations(appPrefs.G2_CLEF))
+		.containsExactly(54, 20, 45, 0, 36, 15, 27, -5, 18, 10, 9, -10, 0, 5);
 	}	
 	@Test
 	public void testGetXYSharpAlterations() throws Exception {
 		Preferences appPrefs = new Preferences();
 		Accidentals acc = new Accidentals("#", 7, appPrefs);
 
-		assertThat(acc.getXYAlterations(appPrefs.CLEF_F4))
-		.containsExactly(0, -15, 10, 0, 20, -20, 30, -5, 40, 10, 50, -10, 60, 5);
-		assertThat(acc.getXYAlterations(appPrefs.CLEF_C4))
-		.containsExactly(0, -15, 10, 0, 20, 15, 30, -5, 40, 10, 50, 25, 60, 5);
-		assertThat(acc.getXYAlterations(appPrefs.CLEF_C3))
-		.containsExactly(0, -15, 10, 0, 20, -20, 30, -5, 40, 10, 50, -10, 60, 5);
-		assertThat(acc.getXYAlterations(appPrefs.CLEF_G2))
-		.containsExactly(0, -15, 10, 0, 20, -20, 30, -5, 40, 10, 50, -10, 60, 5);
+		assertThat(acc.getXYAlterations(appPrefs.F4_CLEF))
+		.containsExactly(60, 5, 50, -10, 40, 10, 30, -5, 20, -20, 10, 0, 0, -15);
+		assertThat(acc.getXYAlterations(appPrefs.C4_CLEF))
+		.containsExactly(60, 5, 50, 25, 40, 10, 30, -5, 20, 15, 10, 0, 0, -15);
+		assertThat(acc.getXYAlterations(appPrefs.C3_CLEF))
+		.containsExactly(60, 5, 50, -10, 40, 10, 30, -5, 20, -20, 10, 0, 0, -15);
+		assertThat(acc.getXYAlterations(appPrefs.G2_CLEF))
+		.containsExactly(60, 5, 50, -10, 40, 10, 30, -5, 20, -20, 10, 0, 0, -15);
 	}
 }

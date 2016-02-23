@@ -105,4 +105,10 @@ public class ClefSelectorTest {
 		return;
 	}
 
+	@Test
+	public void testInitIter() throws Exception {
+		//throw new RuntimeException("not yet implemented");
+		return;
+	}
+
 }
