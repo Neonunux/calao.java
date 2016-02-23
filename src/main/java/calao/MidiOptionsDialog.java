@@ -52,7 +52,6 @@ import org.jpab.Device;
 import org.jpab.PortAudio;
 import org.jpab.PortAudioException;
 
-
 /**
  * The Class MidiOptionsDialog.
  *
@@ -347,7 +346,6 @@ public class MidiOptionsDialog extends JDialog implements ActionListener
         transpositionSpinner = new JSpinner(model);
         transpositionSpinner.setBounds(380, 12, 100, 25);
         
-
         keyboardPanel.add(keyLabel);
         keyboardPanel.add(transpositionSpinner);
         tmpYpos+=55;

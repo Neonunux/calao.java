@@ -183,7 +183,7 @@ public class MidiController
                    return false;
                }
            }
-           midiSynth.open();
+           midiSynth.open(); 
        }
        catch (MidiUnavailableException e) 
        {
