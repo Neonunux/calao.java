@@ -4,9 +4,12 @@
 /logs/
 /calao.properties
 /*.kls
+/src/main/java/slider/
 /src/main/resources/calao/old/
 /src/main/resources/calao/svg/
-/src/main/resources/calao/Exercices/
-/src/main/resources/calao/TimGM6mb.sf2
+/src/main/resources/calao/Exercises/
 /src/main/resources/calao/font/documentation_police.svg
-/src/main/java/slider/
+/src/main/resources/calao/libs/
+/src/main/resources/calao/MusiSyncForCalao.ttf
+/src/main/resources/calao/*.sf2
+
