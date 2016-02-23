@@ -33,6 +33,7 @@
  * ***** END LICENSE BLOCK ***** */
 package calao;
 
+import java.math.MathContext;
 import java.util.concurrent.Future;
 
 import org.apache.logging.log4j.LogManager;
@@ -107,7 +108,6 @@ public class DoubleFFT_1D {
 
 	/** The Constant PI. */
 	private static final double PI = 3.14159265358979311599796346854418516;
-
 	/** The Constant TWO_PI. */
 	private static final double TWO_PI = 6.28318530717958623199592693708837032;
 
