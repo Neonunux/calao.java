@@ -31,7 +31,8 @@ import org.apache.logging.log4j.Logger;
 
 
 /**
- * The Class Piano.
+ * Piano class is used to display the virtual keyboard;
+ * mostly used by no midi keyboad players.
  *
  * @author Neonunux
  */

@@ -14,7 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Calao.  If not, see <http://www.gnu.org/licenses/>.
 
-**********************************************/
+ **********************************************/
 package calao;
 
 import java.awt.Color;
@@ -43,7 +43,8 @@ import org.apache.logging.log4j.Logger;
  *
  * @author Neonunux
  */
-public class InlinePanel extends JPanel implements ActionListener {
+public class InlinePanel extends JPanel implements ActionListener,
+		PropertyChangeListener {
 
 	private static final Logger logger = LogManager.getLogger(InlinePanel.class
 			.getName());
@@ -123,9 +124,6 @@ public class InlinePanel extends JPanel implements ActionListener {
 	/** The user notes. */
 	Vector<Integer> userNotes = new Vector<Integer>();
 
-	/** The clef mask. */
-	private int clefMask = 1;
-
 	/** The game type. */
 	private int gameType = -1;
 
@@ -152,6 +150,9 @@ public class InlinePanel extends JPanel implements ActionListener {
 	private Exercise currEx = null;
 
 	private TimerPanel timerPanel;
+	Voices voices;
+
+	private int pieSize = 70;
 
 	/**
 	 * Instantiates a new inline panel.
@@ -174,7 +175,11 @@ public class InlinePanel extends JPanel implements ActionListener {
 		appPrefs = p;
 		appMidi = mc;
 
-		setBackground(Color.white);
+		voices = new Voices(f, b, p);
+		
+	String color = appPrefs
+				.getProperty("colors.background");
+		setBackground(Color.decode(color));
 		setSize(d);
 		setLayout(null);
 		if (appPrefs.globalExerciseMode == true) {
@@ -185,22 +190,25 @@ public class InlinePanel extends JPanel implements ActionListener {
 		} else {
 			inlineAccidentals = new Accidentals("", 0, appPrefs);
 		}
+
 		inlineNG = new NoteGenerator(appPrefs, inlineAccidentals, false);
+		inlineNG.setVoices(voices);
+
 		stats = new Statistics();
-		timerPanel = new TimerPanel();
+		timerPanel = new TimerPanel(appPrefs);
 
 		gameType = appPrefs.GAME_STOPPED;
 
 		sBar = new SmartBar(new Dimension(d.width, sBarHeight), b, f, p, true,
 				false, false);
+
 		sBar.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
-				if (evt.getPropertyName() == "updateParameters") {
-					logger.trace("INLINE panel update parameters !");
-					refreshPanel();
-				}
+				logger.debug("sBar property changed refreshed ");
+				refreshPanel();
 			}
 		});
+		// sBar.clefNotesDialog.okButton.addActionListener(this);
 
 		sBar.playBtn.addActionListener(this);
 		if (exerciseMode == true)
@@ -216,16 +224,19 @@ public class InlinePanel extends JPanel implements ActionListener {
 				inlineAccidentals, true, true);
 		inlineStaff.setPreferredSize(new Dimension(panelsWidth, staffHeight));
 		inlineStaff.setBounds(0, 0, panelsWidth, staffHeight);
-		inlineStaff.setClefs(clefMask);
+		inlineStaff.setVoices(voices);
 		inlineStaff.setOpaque(true);
+		
 
-		notesLayer = new NotesPanel(appFont, appPrefs, gameNotes, null, true);
-		notesLayer.setPreferredSize(new Dimension(panelsWidth, staffHeight));
-		notesLayer.setBounds(0, 0, panelsWidth, staffHeight);
-		notesLayer.setOpaque(false);
+
+		// notesLayer = new NotesPanel(appFont, appPrefs, gameNotes, null,
+		// true);
+		// notesLayer.setPreferredSize(new Dimension(panelsWidth, staffHeight));
+		// notesLayer.setBounds(0, 0, panelsWidth, staffHeight);
+		// notesLayer.setOpaque(false);
 
 		layers.add(inlineStaff, new Integer(1));
-		layers.add(notesLayer, new Integer(2));
+		// layers.add(notesLayer, new Integer(2));
 
 		int pianoKeysNum = Integer.parseInt(appPrefs
 				.getProperty("keyboardlength"));
@@ -247,7 +258,17 @@ public class InlinePanel extends JPanel implements ActionListener {
 				}
 			});
 		}
-
+		
+		
+		
+		inlineStaff.addPropertyChangeListener("voice1", new PropertyChangeListener() {
+			
+			public void propertyChange(PropertyChangeEvent evt) {
+				// TODO Auto-generated method stub
+				logger.debug("allo quoi !!");
+				refreshPanel();
+			}
+		});
 		gameBar = new GameBar(new Dimension(d.width, gBarHeight), b, f, p, true);
 		gameBar.setBounds(0, getHeight() - gBarHeight, getWidth(), gBarHeight);
 		gameBar.progress.setValue(20);
@@ -260,6 +281,8 @@ public class InlinePanel extends JPanel implements ActionListener {
 		add(gameBar);
 		add(timerPanel);
 		refreshPanel();
+
+		
 	}
 
 	/**
@@ -267,6 +290,10 @@ public class InlinePanel extends JPanel implements ActionListener {
 	 */
 	public void refreshPanel() {
 		piano.reset(true);
+		inlineStaff.setVoices(inlineNG.getVoices());
+		inlineStaff.repaint();
+		logger.debug("[InlinePanel.refreshPanel] properti(es) changed");
+
 		if (exerciseMode == false) {
 			inlineNG.update();
 
@@ -277,24 +304,24 @@ public class InlinePanel extends JPanel implements ActionListener {
 			higherPitch = inlineNG.getSecondHighPitch();
 			piano.setNewBound(lowerPitch, higherPitch);
 
-			inlineStaff.setClefs(inlineNG.getClefMask());
-			notesLayer.setClefs(inlineNG.getClefMask());
+			// notesLayer.setClefs(inlineNG.getVoices());
 			rowsDistance = inlineNG.getRowsDistance();
 		} else {
-			inlineStaff.setClefs(currEx.clefMask);
-			notesLayer.setClefs(currEx.clefMask);
+			// notesLayer.setClefs(currEx.clefMask);
 			if (currEx.randomize == 1)
 				inlineNG.setNotesList(currEx.notes, currEx.notes2, true);
 			else
 				inlineNG.setNotesList(currEx.notes, currEx.notes2, false);
 			rowsDistance = inlineNG.getRowsDistanceFromClefs(currEx.clefMask);
 			logger.debug("[INLINE] rowsDistance: " + rowsDistance);
-		}
 
+		}
+		rowsDistance = 160; // TODO remove this debug line
 		sBar.tempoContainer.setEnabled(false);
 		inlineStaff.setRowsDistance(rowsDistance);
-		notesLayer.setRowsDistance(rowsDistance);
-		notesLayer.setFirstNoteXPosition(inlineStaff.getFirstNoteXPosition());
+		inlineStaff.repaint();
+		// notesLayer.setRowsDistance(rowsDistance);
+		// notesLayer.setFirstNoteXPosition(inlineStaff.getFirstNoteXPosition());
 		setLearningInfo(false, -1);
 	}
 
@@ -815,11 +842,14 @@ public class InlinePanel extends JPanel implements ActionListener {
 				- (staffHMargin * 2), staffHeight);
 		inlineStaff.setBounds(0, 0, getWidth() - (staffHMargin * 2),
 				staffHeight);
-		notesLayer
-				.setBounds(0, 0, getWidth() - (staffHMargin * 2), staffHeight);
+		inlineStaff.repaint();
+		logger.debug("[InlinePanel.paintComponent] repainted");
+		// notesLayer
+		// .setBounds(0, 0, getWidth() - (staffHMargin * 2), staffHeight);
 		piano.setBounds(0, staffVMargin + staffHeight, getWidth(), pianoHeight);
 		gameBar.setBounds(0, getHeight() - gBarHeight, getWidth(), gBarHeight);
-		timerPanel.setBounds(0, sBarHeight, staffVMargin, staffHeight);
+
+		timerPanel.setBounds(100, 225, pieSize, pieSize);
 	}
 
 	/**
@@ -834,7 +864,6 @@ public class InlinePanel extends JPanel implements ActionListener {
 		int noteXincrement = (currentSpeed < 121) ? 1 : 2; // above 120 the
 															// increment is of 2
 															// pixels
-
 		/** The sleep val. */
 		int sleepVal = 0;
 
@@ -851,9 +880,8 @@ public class InlinePanel extends JPanel implements ActionListener {
 				sleepVal = ((200 - currentSpeed) * 10 / 80);
 			}
 			if (gameType == appPrefs.INLINE_MORE_NOTES) {
-				noteXincrement = noteXincrement - (noteXincrement * 2); // change
-																		// sign
-																		// here
+				// change sign here
+				noteXincrement = noteXincrement - (noteXincrement * 2);
 				noteXStartPos = marginX;
 				marginX = inlineStaff.getFirstNoteXPosition();
 				sleepVal *= 2; // slow down baby !
@@ -955,11 +983,19 @@ public class InlinePanel extends JPanel implements ActionListener {
 					}
 					// sleep(260 - currentSpeed);
 					notesLayer.repaint();
+					inlineStaff.setVoices(voices);
+					inlineStaff.repaint();
+					logger.debug("[InlinePanelThread] repainted");
 					sleep(10 + sleepVal);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		}
+	}
+
+	public void propertyChange(PropertyChangeEvent evt) {
+		logger.debug("message rec");
+		this.refreshPanel();
 	}
 }

@@ -20,6 +20,7 @@ package calao;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import org.apache.logging.log4j.LogManager;
@@ -31,7 +32,8 @@ import org.apache.logging.log4j.Logger;
  *  
  *  language         | the UI global language
  *  
- *  clefsMask        | the four clefs masked with logical OR (TREBLE_CLEF | BASS_CLEF | ALTO_CLEF | TENOR_CLEF);
+ *  clefsMask        |  (TREBLE_CLEF|BASS_CLEF|ALTO_CLEF|TENOR_CLEF); REMOVED
+ *  voices			 | Configuration clef of the 4 score voices
  *  ClefG2Lower  	 | pitch of the lowest note used in exercises
  *  ClefG2Upper  	 | pitch of the highest note used in exercises
  *  ClefF4Lower    	 | pitch of the lowest note used in exercises
@@ -51,6 +53,11 @@ import org.apache.logging.log4j.Logger;
  *  silenceNote      | 0: silence disabled, 1: silence enabled
  *  3_4_Note		 | 0: 3/4 notes disabled, 1: 3/4 notes enabled
  *  3_8_Note		 | 0: 3/8 notes disabled, 1: 3/8 notes enabled
+ *  
+ *  voice0			 | First voice
+ *  voice1			 | Second voice
+ *  voice2			 | Third voice
+ *  voice4			 | Forth voice
  *  
  *  metromome	     | metronome - 0: disabled, 1: enabled 
  *  showBeats		 | show metronome beats - 0: disabled, 1: enabled
@@ -87,25 +94,25 @@ public class Preferences
 	private static final Logger logger =  LogManager.getLogger(Preferences.class.getName());
 	
 	/** The CLE f_ g2. */
-	public int CLEF_G2 = 0x0001;
+	//public int CLEF_G2 = 0x0001; // OLD
 	
 	/** The CLE f_ f4. */
-	public int CLEF_F4 = 0x0002;
+	//public int CLEF_F4 = 0x0002; // OLD
 	
 	/** The CLE f_ c3. */
-	public int CLEF_C3 = 0x0004;
+	//public int CLEF_C3 = 0x0004; // OLD
 	
 	/** The CLE f_ c4. */
-	public int CLEF_C4 = 0x0008;
-	/*
-	public int G2_CLEF = 0x0001;
-	public int C1_CLEF = 0x0002;
-	public int C2_CLEF = 0x0004;
-	public int C3_CLEF = 0x0008;
-	public int C4_CLEF = 0x0016;
-	public int C5_CLEF = 0x0032;
-	public int F4_CLEF = 0x0064;
-	*/
+	//public int CLEF_C4 = 0x0008; // OLD
+	
+	public int G2_CLEF = 0x0001; // ADDED
+	public int C1_CLEF = 0x0002; // ADDED
+	public int C2_CLEF = 0x0004; // ADDED
+	public int C3_CLEF = 0x0008; // ADDED
+	public int C4_CLEF = 0x0016; // ADDED
+	public int C5_CLEF = 0x0032; // ADDED
+	public int F4_CLEF = 0x0064; // ADDED
+	
 	/** The game stopped. */
 	public int GAME_STOPPED        = 0;
 	
@@ -163,7 +170,7 @@ public class Preferences
 	  {
 		prefs.load(new FileInputStream("calao.properties"));
  	    logger.trace("language = " + prefs.getProperty("language"));
-		prefs.list(System.out);
+		//prefs.list(System.out);
   	  }
   	  catch (Exception e) 
   	  {
@@ -204,7 +211,7 @@ public class Preferences
 		try 
 		{ 
 			prefs.store(new FileOutputStream("calao.properties"), null); 
-			prefs.list(System.out);
+			//prefs.list(System.out);
         } 
         catch (IOException e) { }
 	}

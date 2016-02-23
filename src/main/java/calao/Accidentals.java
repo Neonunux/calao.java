@@ -1,7 +1,7 @@
 /**
  * Calao is an educational platform to get started with musical
  * reading and solfege.
- * Copyright (C) 2012-2014 R. Leloup (http://github.com/Neonunux/Calao)
+ * Copyright (C) 2012-2016 R. Leloup (http://github.com/Neonunux/Calao)
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,7 +33,6 @@ import org.apache.logging.log4j.Logger;
  * The Class Accidentals.
  *
  * @author Neonunux
- * @author Massimo Callegari
  */
 public class Accidentals {
 
@@ -51,12 +50,9 @@ public class Accidentals {
 	/**
 	 * Instantiates a new accidentals.
 	 *
-	 * @param String t 
-	 *            Type of Accidentals: # or b
-	 * @param Integer count 
-	 *            Amount of accidentals: 1 to 7 
-	 * @param Preferences p 
-	 *            The preferences configuration
+	 * @param t Type of Accidentals: # or b
+	 * @param count Amount of accidentals: 1 to 7
+	 * @param p The preferences configuration
 	 */
 	public Accidentals(String t, int count, Preferences p) {
 		appPrefs = p;
@@ -67,10 +63,8 @@ public class Accidentals {
 	/**
 	 * Sets the type and count.
 	 *
-	 * @param t
-	 *            the t
-	 * @param count
-	 *            the count
+	 * @param t the t
+	 * @param count the count
 	 */
 	public void setTypeAndCount(String t, int count) {
 		this.type = t;
@@ -196,7 +190,7 @@ public class Accidentals {
 	}
 
 	/**
-	 * Paint.
+	 * Paint the accidentals on key
 	 *
 	 * @param g
 	 *            the g
@@ -212,128 +206,136 @@ public class Accidentals {
 	public void paint(Graphics g, Font f, int xPos, int yPos, int clefMask) {
 		String sharp = "B"; // # alteration
 		String flat = "b"; // b alteration
-		
+
 		int clefOffset;
-		
+
 		Integer xPos2;
 		Integer yPos2;
-		
+
 		clefOffset = getClefOffset(clefMask);
 
 		String alteration = null;
-		
+
 		if (type.equals("#")) {
-			alteration  = sharp;
+			alteration = sharp;
 		}
 
 		if (type.equals("b")) {
 			alteration = flat;
 		}
-		
+
 		for (int i = 0; i < amount; i++) {
 			xPos2 = xPos + getXYAlterations(clefMask).get(2 * i);
-			yPos2 = yPos + getXYAlterations(clefMask).get(2 * i + 1) + clefOffset;
+			yPos2 = yPos + getXYAlterations(clefMask).get(2 * i + 1)
+					+ clefOffset;
 			drawAlteration(g, f, xPos2, yPos2, alteration);
 		}
 	}
 
 	/**
-	 * @param clefMask
-	 * @param clefOffset
-	 * @return
+	 * @param clefMask voices settings 
+	 * 
+	 * @return int result
 	 */
 	public int getClefOffset(int clefMask) {
 		int clefOffset = 0; // G2 ?
-		if (clefMask == appPrefs.CLEF_F4) {
-			clefOffset = 10;
-		}
-		// else if (clefMask == appPrefs.CLEF_C1) {
-		// clefOffset = ??;
-		// } else if (clefMask == appPrefs.CLEF_C2) {
-		// clefOffset = ??;
-		// }
-		else if (clefMask == appPrefs.CLEF_C3) {
-			clefOffset = 5;
-		} else if (clefMask == appPrefs.CLEF_C4) {
-			clefOffset = -5;
-		}
-		// else if (clefMask == appPrefs.CLEF_C5) {
-		// clefOffset = ??;
-		// }
+		// if (clefMask == appPrefs.CLEF_F4) {            // OLD
+		// clefOffset = 10;                               // OLD
+		// }                                              // OLD
+		// // else if (clefMask == appPrefs.CLEF_C1) {    // OLD
+		// // clefOffset = ??;                            // OLD
+		// // } else if (clefMask == appPrefs.CLEF_C2) {  // OLD
+		// // clefOffset = ??;                            // OLD
+		// // }                                           // OLD
+		// else if (clefMask == appPrefs.CLEF_C3) {       // OLD
+		// clefOffset = 5;                                // OLD
+		// } else if (clefMask == appPrefs.CLEF_C4) {     // OLD
+		// clefOffset = -5;                               // OLD
+		// }                                              // OLD
+		// // else if (clefMask == appPrefs.CLEF_C5) {    // OLD
+		// // clefOffset = ??;                            // OLD
+		// // }
+                                                    
+		if (clefMask == appPrefs.C1_CLEF) {            // NEW
+			clefOffset = 25;                           // NEW
+		} else if (clefMask == appPrefs.C2_CLEF) {     // NEW
+			clefOffset = 15;                           // NEW
+		} else if (clefMask == appPrefs.C3_CLEF) {     // NEW
+			clefOffset = 5;                            // NEW
+		} else if (clefMask == appPrefs.C4_CLEF) {     // NEW
+			clefOffset = -5;                           // NEW
+		} else if (clefMask == appPrefs.C5_CLEF) {     // NEW
+			clefOffset = -10;                          // NEW
+		} else if (clefMask == appPrefs.F4_CLEF) {     // NEW
+			clefOffset = 10;                           // NEW
+		}                                              // NEW
+
 		return clefOffset;
 	}
 
 	Vector<Integer> getXYAlterations(int clefMask) {
 		Vector<Integer> alt = new Vector<Integer>();
 		if (type.equals("b")) {
-			if (amount >= 1) {
-				alt.add(0); // SIB
-				alt.add(5);
-			}
-			if (amount >= 2) {
-				alt.add(9); // MIB
-				alt.add(-10);
-			}
-			if (amount >= 3) {
-				alt.add(18); // LAB
-				alt.add(10);
-			}
-			if (amount >= 4) {
-				alt.add(27); // REB
-				alt.add(-5);
-			}
-			if (amount >= 5) {
-				alt.add(36); // SOLB
-				alt.add(15);
-			}
-			if (amount >= 6) {
-				alt.add(45); // DOB
-				alt.add(0);
-			}
-			if (amount >= 7) {
+			switch (amount) {
+			case 7:
 				alt.add(54); // FAB
 				alt.add(20);
+			case 6:
+				alt.add(45); // DOB
+				alt.add(0);
+			case 5:
+				alt.add(36); // SOLB
+				alt.add(15);
+			case 4:
+				alt.add(27); // REB
+				alt.add(-5);
+			case 3:
+				alt.add(18); // LAB
+				alt.add(10);
+			case 2:
+				alt.add(9); // MIB
+				alt.add(-10);
+			case 1:
+				alt.add(0); // SIB
+				alt.add(5);
+				break;
 			}
 		}
 
 		if (type.equals("#")) {
-			if (amount >= 1) {
-				alt.add(0); // SOL
-				alt.add(-15);
-			}
-			if (amount >= 2) {
-				alt.add(10); // RE
-				alt.add(0);
-			}
-			if (amount >= 3) {
-				if (clefMask == appPrefs.CLEF_C4) {
-					alt.add(20); // LA
-					alt.add(15);
-				} else {
-					alt.add(20);
-					alt.add(-20);
-				}
-			}
-			if (amount >= 4) {
-				alt.add(30); // MI
-				alt.add(-5);
-			}
-			if (amount >= 5) {
-				alt.add(40); // SI
-				alt.add(10);
-			}
-			if (amount >= 6) {
-				if (clefMask == appPrefs.CLEF_C4) {
+			switch (amount) {
+			case 7:
+				alt.add(60); // DO#
+				alt.add(5);
+			case 6:
+				if (clefMask == appPrefs.C4_CLEF) {
 					alt.add(50); // FA#
 					alt.add(25);
 				} else {
 					alt.add(50);
 					alt.add(-10);
 				}
-			}
-			if (amount >= 7) {
-				alt.add(60); // DO#
-				alt.add(5);
+			case 5:
+				alt.add(40); // SI
+				alt.add(10);
+			case 4:
+				alt.add(30); // MI
+				alt.add(-5);
+			case 3:
+				if (clefMask == appPrefs.C4_CLEF) {
+					alt.add(20); // LA
+					alt.add(15);
+				} else {
+					alt.add(20);
+					alt.add(-20);
+				}
+			case 2:
+				alt.add(10); // RE
+				alt.add(0);
+			case 1:
+				alt.add(0); // SOL
+				alt.add(-15);
+				break;
 			}
 		}
 		return alt;

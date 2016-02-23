@@ -308,15 +308,15 @@ public class ScorePanel extends JPanel implements ActionListener, KeyListener
 				rowsDistance = 90;
 			staffLayer.setRowsDistance(rowsDistance);
 			notesLayer.setRowsDistance(rowsDistance);
-			staffLayer.setClefs(scoreNG.getClefMask());
-			notesLayer.setClefs(scoreNG.getClefMask());
+//			staffLayer.setClefs(scoreNG.getClefMask());
+//			notesLayer.setClefs(scoreNG.getClefMask());
 			logger.debug("[ScorePanel] Staff width: " + staffLayer.getStaffWidth() + ", rowsDistance: " + rowsDistance);
 			tsIdx = Integer.parseInt(appPrefs.getProperty("timeSignature"));
 		}
 		else
 		{
-			staffLayer.setClefs(currEx.clefMask);
-			notesLayer.setClefs(currEx.clefMask);
+//			staffLayer.setClefs(currEx.clefMask);
+//			notesLayer.setClefs(currEx.clefMask);
 			tsIdx = currEx.timeSign;
 		}
 		

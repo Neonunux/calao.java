@@ -31,7 +31,15 @@ public class TimerPanel extends JPanel implements Runnable {
 	private int xmiddle;
 	private int ymiddle;
 	private int pie;
-	public TimerPanel() {
+
+	private Preferences appPrefs;
+	
+	private String color = "#000000";
+
+	public TimerPanel(Preferences p) {
+		appPrefs = p;
+		color = appPrefs
+				.getProperty("colors.background");
 		// startChrono();
 
 		Timer timer = new Timer(200, new ActionListener() {
@@ -48,6 +56,7 @@ public class TimerPanel extends JPanel implements Runnable {
 		timer.start();
 	}
 
+
 	long chrono = 0;
 
 	void startChrono() {
@@ -63,7 +72,7 @@ public class TimerPanel extends JPanel implements Runnable {
 	protected void paintComponent(Graphics g) {
 		((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
-		g.setColor(Color.white);
+		g.setColor(Color.decode(color));
 		g.fillRect(0, 0, getWidth(), getHeight()); // clear background &
 													// graphicBuffer
 		pie = (int) Math.round(((angle - 1) / 359.0) * 255.0);

@@ -1,7 +1,7 @@
 /**
  * Calao is an educational platform to get started with musical
  * reading and solfege.
- * Copyright (C) 2012-2014 R. Leloup (http://github.com/Neonunux/Calao)
+ * Copyright (C) 2012-2015 R. Leloup (http://github.com/Neonunux/Calao)
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -79,6 +79,7 @@ public class AnswersPanel extends JPanel
 		wrongImg = new ImageIcon(getClass().getResource("wrong.png")).getImage();
 		warnImg = new ImageIcon(getClass().getResource("warning.png")).getImage();
 		checkSurface();
+		logger.debug("AnswersPanel thrown");
 	}
 	
 	/**
@@ -105,7 +106,7 @@ public class AnswersPanel extends JPanel
 		if (bImage == null)
 			return;
 		Graphics2D g2d = bImage.createGraphics();
-		g2d.setBackground(new Color(255, 255, 255, 0));
+		g2d.setBackground(Color.cyan);
 		g2d.clearRect(0, 0, currWidth, currHeight);
 		g2d.dispose();
 		cursorXpos = -1;

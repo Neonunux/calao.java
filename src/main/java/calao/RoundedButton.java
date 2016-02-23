@@ -88,6 +88,10 @@ public class RoundedButton extends JButton {
 
 	private boolean gradientPaint = false;
 
+	private Color labelColor = Color.black;
+	private Color buttonMouseOverColor = Color.decode("0xB8D8FF");
+
+
 	private int borderWidth = 3;
 
 	/**
@@ -240,6 +244,7 @@ public class RoundedButton extends JButton {
 			else if (getModel().isRollover()) // rollover effect
 			{
 				bgColor = Color.decode("0xB8D8FF");
+				bgColor = buttonMouseOverColor;
 				tmpColor = Color.decode("0x667BBD");
 			} else {
 				bgColor = getBackground(); // normal state
@@ -361,28 +366,47 @@ public class RoundedButton extends JButton {
 
 		AttributedString as = new AttributedString(titleContent);
 		as.addAttribute(TextAttribute.FONT, serifFont);
-		as.addAttribute(TextAttribute.FOREGROUND, Color.red);
+		as.addAttribute(TextAttribute.FOREGROUND, labelColor);
 
-		textWidth = (int)Math.floor( getWidthOfAttributedString((Graphics2D) g, as) + 0.5d);
+		textWidth = (int) Math.floor(getWidthOfAttributedString((Graphics2D) g,
+				as) + 0.5d);
 
 		g.drawString(as.getIterator(), (getSize().width - textWidth) / 2,
 				OffsetContentPositionText);
 	}
-	
-	double getWidthOfAttributedString(Graphics2D graphics2D, AttributedString attributedString) {
-	    AttributedCharacterIterator characterIterator = attributedString.getIterator();
-	    FontRenderContext fontRenderContext = graphics2D.getFontRenderContext();
-	    LineBreakMeasurer lbm = new LineBreakMeasurer(characterIterator, fontRenderContext);
-	    TextLayout textLayout = lbm.nextLayout(Integer.MAX_VALUE);
-	    return textLayout.getBounds().getWidth();
+
+	double getWidthOfAttributedString(Graphics2D graphics2D,
+			AttributedString attributedString) {
+		AttributedCharacterIterator characterIterator = attributedString
+				.getIterator();
+		FontRenderContext fontRenderContext = graphics2D.getFontRenderContext();
+		LineBreakMeasurer lbm = new LineBreakMeasurer(characterIterator,
+				fontRenderContext);
+		TextLayout textLayout = lbm.nextLayout(Integer.MAX_VALUE);
+		return textLayout.getBounds().getWidth();
 	}
-	
+
 	public int getBorderWidth() {
 		return borderWidth;
 	}
 
 	public void setBorderWidth(int borderWidth) {
 		this.borderWidth = borderWidth;
+	}
+
+	public Color getLabelColor() {
+		return labelColor;
+	}
+
+	public void setLabelColor(Color labelColor) {
+		this.labelColor = labelColor;
+	}
+	public Color getButtonMouseOverColor() {
+		return buttonMouseOverColor;
+	}
+
+	public void setButtonMouseOverColor(Color buttonMouseOverColor) {
+		this.buttonMouseOverColor = buttonMouseOverColor;
 	}
 
 }

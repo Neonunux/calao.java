@@ -35,7 +35,8 @@ import org.apache.logging.log4j.Logger;
 
 
 /**
- * The Class NotesPanel.
+ * The Class NotesPanel instantiates Staff area where
+ * notes appears. 
  *
  * @author Neonunux
  */
@@ -173,22 +174,29 @@ public class NotesPanel extends JPanel implements MouseListener
      *
      * @param type the new clefs
      */
-    public void setClefs(int type)
-    {
-    	this.clefMask = type;
+    void setClefs(String clef) {
+    	//this.clefMask = type; TODO REGIS ORIGINAL LINE
+    	
     	clefs.clear();
-
-    	if ((clefMask & appPrefs.CLEF_G2) > 0) clefs.add(appPrefs.CLEF_G2);
-    	if ((clefMask & appPrefs.CLEF_F4) > 0) clefs.add(appPrefs.CLEF_F4);
-    	if ((clefMask & appPrefs.CLEF_C3) > 0) clefs.add(appPrefs.CLEF_C3);
-    	if ((clefMask & appPrefs.CLEF_C4) > 0) clefs.add(appPrefs.CLEF_C4);
-
-		Font ltf = new Font("Arial", Font.BOLD, 30);
-		learningText.setPreferredSize( new Dimension(200, 50));
-		learningText.setBounds((getWidth() / 2) - 150, getHeight() - 60, 300, 50);
-		learningText.setText("");
-		learningText.setFont(ltf);
-		
+    	
+//    	if ((clefMask & appPrefs.CLEF_G2) > 0) clefs.add(appPrefs.CLEF_G2); // OLD
+//    	if ((clefMask & appPrefs.CLEF_F4) > 0) clefs.add(appPrefs.CLEF_F4); // OLD
+//    	if ((clefMask & appPrefs.CLEF_C3) > 0) clefs.add(appPrefs.CLEF_C3); // OLD
+//    	if ((clefMask & appPrefs.CLEF_C4) > 0) clefs.add(appPrefs.CLEF_C4); // OLD
+    	
+//    	clefs.add("G2"); // NEW 
+//    	clefs.add("C1"); // NEW
+//    	clefs.add("C2"); // NEW
+//    	clefs.add("C3"); // NEW
+//    	clefs.add("C5"); // NEW
+//    	clefs.add("C4"); // NEW
+    	
+    	Font ltf = new Font("Arial", Font.BOLD, 30);
+    	learningText.setPreferredSize( new Dimension(200, 50));
+    	learningText.setBounds((getWidth() / 2) - 150, getHeight() - 60, 300, 50);
+    	learningText.setText("");
+    	learningText.setFont(ltf);
+    	
     	repaint();
     }
     

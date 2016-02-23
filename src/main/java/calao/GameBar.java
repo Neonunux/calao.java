@@ -180,6 +180,7 @@ public class GameBar extends JPanel implements ActionListener
 			notesNumber.addItem("80 " + appBundle.getString("_menuNotes"));
 			notesNumber.setSelectedIndex(2);
 		}
+		logger.debug("Updated language");
 	}
 
 	/* (non-Javadoc)

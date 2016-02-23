@@ -83,10 +83,10 @@ public class Note
 	 * @param nSecondRow the n second row
 	 * @param nAlt the n alt
 	 */
-	public Note(int xPos, int nClef, int nLevel, int nPitch, int nType, boolean nSecondRow, int nAlt)
+	public Note(int xPos, /* int nClef, */ int nLevel, int nPitch, int nType, boolean nSecondRow, int nAlt)
 	{
 		xpos = xPos;
-		clef = nClef;
+//		clef = nClef;
 		altType = nAlt;
 		level = nLevel;
 		pitch = nPitch;
@@ -109,7 +109,7 @@ public class Note
 			case 7: duration = 1.5; break;
 		}
 		
-		logger.debug("[Note] t: " + type + ", p: " + pitch + ", l: " + level + ", dur: " + duration + ", alt: " + altType);
+		logger.trace("[Note] t: " + type + ", p: " + pitch + ", l: " + level + ", dur: " + duration + ", alt: " + altType);
 		
 		ypos = 0; // y positions are calculated by the NotesPanel
 	}

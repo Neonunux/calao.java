@@ -14,7 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Calao.  If not, see <http://www.gnu.org/licenses/>.
 
-**********************************************/
+ **********************************************/
 package calao;
 
 import java.awt.Color;
@@ -126,10 +126,12 @@ public class SmartBar extends JPanel implements ActionListener, ChangeListener {
 	private boolean isTraining = false;
 
 	/** The clef notes dialog. */
-	private ClefNotesOptionDialog clefNotesDialog;
+	public ClefNotesOptionDialog clefNotesDialog;
 
 	/** The comp color. */
 	private Color compColor = Color.decode("0x749CC5");
+
+	private Voices voices;
 
 	/**
 	 * Instantiates a new smart bar.
@@ -150,7 +152,7 @@ public class SmartBar extends JPanel implements ActionListener, ChangeListener {
 	 *            the training
 	 */
 	public SmartBar(Dimension d, ResourceBundle b, Font f, Preferences p,
-			boolean inline, boolean earTraining, boolean training) {
+			boolean inline, boolean earTraining, boolean training, Voices v) {
 		appBundle = b;
 		appFont = f;
 		appPrefs = p;
@@ -160,6 +162,11 @@ public class SmartBar extends JPanel implements ActionListener, ChangeListener {
 		setSize(d);
 		setLayout(null);
 
+		if (v == null)
+			voices = new Voices(f, b, p);
+		else
+			voices = v;
+		
 		if (inline == false) {
 			totalObjWidth = 700;
 			upperMargin = 15;
@@ -388,6 +395,11 @@ public class SmartBar extends JPanel implements ActionListener, ChangeListener {
 		}
 	}
 
+	public SmartBar(Dimension d, ResourceBundle b, Font f, Preferences p,
+			boolean inline, boolean earTraining, boolean training) {
+		this(d, b, f, p, inline, earTraining, training, null);
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -399,7 +411,7 @@ public class SmartBar extends JPanel implements ActionListener, ChangeListener {
 			logger.debug("SmartBar Event received !! (" + ae.getActionCommand()
 					+ ")");
 			clefNotesDialog = new ClefNotesOptionDialog(appFont, appBundle,
-					appPrefs);
+					appPrefs, voices);
 			clefNotesDialog.setVisible(true);
 			clefNotesDialog
 					.addPropertyChangeListener(new PropertyChangeListener() {
@@ -419,6 +431,14 @@ public class SmartBar extends JPanel implements ActionListener, ChangeListener {
 			}
 			appPrefs.storeProperties();
 		}
+	}
+
+	public Voices getVoices() {
+		return voices;
+	}
+
+	public void setVoices(Voices voices) {
+		this.voices = voices;
 	}
 
 	/*

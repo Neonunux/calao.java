@@ -180,7 +180,7 @@ public class ExercisesPanel extends JPanel implements TreeSelectionListener, Act
 		leftPanel.setBounds(5, 10, 330, getHeight() - 25);
 
 		topBar = new RoundPanel(Color.decode("0xA3C7FF"), Color.decode("0xA2DDFF"));
-		topBar.setBorderColor(Color.decode("0xA4D6FF"));
+		//topBar.setBorderColor(Color.decode("0xA4D6FF"));
 		topBar.setBounds(10, 7, 310, 75);
 		topBar.setLayout(null);
 
@@ -543,7 +543,7 @@ public void actionPerformed(ActionEvent ae)
         selectedExercise.loadFromFile(nInfo.filePath);
         
         exerciseTitle.setText(selectedExercise.title);
-        scoreStaff.setClefs(selectedExercise.clefMask);
+        //scoreStaff.setClefs(selectedExercise.clefMask);
 
         scoreStaff.setAccidentals(selectedExercise.acc);
         timeNumerator = 4;
@@ -564,7 +564,7 @@ public void actionPerformed(ActionEvent ae)
         scoreStaff.setMeasuresNumber((int)Math.ceil(totalDuration / (timeNumerator / (timeDenominator / 4))));
         playbackSpeed = selectedExercise.speed;
         
-        notesLayer.setClefs(selectedExercise.clefMask);
+//        notesLayer.setClefs(selectedExercise.clefMask);
         notesLayer.setStaffWidth(scoreStaff.getStaffWidth());
         notesLayer.setFirstNoteXPosition(scoreStaff.getFirstNoteXPosition());
         notesLayer.setNotesSequence(selectedExercise.notes, selectedExercise.notes2);
