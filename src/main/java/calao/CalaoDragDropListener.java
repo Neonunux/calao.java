@@ -19,14 +19,12 @@ package calao;
 
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
-import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DropTargetDragEvent;
 import java.awt.dnd.DropTargetDropEvent;
 import java.awt.dnd.DropTargetEvent;
 import java.awt.dnd.DropTargetListener;
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -38,7 +36,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 class CalaoDragDropListener implements DropTargetListener {
-	
 	public void drop(DropTargetDropEvent event) {
 		final Logger logger = LogManager
 				.getLogger(CalaoDragDropListener.class.getName());
@@ -48,14 +45,14 @@ class CalaoDragDropListener implements DropTargetListener {
 		// Get the transfer which can provide the dropped item data
 		Transferable transferable = event.getTransferable();
 
-		try {
-			List<File> dropppedFiles = (List<File>)transferable
-					.getTransferData(DataFlavor.javaFileListFlavor);
-		} catch (UnsupportedFlavorException e1) {
-			e1.printStackTrace();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
+//		try {
+//			List<File> dropppedFiles = (List<File>)transferable
+//					.getTransferData(DataFlavor.javaFileListFlavor);
+//		} catch (UnsupportedFlavorException e1) {
+//			e1.printStackTrace();
+//		} catch (IOException e1) {
+//			e1.printStackTrace();
+//		}
 
 		// Get the data formats of the dropped item
 		DataFlavor[] flavors = transferable.getTransferDataFlavors();
