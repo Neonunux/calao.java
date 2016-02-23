@@ -20,7 +20,6 @@ package calao;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.MediaTracker;
 import java.awt.dnd.DropTarget;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -37,7 +36,6 @@ import java.util.Locale;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
-import javax.imageio.ImageIO;
 import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiMessage;
 import javax.sound.midi.MidiUnavailableException;
@@ -57,7 +55,7 @@ import org.apache.logging.log4j.Logger;
  * Main Class.
  *
  * @author Neonunux <regis.leloup@colombbus.org>
- * @author Massimo Callegari 
+ * @author Massimo Callegari
  * 
  * @link https://github.com/Neonunux/calao/wiki
  */
@@ -144,6 +142,10 @@ public class Calao extends JFrame implements ActionListener {
 	/** The transposition. */
 	private int transposition = 0;
 
+	private String background;
+
+	private boolean isDebugged = false;
+
 	/**
 	 * Instantiates a new main Calao class.
 	 */
@@ -168,6 +170,7 @@ public class Calao extends JFrame implements ActionListener {
 				.getImage());
 		prefs = new Preferences();
 		language = prefs.getProperty("language");
+		background = prefs.getProperty("colors.background");
 		// if no language is set yet, try to set the system one
 		if (language == "") {
 			Locale locale = Locale.getDefault();
@@ -198,16 +201,22 @@ public class Calao extends JFrame implements ActionListener {
 			bundle = ResourceBundle.getBundle("translation.language",
 					new Locale(language));
 		}
-
-		setTitle("Calao - " + version.getMajor() + "." + version.getMinor() + " - build " + version.getBuild());
+		String title;
+		isDebugged = Boolean.parseBoolean(prefs.getProperty("calao.debug"));
+		if (isDebugged)
+			title = "Calao - " + version.getMajor() + "." + version.getMinor()
+					+ " - build " + version.getBuild();
+		else
+			title = "Calao - " + version.getMajor() + "." + version.getMinor();
+		setTitle(title);
 		Dimension wSize = new Dimension(800, 600);
 		setSize(wSize); // default size is 0,0
 		setMinimumSize(wSize);
-		setBackground(Color.white);
+		// setBackground(Color.white);
+		setBackground(Color.decode(background));
 		setLocationRelativeTo(null); // Center the window on the display
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // exit when frame
 														// closed
-
 		midiControl = new MidiController(prefs);
 		int midiError = midiControl.checkError();
 		if (midiError == 2) {
@@ -257,7 +266,7 @@ public class Calao extends JFrame implements ActionListener {
 		audioControl = new AudioInputController(prefs); // TODO: AUDIO
 														// unfinished
 
-		menuBar = new LMenuBar(bundle, prefs);
+		menuBar = new LMenuBar(bundle, prefs, version);
 		setJMenuBar(menuBar);
 		menuBar.setVisible(true);
 		menuBar.addPropertyChangeListener(new PropertyChangeListener() {
@@ -266,7 +275,7 @@ public class Calao extends JFrame implements ActionListener {
 			}
 		});
 
-		homePanel = new HomePanel(MusiSync, bundle, wSize);
+		homePanel = new HomePanel(MusiSync, prefs, bundle, wSize);
 		getContentPane().add(homePanel);
 
 		homePanel.inlineBtn.addActionListener(this);
@@ -725,31 +734,31 @@ public class Calao extends JFrame implements ActionListener {
 		}
 	}
 
-	/**
-	 * Displays splash.png during the loading
-	 * @return 
-	 */
-	public SplashScreen displaySplashScreen() {
-		ImageIcon splashScreenImage = new ImageIcon();
-		try {
-			splashScreenImage.setImage(ImageIO.read(getClass().getResource(
-					"splash.png")));
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		// while the image is not on screen
-		while (splashScreenImage.getImageLoadStatus() == MediaTracker.LOADING) {
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				System.out.printf("splash screen loading interrupted", e); //$NON-NLS-1$
-			}
-		}
-		// should normally be run in the EDT, but launched at once in order to
-		// display the screen as soon as possible
-		return  new SplashScreen(splashScreenImage, 2000, version);
+
+	public boolean isDebugged() {
+		return isDebugged;
+	}
+	
+	public void setDebugged(boolean isDebugged) {
+		this.isDebugged = isDebugged;
+	}
+	public Version getVersion() {
+		return version;
 	}
 
+	public void setVersion(Version version) {
+		this.version = version;
+	}
+	
+	public Preferences getPrefs() {
+		return prefs;
+	}
+
+	public void setPrefs(Preferences prefs) {
+		this.prefs = prefs;
+	}
+
+	
 	/**
 	 * The main method.
 	 *
@@ -757,11 +766,18 @@ public class Calao extends JFrame implements ActionListener {
 	 *            the arguments
 	 */
 	public static void main(String[] args) {
+		Boolean isDebugged = false;
 		Calao app = new Calao();
-		SplashScreen splashscreen = app.displaySplashScreen();
-		app.setAlwaysOnTop(true);
+		isDebugged = app.isDebugged();
+		app.setAlwaysOnTop(isDebugged); // true if debug mode
+		app.setAlwaysOnTop(false);
+		// if (!isDebugged) { // ----> commented for splashscreen debugging
+		// purposes
+		// SplashScreen splashscreen = new SplashScreen(2000, app.getVersion());
+		SplashScreen splashscreen = new SplashScreen(-1, app.getVersion());
 		splashscreen.setAlwaysOnTop(true);
-
+		// }
 		logger.info("Exiting Calao");
 	}
+
 }
