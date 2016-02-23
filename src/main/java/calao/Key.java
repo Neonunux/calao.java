@@ -36,6 +36,7 @@ import org.apache.logging.log4j.Logger;
  */
 public class Key extends JButton {
 
+	@SuppressWarnings("unused")
 	private static final Logger logger = LogManager.getLogger(Key.class
 			.getName());
 
@@ -153,6 +154,7 @@ public class Key extends JButton {
 		Rectangle b = getBounds();
 		b.x = newx;
 		setBounds(b);
+		//logger.debug("Rectangle : " + b);
 	}
 
 	/**

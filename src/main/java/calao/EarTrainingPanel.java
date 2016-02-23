@@ -180,7 +180,7 @@ public class EarTrainingPanel extends JPanel implements ActionListener
 		noteContainer = new RoundPanel(Color.decode("0xFFFFFF"), Color.decode("0xB59CFF"));
 		noteContainer.setLayout(null);
 		noteContainer.setBackground(Color.white);
-		noteContainer.setBorderColor(Color.decode("0x7666A7"));
+		//noteContainer.setBorderColor(Color.decode("0x7666A7"));
 		noteContainer.setBounds((getWidth() / 2) - 200, (getHeight() / 2 - 90), 400, 160);
 		
 		listenIcon = new ImageIcon(getClass().getResource("listen.png"));
@@ -278,7 +278,7 @@ public class EarTrainingPanel extends JPanel implements ActionListener
 		{
 			case 0:
 				earNG.reset();
-				earNG.addRange(appPrefs.CLEF_G2, 60, 71); // from C3 to B3
+//				earNG.addRange(appPrefs.G2_CLEF, 60, 71); // from C3 to B3
 				gameTitle.setText(appBundle.getString("_earOctaves") + ": 1, " + appBundle.getString("_alterednotes") + ": " + 
 								  appBundle.getString("_no") + ", " + appBundle.getString("_notes") + ": " + earNG.getNotesNumber());
 				buttonsContainer.setVisible(true);
@@ -287,7 +287,7 @@ public class EarTrainingPanel extends JPanel implements ActionListener
 			break;
 			case 1:
 				earNG.reset();
-				earNG.addRange(appPrefs.CLEF_G2, 48, 71); // from C2 to B3
+//				earNG.addRange(appPrefs.G2_CLEF, 48, 71); // from C2 to B3
 				gameTitle.setText(appBundle.getString("_earOctaves") + ": 2, " + appBundle.getString("_alterednotes") + ": " + 
 						  appBundle.getString("_no") + ", " + appBundle.getString("_notes") + ": " + earNG.getNotesNumber());
 				buttonsContainer.setVisible(true);
@@ -296,7 +296,7 @@ public class EarTrainingPanel extends JPanel implements ActionListener
 			break;
 			case 2:
 				earNG.reset();
-				earNG.addRange(appPrefs.CLEF_G2, 36, 84); // from C1 to C5
+//				earNG.addRange(appPrefs.G2_CLEF, 36, 84); // from C1 to C5
 				gameTitle.setText(appBundle.getString("_earOctaves") + ": 4, " + appBundle.getString("_alterednotes") + ": " + 
 						  appBundle.getString("_yes") + ", " + appBundle.getString("_notes") + ": " + earNG.getNotesNumber());
 				buttonsContainer.setVisible(false);

@@ -425,18 +425,18 @@ public class Exercise
 							   nAlt = Integer.parseInt(alt);
 					   }
 
-					   tmpNote = new Note(0, nClef, nLevel, nPitch, nType, false, 0);
-					   if (nAlt > -3)
-						   tmpNote.altType = nAlt;
-					   tmpNote.setTimeStamp(nStamp);
-					   tmpNote.duration = nDur;
-					   if (seq == 0)
-						   notes.add(tmpNote);
-					   else if (seq == 1)
-					   {
-						   tmpNote.secondRow = true;
-						   notes2.add(tmpNote);
-					   }
+//					   tmpNote = new Note(0, nClef, nLevel, nPitch, nType, false, 0);
+//					   if (nAlt > -3)
+//						   tmpNote.altType = nAlt;
+//					   tmpNote.setTimeStamp(nStamp);
+//					   tmpNote.duration = nDur;
+//					   if (seq == 0)
+//						   notes.add(tmpNote);
+//					   else if (seq == 1)
+//					   {
+//						   tmpNote.secondRow = true;
+//						   notes2.add(tmpNote);
+//					   }
 				   }
 			   }
 			   

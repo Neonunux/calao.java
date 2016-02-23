@@ -407,14 +407,16 @@ public class Fluidsynth {
 			int tuningProgram, String name, double[] derivations);
 
 	/**
-	 * Get the available {@link #getAudioDriver()}s.
+	 * Get the available 
+	 * @link #getAudioDrivers()
 	 * 
 	 * @return possible options for audio drivers
 	 */
 	public native static List<String> getAudioDrivers();
 
 	/**
-	 * Get the available {@link #getAudioDevice()}s.
+	 * Get the available 
+	 * @link #getAudioDevices()
 	 * 
 	 * @param audioDriver
 	 *            the audio driver to get possible devices for
@@ -441,7 +443,7 @@ public class Fluidsynth {
 				directory = new File(LIBS_PATH + File.separator + WIN64_ARCH_PATH + File.separator);
 			else
 				directory = new File(LIBS_PATH + File.separator + WIN32_ARCH_PATH + File.separator);
-			
+			logger.debug("directory : " + directory);
 			try {
 				NativeUtils.load(new File(directory, "libintl-8.dll"));
 				NativeUtils.load(new File(directory, "libglib-2.0-0.dll"));
@@ -473,6 +475,7 @@ public class Fluidsynth {
 			logger.error("Fluidsynth error: " + error);
 			throw new NoClassDefFoundError();
 		}
+		logger.debug("All librairies loaded successfully");
 	}	
 
 }

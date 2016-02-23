@@ -163,7 +163,7 @@ public class ExerciseScoreEditor extends JDialog implements ActionListener, Prop
         backPanel.setBackground(Color.white);
         backPanel.setBounds(0, 0, 700, 550);
         
-        RoundPanel notesPanel = new RoundPanel(Color.decode("0xFFFFFF"), Color.decode("0xA2DDFF"));
+        RoundPanel notesPanel = new RoundPanel(Color.decode("0xFFFFFF"), Color.decode("0xFFFFFF"));
         notesPanel.setLayout(null);
         notesPanel.setBackground(Color.white);
         notesPanel.setBounds(5, 5, 685, 112);
@@ -356,7 +356,7 @@ public class ExerciseScoreEditor extends JDialog implements ActionListener, Prop
 		measuresNumber = getTotalMeasuresNumber();
 
 		scoreStaff.setMeasuresNumber(measuresNumber);
-        scoreStaff.setClefs(currExercise.clefMask);
+//        scoreStaff.setClefs(currExercise.clefMask);
         scoreStaff.setRowsDistance(rowsDistance);
         scoreStaff.setTimeSignature(timeNumerator, timeDenominator);
         scoreStaff.setOpaque(true);
@@ -368,7 +368,7 @@ public class ExerciseScoreEditor extends JDialog implements ActionListener, Prop
 		notesEditLayer.setBounds(0, 0, staffW, scoreStaff.getStaffHeight());
 		notesEditLayer.setRowsDistance(rowsDistance);
 		notesEditLayer.setOpaque(false);
-		notesEditLayer.setClefs(currExercise.clefMask);
+//		notesEditLayer.setClefs(currExercise.clefMask);
 		if (e.type != 1)
 			notesEditLayer.setEditMode(true, false);
 		else
@@ -592,53 +592,53 @@ public class ExerciseScoreEditor extends JDialog implements ActionListener, Prop
 			flatBtn.setVisible(true);
 			flatBtn.setEnabled(false);
 			normalBtn.setVisible(false);
-			tmpNote = new Note(0, notesEditLayer.getClef(selectedClef - 1), 12, pitch, 5, false, 0);
-			tmpNote.duration = type;
+//			tmpNote = new Note(0, notesEditLayer.getClef(selectedClef - 1), 12, pitch, 5, false, 0);
+//			tmpNote.duration = type;
 		}
 		else
 		{
-			tmpNote = new Note(0, notesEditLayer.getClef(selectedClef - 1), 12, pitch, (int)type, false, 0);
-			if (exNotes.size() > 0 && currExercise.type == 2)
-			{
-			  for (int i = exNotes.size() - 1; i >= 0; i--)
-			  {
-				Note nNote = exNotes.get(i);
-				double timeDivision = (double)timeNumerator / (timeDenominator / 4);
-				if ((int)Math.floor(nNote.timestamp / timeDivision) != measuresNumber - 1)
-					break;
-				//logger.debug("note #" + i + " p: " + nNote.pitch);
-				//logger.debug("nNote.level: " + nNote.level + ", tmpNote.level: " + tmpNote.level);
-				if ((nNote.level == tmpNote.level  || nNote.level == tmpNote.level - 7 || nNote.level == tmpNote.level + 7) &&
-					nNote.altType != 0)
-				{
-					if (nNote.altType == 2)
-						tmpNote.pitch = exerciseNG.getPitchFromClefAndLevel(notesEditLayer.getClef(selectedClef - 1), tmpNote.level);
-					else
-						tmpNote.pitch += nNote.altType;
-
-					logger.debug("[addEditNote] NEW pitch = " + tmpNote.pitch);
-					break;
-				}
-			  }
-			}
+//			tmpNote = new Note(0, notesEditLayer.getClef(selectedClef - 1), 12, pitch, (int)type, false, 0);
+//			if (exNotes.size() > 0 && currExercise.type == 2)
+//			{
+//			  for (int i = exNotes.size() - 1; i >= 0; i--)
+//			  {
+//				Note nNote = exNotes.get(i);
+//				double timeDivision = (double)timeNumerator / (timeDenominator / 4);
+//				if ((int)Math.floor(nNote.timestamp / timeDivision) != measuresNumber - 1)
+//					break;
+//				//logger.debug("note #" + i + " p: " + nNote.pitch);
+//				//logger.debug("nNote.level: " + nNote.level + ", tmpNote.level: " + tmpNote.level);
+//				if ((nNote.level == tmpNote.level  || nNote.level == tmpNote.level - 7 || nNote.level == tmpNote.level + 7) &&
+//					nNote.altType != 0)
+//				{
+//					if (nNote.altType == 2)
+//						tmpNote.pitch = exerciseNG.getPitchFromClefAndLevel(notesEditLayer.getClef(selectedClef - 1), tmpNote.level);
+//					else
+//						tmpNote.pitch += nNote.altType;
+//
+//					logger.debug("[addEditNote] NEW pitch = " + tmpNote.pitch);
+//					break;
+//				}
+//			  }
+//			}
 		}
-		if (selectedClef == 2)
-			tmpNote.secondRow = true;
-
-		measureCounter -= tmpNote.duration;
-		tmpNote.setTimeStamp(timeCounter);
-		timeCounter += tmpNote.duration;
-
-		if (selectedClef == 1)
-		{
-			currExercise.notes.add(tmpNote);
-			exNotes = currExercise.notes;
-		}
-		else if (selectedClef == 2)
-		{
-			currExercise.notes2.add(tmpNote);
-			exNotes = currExercise.notes2;
-		}
+//		if (selectedClef == 2)
+//			tmpNote.secondRow = true;
+//
+//		measureCounter -= tmpNote.duration;
+//		tmpNote.setTimeStamp(timeCounter);
+//		timeCounter += tmpNote.duration;
+//
+//		if (selectedClef == 1)
+//		{
+//			currExercise.notes.add(tmpNote);
+//			exNotes = currExercise.notes;
+//		}
+//		else if (selectedClef == 2)
+//		{
+//			currExercise.notes2.add(tmpNote);
+//			exNotes = currExercise.notes2;
+//		}
 		
 		if (isSilence == false)
 			checkAlterationButtons(exNotes.size() - 1);
