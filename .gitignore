@@ -4,6 +4,7 @@
 /logs/
 /calao.properties
 /*.kls
+/src/main/java/plugins
 /src/main/java/slider/
 /src/main/resources/calao/old/
 /src/main/resources/calao/svg/
@@ -12,4 +13,3 @@
 /src/main/resources/calao/libs/
 /src/main/resources/calao/MusiSyncForCalao.ttf
 /src/main/resources/calao/*.sf2
-
