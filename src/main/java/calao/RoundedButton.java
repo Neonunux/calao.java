@@ -266,8 +266,8 @@ public class RoundedButton extends JButton {
 		int textWidth = 0;
 		int vOffset = getHeight() / 2;
 		int hOffset = getWidth() / 2;
-		int OffsetContentPositionImage = 50;
-		int OffsetContentPositionText = 50;
+		int OffsetContentPositionImage = 35;
+		int OffsetContentPositionText = 35;
 		/*
 		 * lecture de notes // rythmes // partition // statistiques // Exercices
 		 * // Ear Training
