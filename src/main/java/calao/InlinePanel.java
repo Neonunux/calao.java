@@ -43,11 +43,9 @@ import org.apache.logging.log4j.Logger;
  *
  * @author Neonunux
  */
-public class InlinePanel extends JPanel implements ActionListener,
-		PropertyChangeListener {
+public class InlinePanel extends JPanel implements ActionListener, PropertyChangeListener {
 
-	private static final Logger logger = LogManager.getLogger(InlinePanel.class
-			.getName());
+	private static final Logger logger = LogManager.getLogger(InlinePanel.class.getName());
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
@@ -168,25 +166,22 @@ public class InlinePanel extends JPanel implements ActionListener,
 	 * @param d
 	 *            the d
 	 */
-	public InlinePanel(Font f, ResourceBundle b, Preferences p,
-			MidiController mc, Dimension d) {
+	public InlinePanel(Font f, ResourceBundle b, Preferences p, MidiController mc, Dimension d) {
 		appFont = f;
 		appBundle = b;
 		appPrefs = p;
 		appMidi = mc;
 
 		voices = new Voices(f, b, p);
-		
-	String color = appPrefs
-				.getProperty("colors.background");
+
+		String color = appPrefs.getProperty("colors.background");
 		setBackground(Color.decode(color));
 		setSize(d);
 		setLayout(null);
 		if (appPrefs.globalExerciseMode == true) {
 			exerciseMode = true;
 			currEx = appPrefs.currentExercise;
-			inlineAccidentals = new Accidentals(currEx.acc.getType(),
-					currEx.acc.getNumber(), appPrefs);
+			inlineAccidentals = new Accidentals(currEx.acc.getType(), currEx.acc.getNumber(), appPrefs);
 		} else {
 			inlineAccidentals = new Accidentals("", 0, appPrefs);
 		}
@@ -199,17 +194,12 @@ public class InlinePanel extends JPanel implements ActionListener,
 
 		gameType = appPrefs.GAME_STOPPED;
 
-		sBar = new SmartBar(new Dimension(d.width, sBarHeight), b, f, p, true,
-				false, false);
+		sBar = new SmartBar(new Dimension(d.width, sBarHeight), b, f, p, true, false, false);
 
-		sBar.addPropertyChangeListener(new PropertyChangeListener() {
-			public void propertyChange(PropertyChangeEvent evt) {
-				logger.debug("sBar property changed refreshed ");
-				refreshPanel();
-			}
-		});
+		sBar.clefNotesDialog.addPropertyChangeListener(this);
 		// sBar.clefNotesDialog.okButton.addActionListener(this);
 
+		sBar.clefNoteBtn.addActionListener(this);
 		sBar.playBtn.addActionListener(this);
 		if (exerciseMode == true)
 			sBar.tempoSlider.setValue(currEx.speed);
@@ -220,14 +210,11 @@ public class InlinePanel extends JPanel implements ActionListener,
 		layers.setPreferredSize(new Dimension(panelsWidth, staffHeight));
 		layers.setBounds(staffHMargin, staffVMargin, panelsWidth, staffHeight);
 
-		inlineStaff = new Staff(appFont, appBundle, appPrefs,
-				inlineAccidentals, true, true);
+		inlineStaff = new Staff(appFont, appBundle, appPrefs, inlineAccidentals, true, true);
 		inlineStaff.setPreferredSize(new Dimension(panelsWidth, staffHeight));
 		inlineStaff.setBounds(0, 0, panelsWidth, staffHeight);
 		inlineStaff.setVoices(voices);
 		inlineStaff.setOpaque(true);
-		
-
 
 		// notesLayer = new NotesPanel(appFont, appPrefs, gameNotes, null,
 		// true);
@@ -238,8 +225,7 @@ public class InlinePanel extends JPanel implements ActionListener,
 		layers.add(inlineStaff, new Integer(1));
 		// layers.add(notesLayer, new Integer(2));
 
-		int pianoKeysNum = Integer.parseInt(appPrefs
-				.getProperty("keyboardlength"));
+		int pianoKeysNum = Integer.parseInt(appPrefs.getProperty("keyboardlength"));
 		if (pianoKeysNum == -1)
 			pianoKeysNum = 73;
 		piano = new Piano(pianoKeysNum);
@@ -258,17 +244,7 @@ public class InlinePanel extends JPanel implements ActionListener,
 				}
 			});
 		}
-		
-		
-		
-		inlineStaff.addPropertyChangeListener("voice1", new PropertyChangeListener() {
-			
-			public void propertyChange(PropertyChangeEvent evt) {
-				// TODO Auto-generated method stub
-				logger.debug("allo quoi !!");
-				refreshPanel();
-			}
-		});
+
 		gameBar = new GameBar(new Dimension(d.width, gBarHeight), b, f, p, true);
 		gameBar.setBounds(0, getHeight() - gBarHeight, getWidth(), gBarHeight);
 		gameBar.progress.setValue(20);
@@ -282,17 +258,15 @@ public class InlinePanel extends JPanel implements ActionListener,
 		add(timerPanel);
 		refreshPanel();
 
-		
 	}
 
 	/**
 	 * Refresh panel.
 	 */
 	public void refreshPanel() {
+		this.repaint();
 		piano.reset(true);
 		inlineStaff.setVoices(inlineNG.getVoices());
-		inlineStaff.repaint();
-		logger.debug("[InlinePanel.refreshPanel] properti(es) changed");
 
 		if (exerciseMode == false) {
 			inlineNG.update();
@@ -320,6 +294,7 @@ public class InlinePanel extends JPanel implements ActionListener,
 		sBar.tempoContainer.setEnabled(false);
 		inlineStaff.setRowsDistance(rowsDistance);
 		inlineStaff.repaint();
+		
 		// notesLayer.setRowsDistance(rowsDistance);
 		// notesLayer.setFirstNoteXPosition(inlineStaff.getFirstNoteXPosition());
 		setLearningInfo(false, -1);
@@ -432,9 +407,12 @@ public class InlinePanel extends JPanel implements ActionListener,
 				altType = inlineNG.getAlteration(gameNotes.get(0).pitch);
 
 			if (altType == 1) {
-				if (noteIdx != 2 && noteIdx != 6
-						&& piano.isSelectedBlack() == true) // E and B are
-															// already OK
+				if (noteIdx != 2 && noteIdx != 6 && piano.isSelectedBlack() == true) // E
+																						// and
+																						// B
+																						// are
+																						// already
+																						// OK
 					altInfo = "#";
 			} else if (gameNotes.get(0).altType == -1) {
 				altInfo = "b";
@@ -521,8 +499,7 @@ public class InlinePanel extends JPanel implements ActionListener,
 					keyStr += "min";
 					break;
 				case 0:
-					if (intervalType == 4 || intervalType == 5
-							|| intervalType == 8)
+					if (intervalType == 4 || intervalType == 5 || intervalType == 8)
 						keyStr += "per";
 					else
 						keyStr += "maj";
@@ -557,8 +534,7 @@ public class InlinePanel extends JPanel implements ActionListener,
 		gameThread = new InlineGameThread();
 		gameStarted = true;
 		gameThread.start();
-		sBar.playBtn.setButtonImage(new ImageIcon(getClass().getResource(
-				"stop.png")).getImage());
+		sBar.playBtn.setButtonImage(new ImageIcon(getClass().getResource("stop.png")).getImage());
 		sBar.playBtn.repaint();
 	}
 
@@ -572,8 +548,7 @@ public class InlinePanel extends JPanel implements ActionListener,
 		if (gameThread != null && gameThread.isAlive() == true) {
 			/* ************** STOP CURRENT GAME ***************** */
 			gameStarted = false;
-			sBar.playBtn.setButtonImage(new ImageIcon(getClass().getResource(
-					"playback.png")).getImage());
+			sBar.playBtn.setButtonImage(new ImageIcon(getClass().getResource("playback.png")).getImage());
 			for (int i = 0; i < gameNotes.size(); i++)
 				appMidi.stopNote(gameNotes.get(i).pitch, 0);
 			gameNotes.clear();
@@ -656,8 +631,7 @@ public class InlinePanel extends JPanel implements ActionListener,
 		if (velocity == 0) {
 			appMidi.stopNote(pitch, 0);
 			piano.keyPressed(pitch, false);
-			if (fromPiano == true && gameSubType != appPrefs.NOTE_CHORDS
-					&& gameSubType != appPrefs.NOTE_INTERVALS
+			if (fromPiano == true && gameSubType != appPrefs.NOTE_CHORDS && gameSubType != appPrefs.NOTE_INTERVALS
 					&& userNotes.size() != 0) {
 				int idx = userNotes.indexOf(pitch);
 				if (idx != -1)
@@ -689,8 +663,7 @@ public class InlinePanel extends JPanel implements ActionListener,
 					gameThread.needNewNote = true;
 				} else {
 					appMidi.playNote(pitch, 90);
-					if ((gameSubType == appPrefs.NOTE_CHORDS && userNotes
-							.size() == 3)
+					if ((gameSubType == appPrefs.NOTE_CHORDS && userNotes.size() == 3)
 							|| gameSubType != appPrefs.NOTE_CHORDS)
 						updateGameStats(0);
 					piano.keyPressed(pitch, true);
@@ -769,13 +742,11 @@ public class InlinePanel extends JPanel implements ActionListener,
 		}
 
 		stats.notePlayed(answType, score);
-		gameBar.precisionCnt.setText(Integer.toString(stats
-				.getAveragePrecision()) + "%");
+		gameBar.precisionCnt.setText(Integer.toString(stats.getAveragePrecision()) + "%");
 		gameBar.scoreCnt.setText(Integer.toString(stats.getTotalScore()));
 		if (gameType != appPrefs.INLINE_LEARN_NOTES) {
 			if (answType == 1) {
-				gameBar.progress.setValue(gameBar.progress.getValue()
-						+ progressStep);
+				gameBar.progress.setValue(gameBar.progress.getValue() + progressStep);
 			} else {
 				gameBar.progress.setValue(gameBar.progress.getValue() - 4);
 			}
@@ -795,8 +766,7 @@ public class InlinePanel extends JPanel implements ActionListener,
 	 */
 	private void gameFinished(boolean win) {
 		gameStarted = false;
-		sBar.playBtn.setButtonImage(new ImageIcon(getClass().getResource(
-				"playback.png")).getImage());
+		sBar.playBtn.setButtonImage(new ImageIcon(getClass().getResource("playback.png")).getImage());
 		refreshPanel();
 		for (int i = 0; i < gameNotes.size(); i++) {
 			appMidi.stopNote(gameNotes.get(i).pitch, 0);
@@ -817,12 +787,11 @@ public class InlinePanel extends JPanel implements ActionListener,
 			type = JOptionPane.ERROR_MESSAGE;
 		}
 
-		JOptionPane.showMessageDialog(
-				this.getParent(),
-				"  " + stats.getCorrectNumber() + " "
-						+ appBundle.getString("_correct") + " / "
-						+ stats.getWrongNumber() + " "
-						+ appBundle.getString("_wrong") + "  ", title, type);
+		JOptionPane
+				.showMessageDialog(
+						this.getParent(), "  " + stats.getCorrectNumber() + " " + appBundle.getString("_correct")
+								+ " / " + stats.getWrongNumber() + " " + appBundle.getString("_wrong") + "  ",
+						title, type);
 
 		if (Integer.parseInt(appPrefs.getProperty("saveStats")) == 1) {
 			stats.storeData(0);
@@ -838,10 +807,8 @@ public class InlinePanel extends JPanel implements ActionListener,
 		g.setColor(this.getBackground());
 		g.fillRect(0, 0, getWidth(), getHeight());
 		sBar.setSize(getWidth(), sBarHeight);
-		layers.setBounds(staffHMargin, staffVMargin, getWidth()
-				- (staffHMargin * 2), staffHeight);
-		inlineStaff.setBounds(0, 0, getWidth() - (staffHMargin * 2),
-				staffHeight);
+		layers.setBounds(staffHMargin, staffVMargin, getWidth() - (staffHMargin * 2), staffHeight);
+		inlineStaff.setBounds(0, 0, getWidth() - (staffHMargin * 2), staffHeight);
 		inlineStaff.repaint();
 		logger.debug("[InlinePanel.paintComponent] repainted");
 		// notesLayer
@@ -886,8 +853,7 @@ public class InlinePanel extends JPanel implements ActionListener,
 				marginX = inlineStaff.getFirstNoteXPosition();
 				sleepVal *= 2; // slow down baby !
 			}
-			logger.debug("Thread increment: " + noteXincrement + ", sleep: "
-					+ sleepVal);
+			logger.debug("Thread increment: " + noteXincrement + ", sleep: " + sleepVal);
 		}
 
 		/*
@@ -905,8 +871,7 @@ public class InlinePanel extends JPanel implements ActionListener,
 						}
 						needNewNote = false;
 						if (gameSubType == appPrefs.NOTE_CHORDS) {
-							int chordType = inlineNG.getRandomChordOrInterval(
-									gameNotes, noteXStartPos, true, -1);
+							int chordType = inlineNG.getRandomChordOrInterval(gameNotes, noteXStartPos, true, -1);
 							if (gameType == appPrefs.INLINE_LEARN_NOTES) {
 								setLearningInfo(true, chordType);
 							}
@@ -916,9 +881,8 @@ public class InlinePanel extends JPanel implements ActionListener,
 								}
 							}
 						} else if (gameSubType == appPrefs.NOTE_INTERVALS) {
-							int intervalType = inlineNG
-									.getRandomChordOrInterval(gameNotes,
-											noteXStartPos, false, gameInterval);
+							int intervalType = inlineNG.getRandomChordOrInterval(gameNotes, noteXStartPos, false,
+									gameInterval);
 							if (gameType == appPrefs.INLINE_LEARN_NOTES) {
 								setLearningInfo(true, intervalType);
 							}
@@ -941,9 +905,7 @@ public class InlinePanel extends JPanel implements ActionListener,
 							if (gameType == appPrefs.INLINE_LEARN_NOTES) {
 								setLearningInfo(true, -1);
 							}
-							logger.trace("Got note with pitch: "
-									+ newNote.pitch + " (level:"
-									+ newNote.level + ")");
+							logger.trace("Got note with pitch: " + newNote.pitch + " (level:" + newNote.level + ")");
 							if (gameType != appPrefs.INLINE_MORE_NOTES) {
 								appMidi.playNote(newNote.pitch, 90);
 							}
@@ -955,10 +917,9 @@ public class InlinePanel extends JPanel implements ActionListener,
 								gameNotes.get(i).xpos += noteXincrement;
 							}
 
-							if ((gameType != appPrefs.INLINE_MORE_NOTES && gameNotes
-									.get(i).xpos > marginX)
-									|| (gameType == appPrefs.INLINE_MORE_NOTES
-											&& i == 0 && gameNotes.get(i).xpos < marginX)) {
+							if ((gameType != appPrefs.INLINE_MORE_NOTES && gameNotes.get(i).xpos > marginX)
+									|| (gameType == appPrefs.INLINE_MORE_NOTES && i == 0
+											&& gameNotes.get(i).xpos < marginX)) {
 								if (gameType != appPrefs.INLINE_MORE_NOTES) {
 									appMidi.stopNote(gameNotes.get(i).pitch, 0);
 								}
@@ -995,7 +956,12 @@ public class InlinePanel extends JPanel implements ActionListener,
 	}
 
 	public void propertyChange(PropertyChangeEvent evt) {
-		logger.debug("message rec");
-		this.refreshPanel();
+
+		if (evt.getPropertyName() == "updateParameters") {
+			logger.debug("updated ! allo quoi");
+			refreshPanel();
+		}
+
 	}
+
 }

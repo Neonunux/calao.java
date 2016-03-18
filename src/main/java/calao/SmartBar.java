@@ -315,7 +315,9 @@ public class SmartBar extends JPanel implements ActionListener, ChangeListener {
 			listenBtn.setButtonImage(new ImageIcon(getClass().getResource(
 					"listen.png")).getImage());
 		}
-
+		clefNotesDialog = new ClefNotesOptionDialog(appFont, appBundle,
+				appPrefs, voices);
+		
 		updateLanguage(appBundle);
 
 		this.add(homeBtn);
@@ -410,19 +412,8 @@ public class SmartBar extends JPanel implements ActionListener, ChangeListener {
 		if (ae.getSource() == clefNoteBtn) {
 			logger.debug("SmartBar Event received !! (" + ae.getActionCommand()
 					+ ")");
-			clefNotesDialog = new ClefNotesOptionDialog(appFont, appBundle,
-					appPrefs, voices);
+			
 			clefNotesDialog.setVisible(true);
-			clefNotesDialog
-					.addPropertyChangeListener(new PropertyChangeListener() {
-						public void propertyChange(PropertyChangeEvent evt) {
-							if (evt.getPropertyName() == "updateParameters") {
-								logger.debug("ClefNotesOptionDialog update parameters.");
-								firePropertyChange("updateParameters", false,
-										true);
-							}
-						}
-					});
 		} else if (ae.getSource() == metronomeCheckBox) {
 			if (metronomeCheckBox.isSelected() == true) {
 				appPrefs.setProperty("metronome", "1");
@@ -511,5 +502,13 @@ public class SmartBar extends JPanel implements ActionListener, ChangeListener {
 	 */
 	public void setTraining(boolean state) {
 		this.isTraining = state;
+	}
+
+	public ClefNotesOptionDialog getClefNotesDialog() {
+		return clefNotesDialog;
+	}
+
+	public void setClefNotesDialog(ClefNotesOptionDialog clefNotesDialog) {
+		this.clefNotesDialog = clefNotesDialog;
 	}
 }
