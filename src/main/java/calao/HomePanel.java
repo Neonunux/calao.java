@@ -173,6 +173,8 @@ public class HomePanel extends JPanel {
 		int prefWidth = 800;
 		int btnHeight = 163;
 		int margin = 10;
+		//Color newColor = new Color(0, 0, 1, 0 /* alpha needs to be zero */);
+	    //g.setXORMode(newColor);
 		g.drawImage(MainPic, (this.getWidth() / 2) - 300, 0, null);
 		homeButtons.setBounds(((this.getWidth() - prefWidth) / 2) + margin,
 				logoHeight, prefWidth - (margin * 2), margin + btnHeight * 2);
