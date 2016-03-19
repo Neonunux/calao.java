@@ -23,7 +23,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 //import java.awt.RenderingHints;
 
-
 import javax.swing.JProgressBar;
 
 import org.apache.logging.log4j.LogManager;
@@ -53,7 +52,7 @@ public class GradientBar extends JProgressBar
 	public GradientBar(int min, int max)
 	{
 		super(min, max);
-		
+		logger.debug("Gradient bar init");
 	}
 
 	/* (non-Javadoc)
