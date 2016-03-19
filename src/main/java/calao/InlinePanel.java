@@ -294,7 +294,7 @@ public class InlinePanel extends JPanel implements ActionListener, PropertyChang
 		sBar.tempoContainer.setEnabled(false);
 		inlineStaff.setRowsDistance(rowsDistance);
 		inlineStaff.repaint();
-		
+
 		// notesLayer.setRowsDistance(rowsDistance);
 		// notesLayer.setFirstNoteXPosition(inlineStaff.getFirstNoteXPosition());
 		setLearningInfo(false, -1);
@@ -527,8 +527,8 @@ public class InlinePanel extends JPanel implements ActionListener, PropertyChang
 		gameBar.progress.setValue(20);
 		setGameType();
 		noteXStartPos = inlineStaff.getFirstNoteXPosition();
-		notesLayer.setFirstNoteXPosition(noteXStartPos);
-		notesLayer.setStaffWidth(inlineStaff.getStaffWidth());
+		// notesLayer.setFirstNoteXPosition(noteXStartPos);
+		// notesLayer.setStaffWidth(inlineStaff.getStaffWidth());
 		stats.reset();
 		stats.setGameSpeed(currentSpeed);
 		gameThread = new InlineGameThread();
@@ -536,6 +536,7 @@ public class InlinePanel extends JPanel implements ActionListener, PropertyChang
 		gameThread.start();
 		sBar.playBtn.setButtonImage(new ImageIcon(getClass().getResource("stop.png")).getImage());
 		sBar.playBtn.repaint();
+		timerPanel.start();
 	}
 
 	/**
@@ -554,6 +555,7 @@ public class InlinePanel extends JPanel implements ActionListener, PropertyChang
 			gameNotes.clear();
 			gameType = appPrefs.GAME_STOPPED;
 		}
+		timerPanel.stop();
 	}
 
 	/*
@@ -726,13 +728,8 @@ public class InlinePanel extends JPanel implements ActionListener, PropertyChang
 		int score = 0;
 		if (gameType != appPrefs.INLINE_LEARN_NOTES) {
 			int xdelta = gameNotes.get(0).xpos - noteXStartPos;
-			score = (xdelta * 100) / (getWidth() - (staffHMargin * 2)); // find
-																		// linear
-																		// score
-																		// based
-																		// on
-																		// note
-																		// position
+			// find linear score based on note position
+			score = (xdelta * 100) / (getWidth() - (staffHMargin * 2)); 
 			score = 100 - score; // invert it to scale from 0 to 100
 			score *= (currentSpeed / 40); // multiply by speed factor
 		}
@@ -958,10 +955,9 @@ public class InlinePanel extends JPanel implements ActionListener, PropertyChang
 	public void propertyChange(PropertyChangeEvent evt) {
 
 		if (evt.getPropertyName() == "updateParameters") {
-			logger.debug("updated ! allo quoi");
+			logger.debug("[InlinePanelProperty] repainted");
 			refreshPanel();
 		}
-
 	}
 
 }
