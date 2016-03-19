@@ -22,11 +22,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.Vector;
 
 import javax.swing.JPanel;
 
@@ -39,10 +35,9 @@ import org.apache.logging.log4j.Logger;
  * @author Neonunux
  * @author Massimo Callegari
  */
-public class Staff extends JPanel implements PropertyChangeListener {
+public class Staff extends JPanel {
 
-	private static final Logger logger = LogManager.getLogger(Staff.class
-			.getName());
+	private static final Logger logger = LogManager.getLogger(Staff.class.getName());
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 7759085255881441116L;
@@ -50,25 +45,22 @@ public class Staff extends JPanel implements PropertyChangeListener {
 	/** The app font. */
 	Font appFont;
 
-	/** The app bundle. */
-	private ResourceBundle appBundle; // reference to languages bundle just to
-										// display tonality
+	/** appBundle reference to languages bundle just to display tonality */
+	private ResourceBundle appBundle;
 
 	Preferences appPrefs;
-
-	// ************************************** SCORE LAYOUT ***********
-	// *
-	// * | window |clefWidth|alteration|timeSign| noteDistance
-	// * | Margin | | Width | Width | /------\
-	// * | | | | | | |
-	// * | ----GG------#---------------------|------|----------
-	// * | -----G----------#-------4---------|-----O-----------
-	// * | ---GG---------#---------4--------O------------------
-	// * | ---G-G----------------------------------------------
-	// * | ----G-----------------------------------------------
-	// *
-	// ***************************************************************
-
+	/*
+	 * ************************************** SCORE LAYOUT ********************
+	 * |_____Window____|__Clef___|_Alteration_|_timeSignature_|_noteDistance__|
+	 * |_____Margin____|__Width__|___Width____|_____Width_____|_______________|
+	 * |_________________________________________________________<------>_____|
+	 * |_______________|-----GG------#---------------------------|------|-----|
+	 * |_______________|------G----------#-------------4---------|-----O------|
+	 * |_______________|----GG---------#---------------4--------O-------------|
+	 * |_______________|----G-G-----------------------------------------------|
+	 * |_______________|-----G------------------------------------------------|
+	 * ************************************************************************
+	 */
 	/** The clef width. */
 	private int clefWidth = 32; // width of score clefs
 
@@ -112,8 +104,7 @@ public class Staff extends JPanel implements PropertyChangeListener {
 	private int noteDistance = 72; // distance in pixel between 1/4 notes
 
 	/** The first note x pos. */
-	private int firstNoteXPos = clefWidth + alterationWidth + alterationWidth
-			+ timeSignWidth + notesShift;
+	private int firstNoteXPos = clefWidth + alterationWidth + alterationWidth + timeSignWidth + notesShift;
 
 	/** The score line width. */
 	private int scoreLineWidth;
@@ -154,8 +145,7 @@ public class Staff extends JPanel implements PropertyChangeListener {
 	 * @param singlePage
 	 *            the single page
 	 */
-	public Staff(Font f, ResourceBundle b, Preferences p, Accidentals a,
-			boolean inline, boolean singlePage, Voices v) {
+	public Staff(Font f, ResourceBundle b, Preferences p, Accidentals a, boolean inline, boolean singlePage, Voices v) {
 		appFont = f;
 		appBundle = b;
 		appPrefs = p;
@@ -172,11 +162,7 @@ public class Staff extends JPanel implements PropertyChangeListener {
 			numberOfRows = 1;
 			numberOfMeasuresPerRow = 0;
 		}
-		this.addPropertyChangeListener(new PropertyChangeListener() {
-			public void propertyChange(PropertyChangeEvent evt) {
-				logger.debug("Staff a écouté et entendu !!!!!!!!!!");
-			}
-		});
+
 		background = appPrefs.getProperty("colors.background");
 		foreground = appPrefs.getProperty("colors.foreground");
 		menu = appPrefs.getProperty("colors.menutitle");
@@ -184,8 +170,7 @@ public class Staff extends JPanel implements PropertyChangeListener {
 
 	}
 
-	public Staff(Font f, ResourceBundle b, Preferences p, Accidentals a,
-			boolean inline, boolean singlePage) {
+	public Staff(Font f, ResourceBundle b, Preferences p, Accidentals a, boolean inline, boolean singlePage) {
 		this(f, b, p, a, inline, singlePage, null);
 	}
 
@@ -291,8 +276,7 @@ public class Staff extends JPanel implements PropertyChangeListener {
 	public int getFirstNoteXPosition() {
 		if (accidentals != null)
 			alterationWidth = accidentals.getNumber() * 12;
-		firstNoteXPos = clefWidth + alterationWidth + timeSignWidth
-				+ notesShift;
+		firstNoteXPos = clefWidth + alterationWidth + timeSignWidth + notesShift;
 		return firstNoteXPos;
 	}
 
@@ -347,8 +331,7 @@ public class Staff extends JPanel implements PropertyChangeListener {
 		} else {
 			alterationWidth = 0;
 		}
-		firstNoteXPos = clefWidth + alterationWidth + alterationWidth
-				+ timeSignWidth + notesShift;
+		firstNoteXPos = clefWidth + alterationWidth + alterationWidth + timeSignWidth + notesShift;
 
 		scoreLineWidth = clefWidth + alterationWidth + timeSignWidth;
 
@@ -361,10 +344,8 @@ public class Staff extends JPanel implements PropertyChangeListener {
 				numberOfRows = getHeight() / rowsDistance;
 			} else {
 				numberOfMeasuresPerRow = (getWidth() - scoreLineWidth) / beatW;
-				numberOfRows = (int) Math.ceil((double) forcedNumberOfMeasures
-						/ (double) numberOfMeasuresPerRow);
-				logger.trace("[Staff] numberOfMeasuresPerRow: "
-						+ numberOfMeasuresPerRow + ", numberOfRows: "
+				numberOfRows = (int) Math.ceil((double) forcedNumberOfMeasures / (double) numberOfMeasuresPerRow);
+				logger.trace("[Staff] numberOfMeasuresPerRow: " + numberOfMeasuresPerRow + ", numberOfRows: "
 						+ numberOfRows);
 			}
 
@@ -382,8 +363,7 @@ public class Staff extends JPanel implements PropertyChangeListener {
 	 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
 	 */
 	protected void paintComponent(Graphics g) {
-		((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-				RenderingHints.VALUE_ANTIALIAS_ON);
+		((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		super.paintComponent(g);
 		if (globalScale != 1.0)
 			((Graphics2D) g).scale(globalScale, globalScale);
@@ -400,15 +380,8 @@ public class Staff extends JPanel implements PropertyChangeListener {
 		for (int r = 0; r < numberOfRows; r++) {
 			// draw vertical separators first
 			for (int v = 0; v < numberOfMeasuresPerRow; v++)
-				g.drawLine(
-						vXPos
-								+ v
-								* (int) (((double) timeSignNumerator / timeDivision) * noteDistance),
-						yPos,
-						vXPos
-								+ v
-								* (int) (((double) timeSignNumerator / timeDivision) * noteDistance),
-						yPos + 40);
+				g.drawLine(vXPos + v * (int) (((double) timeSignNumerator / timeDivision) * noteDistance), yPos,
+						vXPos + v * (int) (((double) timeSignNumerator / timeDivision) * noteDistance), yPos + 40);
 			// draw the staff 5 lines
 			for (int l = 0; l < 5; l++)
 				g.drawLine(0, yPos + (l * 10), scoreLineWidth, yPos + (l * 10));
@@ -486,7 +459,7 @@ public class Staff extends JPanel implements PropertyChangeListener {
 
 			// 3 - Draw tonality (only on the first row)
 			if (r == 0 && accidentals != null) {
-				//g.setColor(Color.gray);
+				// g.setColor(Color.gray);
 				g.setColor(Color.decode(menu));
 				g.setFont(new Font("LucidaSans", Font.PLAIN, 11));
 				g.drawString(accidentals.getTonality(appBundle), 0, yPos - 20);
@@ -522,20 +495,14 @@ public class Staff extends JPanel implements PropertyChangeListener {
 			// 5 - Draw double clef elements
 			if (voices.size() > 1) {
 				for (int v = 0; v < numberOfMeasuresPerRow; v++) {
-					g.drawLine(
-							vXPos
-									+ v
-									* (int) (((double) timeSignNumerator / timeDivision) * noteDistance),
+					g.drawLine(vXPos + v * (int) (((double) timeSignNumerator / timeDivision) * noteDistance),
 							yPos + (rowsDistance / 2),
-							vXPos
-									+ v
-									* (int) (((double) timeSignNumerator / timeDivision) * noteDistance),
+							vXPos + v * (int) (((double) timeSignNumerator / timeDivision) * noteDistance),
 							yPos + (rowsDistance / 2) + 40);
 				}
 				for (int l = 0; l < 5; l++) {
-					g.drawLine(0, yPos + (rowsDistance / 2) + (l * 10),
-							scoreLineWidth, yPos + (rowsDistance / 2)
-									+ (l * 10));
+					g.drawLine(0, yPos + (rowsDistance / 2) + (l * 10), scoreLineWidth,
+							yPos + (rowsDistance / 2) + (l * 10));
 				}
 				clef = appPrefs.getProperty("voice1");
 				// draw second clef
@@ -544,24 +511,19 @@ public class Staff extends JPanel implements PropertyChangeListener {
 					g.drawString("G", 0, yPos + (rowsDistance / 2) + 42);
 				} else if (clef.equals("C1")) {
 					g.setFont(appFont.deriveFont(55f));
-					g.drawString("" + (char) 0xBF, 0, yPos + (rowsDistance / 2)
-							+ 63);
+					g.drawString("" + (char) 0xBF, 0, yPos + (rowsDistance / 2) + 63);
 				} else if (clef.equals("C2")) {
 					g.setFont(appFont.deriveFont(55f));
-					g.drawString("" + (char) 0xBF, 0, yPos + (rowsDistance / 2)
-							+ 53);
+					g.drawString("" + (char) 0xBF, 0, yPos + (rowsDistance / 2) + 53);
 				} else if (clef.equals("C3")) {
 					g.setFont(appFont.deriveFont(55f));
-					g.drawString("" + (char) 0xBF, 0, yPos + (rowsDistance / 2)
-							+ 43);
+					g.drawString("" + (char) 0xBF, 0, yPos + (rowsDistance / 2) + 43);
 				} else if (clef.equals("C4")) {
 					g.setFont(appFont.deriveFont(55f));
-					g.drawString("" + (char) 0xBF, 0, yPos + (rowsDistance / 2)
-							+ 33);
+					g.drawString("" + (char) 0xBF, 0, yPos + (rowsDistance / 2) + 33);
 				} else if (clef.equals("C5")) {
 					g.setFont(appFont.deriveFont(55f));
-					g.drawString("" + (char) 0xBF, 0, yPos + (rowsDistance / 2)
-							+ 23);
+					g.drawString("" + (char) 0xBF, 0, yPos + (rowsDistance / 2) + 23);
 				} else if (clef.equals("F4")) {
 					g.setFont(appFont.deriveFont(60f));
 					g.drawString("?", 0, yPos + (rowsDistance / 2) + 40);
@@ -574,14 +536,12 @@ public class Staff extends JPanel implements PropertyChangeListener {
 				// draw tonality
 				g.setColor(Color.gray);
 				g.setFont(new Font("LucidaSans", Font.PLAIN, 11));
-				g.drawString(accidentals.getTonality(appBundle), 0, yPos
-						+ (rowsDistance / 2) - 20);
+				g.drawString(accidentals.getTonality(appBundle), 0, yPos + (rowsDistance / 2) - 20);
 				g.setColor(Color.black);
 				// draw time signature
 				if (inlineMode == false) {
 					g.setFont(appFont.deriveFont(58f));
-					g.drawString(t, clefWidth + alterationWidth, yPos
-							+ (rowsDistance / 2) + 41);
+					g.drawString(t, clefWidth + alterationWidth, yPos + (rowsDistance / 2) + 41);
 				}
 			}
 
@@ -589,7 +549,4 @@ public class Staff extends JPanel implements PropertyChangeListener {
 		}
 	}
 
-	public void propertyChange(PropertyChangeEvent evt) {
-
-	}
 }
