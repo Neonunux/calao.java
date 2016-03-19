@@ -259,7 +259,7 @@ public class Calao extends JFrame implements ActionListener {
 			MusiSync = Font.createFont(Font.PLAIN, fInput);
 			logger.debug("MusiSync font loaded.");
 		} catch (Exception e) {
-			logger.error("Cannot load MusiSync font !!");
+			logger.error("Cannot load MusiSync font !! ");
 			System.exit(0);
 		}
 

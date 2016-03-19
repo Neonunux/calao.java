@@ -11,7 +11,7 @@ Learning features
 
 Technical features
 --------
-  * Import other format in Exercice
+  * Import other musical format in Exercice
 
 Debug features
 --------
