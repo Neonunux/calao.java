@@ -49,7 +49,7 @@ import org.apache.logging.log4j.Logger;
  *
  * @author Neonunux
  */
-public class LMenuBar extends JMenuBar implements ActionListener {
+public class MenuBar extends JMenuBar implements ActionListener {
 
     private static final Logger logger = LogManager.getLogger(MidiController.class.getName());
 
@@ -193,7 +193,7 @@ public class LMenuBar extends JMenuBar implements ActionListener {
      * @param p the p
      * @param v
      */
-    public LMenuBar(ResourceBundle b, Preferences p, Version v) {
+    public MenuBar(ResourceBundle b, Preferences p, Version v) {
         appBundle = b;
         appPrefs = p;
         appVersion = v;
