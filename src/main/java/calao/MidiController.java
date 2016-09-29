@@ -54,7 +54,7 @@ public class MidiController
 {
 	
 	
-	private static final Logger logger =  LogManager.getLogger(LMenuBar.class.getName());
+	private static final Logger logger =  LogManager.getLogger(MenuBar.class.getName());
 	
 	
 	Preferences appPrefs; 
