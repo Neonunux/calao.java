@@ -85,7 +85,7 @@ public class Calao extends JFrame implements ActionListener {
 
 	// GUI elements
 	/** The menu bar. */
-	LMenuBar menuBar;
+	MenuBar menuBar;
 
 	/** The home panel. */
 	private HomePanel homePanel;
@@ -266,7 +266,7 @@ public class Calao extends JFrame implements ActionListener {
 		audioControl = new AudioInputController(prefs); // TODO: AUDIO
 														// unfinished
 
-		menuBar = new LMenuBar(bundle, prefs, version);
+		menuBar = new MenuBar(bundle, prefs, version);
 		setJMenuBar(menuBar);
 		menuBar.setVisible(true);
 		menuBar.addPropertyChangeListener(new PropertyChangeListener() {
@@ -766,7 +766,7 @@ public class Calao extends JFrame implements ActionListener {
 	 *            the arguments
 	 */
 	public static void main(String[] args) {
-		Boolean isDebugged = false;
+		Boolean isDebugged = true;
 		Calao app = new Calao();
 		isDebugged = app.isDebugged();
 		app.setAlwaysOnTop(isDebugged); // true if debug mode
